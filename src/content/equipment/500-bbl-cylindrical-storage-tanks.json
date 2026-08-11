@@ -1,0 +1,15 @@
+{
+  "name": "500 BBL Cylindrical Storage Tanks",
+  "category": "storage-tanks",
+  "summary": "Skid-mounted cylindrical tanks for crude oil, water, diesel and mud storage, 500–400 BBL capacity.",
+  "specs": [
+    "Capacities: 500–400 BBL",
+    "Shape: cylindrical horizontal, single compartment without baffle",
+    "Rated for atmospheric pressure",
+    "Fixed access ladder, walkway with grating, foldable handrail, hinged manhole",
+    "Surface treatment: sandblasted inside & outside to SA2.5"
+  ],
+  "image": "/images/equipment/500-bbl-cylindrical-storage-tanks.svg",
+  "imageAlt": "Placeholder image of a 500 BBL cylindrical storage tank, skid mounted — TODO: replace with real MBF photo",
+  "featured": true
+}

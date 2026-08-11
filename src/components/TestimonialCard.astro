@@ -1,0 +1,28 @@
+---
+// Staggered testimonial card — design-system.md §4.9.
+// Vertical offset (the zig-zag rhythm) is applied by the parent grid via
+// the `offset` prop, not hardcoded here, so any grid size can stagger it.
+interface Props {
+  quote: string;
+  name: string;
+  role: string;
+  avatar: string;
+  offset?: boolean;
+  class?: string;
+}
+
+const { quote, name, role, avatar, offset = false, class: className = '' } = Astro.props;
+---
+
+<div
+  class={`rounded-card-lg bg-surface p-7 ${offset ? 'sm:translate-y-8' : ''} ${className}`}
+>
+  <p class="text-sm leading-relaxed text-text-secondary">&ldquo;{quote}&rdquo;</p>
+  <div class="mt-6 flex items-center gap-3">
+    <img src={avatar} alt="" width="40" height="40" loading="lazy" class="h-10 w-10 rounded-full object-cover" />
+    <div>
+      <p class="text-sm font-semibold text-text-primary">{name}</p>
+      <p class="text-xs text-text-secondary">{role}</p>
+    </div>
+  </div>
+</div>

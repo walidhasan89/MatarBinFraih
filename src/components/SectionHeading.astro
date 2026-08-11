@@ -1,0 +1,38 @@
+---
+import PillTag from './PillTag.astro';
+
+// Two-tone section headline — design-system.md §2 & §4:
+// line 1 bold/dark, line 2 same size but muted gray.
+interface Props {
+  eyebrow?: string;
+  lineOne: string;
+  lineTwo?: string;
+  align?: 'left' | 'center';
+  size?: 'md' | 'lg';
+  class?: string;
+}
+
+const {
+  eyebrow,
+  lineOne,
+  lineTwo,
+  align = 'left',
+  size = 'lg',
+  class: className = '',
+} = Astro.props;
+
+const sizes: Record<string, string> = {
+  md: 'text-3xl sm:text-4xl',
+  lg: 'text-4xl sm:text-5xl lg:text-[56px]',
+};
+---
+
+<div class={`${align === 'center' ? 'text-center' : 'text-left'} ${className}`}>
+  {eyebrow && (
+    <PillTag label={eyebrow} class={`mb-4 ${align === 'center' ? '' : ''}`} />
+  )}
+  <h2 class={`${sizes[size]} font-display font-bold leading-[0.95] tracking-tightest text-text-primary`}>
+    <span class="block">{lineOne}</span>
+    {lineTwo && <span class="block text-text-secondary">{lineTwo}</span>}
+  </h2>
+</div>

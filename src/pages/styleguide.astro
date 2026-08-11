@@ -1,0 +1,175 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PillTag from '../components/PillTag.astro';
+import Button from '../components/Button.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import MixedText from '../components/MixedText.astro';
+import StatCard from '../components/StatCard.astro';
+import TechCard from '../components/TechCard.astro';
+import TechDiagram from '../components/TechDiagram.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
+import LogoStrip from '../components/LogoStrip.astro';
+import EquipmentCard from '../components/EquipmentCard.astro';
+---
+
+<BaseLayout
+  title="Style Guide"
+  description="Internal kitchen-sink page for sanity-checking the MBF design system components."
+  noindex
+>
+  <div class="container-page space-y-20 py-16">
+    <section>
+      <h1 class="font-display text-4xl font-bold tracking-tightest">MBF Design System — Style Guide</h1>
+      <p class="mt-2 max-w-2xl text-text-secondary">
+        Internal reference only (not linked from navigation). Shows every reusable component with
+        the amber accent token in place of the reference template's lime-green.
+      </p>
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="font-display text-2xl font-bold tracking-tightest">Colors</h2>
+      <div class="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-8">
+        {
+          [
+            ['bg', 'bg-bg'],
+            ['surface', 'bg-surface border border-border'],
+            ['ink', 'bg-ink'],
+            ['ink-soft', 'bg-ink-soft'],
+            ['accent', 'bg-accent'],
+            ['accent-soft', 'bg-accent-soft'],
+            ['border', 'bg-border'],
+            ['border-dark', 'bg-border-dark'],
+          ].map(([label, cls]) => (
+            <div>
+              <div class={`h-16 w-full rounded-2xl ${cls}`} />
+              <p class="mt-2 text-xs text-text-secondary">{label}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="font-display text-2xl font-bold tracking-tightest">Typography</h2>
+      <p class="font-display text-6xl font-extrabold tracking-tightest">Matar Bin Fraih</p>
+      <h2 class="font-display text-5xl font-bold tracking-tightest">
+        <span class="block">Section Heading</span>
+        <span class="block text-text-secondary">Two-tone gray line</span>
+      </h2>
+      <p class="max-w-xl text-text-secondary">
+        <MixedText text="MBF merges **decades of oilfield expertise** with a **certified HSEQ management system** to keep every rental unit safe, efficient, and ready for the field." />
+      </p>
+      <p class="font-display text-6xl font-bold tracking-tightest">150+</p>
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="font-display text-2xl font-bold tracking-tightest">Pills &amp; Buttons</h2>
+      <div class="flex flex-wrap items-center gap-3">
+        <PillTag label="About MBF" />
+        <PillTag label="Dark variant" variant="dark" />
+        <PillTag label="Outline variant" variant="outline" />
+      </div>
+      <div class="flex flex-wrap items-center gap-4">
+        <Button href="#" variant="primary">Get in Touch</Button>
+        <Button href="#" variant="secondary">View Project</Button>
+        <Button href="#" variant="accent">See Project</Button>
+      </div>
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="font-display text-2xl font-bold tracking-tightest">Section Heading Component</h2>
+      <SectionHeading eyebrow="Our Equipment" lineOne="Built to perform," lineTwo="proven to last in the field." />
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="font-display text-2xl font-bold tracking-tightest">Logo Strip</h2>
+      <LogoStrip />
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="font-display text-2xl font-bold tracking-tightest">Stat Card Row</h2>
+      <div class="grid gap-6 sm:grid-cols-3">
+        <StatCard variant="stat" value="150+" label="Active rental units across the UAE" href="/equipment" />
+        <StatCard
+          variant="quote"
+          statement="MBF exists to keep **every well site running safely**, with equipment that never lets you down."
+          name="Mafad Hassan"
+          role="Operations Supervisor"
+          avatar="/images/team/voice-ops.svg"
+        />
+        <StatCard
+          variant="photo"
+          image="/images/home/stat-worker.svg"
+          imageAlt="Placeholder photo of a field worker in PPE"
+          statLine="Certified HSEQ management across every operation"
+          captionLabel="HSEQ Certified"
+        />
+      </div>
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="font-display text-2xl font-bold tracking-tightest">Technology Grid</h2>
+      <div class="grid gap-6 lg:grid-cols-[1fr_1fr]">
+        <div class="grid grid-cols-2 gap-4">
+          <TechCard tone="accent" eyebrow="Fleet" headline="150+ Active Units" description="Deployed across UAE well sites." />
+          <TechCard tone="white" showToggle stat="28+" />
+          <TechCard tone="white" eyebrow="Quality" headline="Certified HSEQ" description="One of few in the region." pillLabel="HSEQ Certified" />
+          <TechCard tone="accent" eyebrow="Safety" description="Zero lost-time injury operation." headline="Safety First" />
+        </div>
+        <TechDiagram class="min-h-[280px]" />
+      </div>
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="font-display text-2xl font-bold tracking-tightest">Project Cards</h2>
+      <div class="space-y-4">
+        <ProjectCard name="Storage Tank Deployment" href="/equipment" ctaLabel="View Project" />
+        <ProjectCard
+          name="Well-Site Equipment Rental"
+          href="/equipment"
+          ctaLabel="See Project"
+          featured
+          stats={[
+            { label: 'Equipment Categories', value: '5' },
+            { label: 'Response', value: '24/7' },
+            { label: 'Years Active', value: '28+' },
+          ]}
+        />
+      </div>
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="font-display text-2xl font-bold tracking-tightest">Testimonial Cards</h2>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <TestimonialCard
+          quote="Every rental unit is inspected and certified before it leaves the yard."
+          name="Mafad Hassan"
+          role="Operations Supervisor"
+          avatar="/images/team/voice-ops.svg"
+        />
+        <TestimonialCard
+          quote="Clients come back because the spec sheet matches what shows up on location."
+          name="Mohammed Khalil"
+          role="Sales Engineer"
+          avatar="/images/team/voice-sales.svg"
+          offset
+        />
+      </div>
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="font-display text-2xl font-bold tracking-tightest">Equipment Card</h2>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <EquipmentCard
+          slug="choke-manifold-5k"
+          name="Choke Manifold 5K"
+          category="well-control"
+          summary="Controls the well during flowing periods, 5,000 psi rated."
+          image="/images/equipment/choke-manifold-5k.svg"
+          imageAlt="Placeholder"
+        />
+      </div>
+    </section>
+  </div>
+</BaseLayout>

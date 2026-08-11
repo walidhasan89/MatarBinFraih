@@ -1,0 +1,14 @@
+{
+  "name": "Multi-Stage Pump",
+  "category": "pumps",
+  "summary": "Diesel-powered 500 BBL mixing tank / multi-stage pump unit for high-pressure fluid transfer.",
+  "specs": [
+    "Diesel powered, discharge pressure to 40 bar",
+    "Flow rate: 300 m³/hr",
+    "Kill switch, insulated exhaust",
+    "Certifications: Lifting, Sling, MPI, Zone II"
+  ],
+  "image": "/images/equipment/multi-stage-pump.svg",
+  "imageAlt": "Placeholder image of a multi-stage pump unit — TODO: replace with real MBF photo",
+  "featured": true
+}

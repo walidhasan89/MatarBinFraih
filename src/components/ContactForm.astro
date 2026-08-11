@@ -1,0 +1,100 @@
+---
+// A real, working contact form for a fully static site: it submits via a
+// mailto: action (enctype=text/plain), which opens the visitor's own email
+// client pre-filled — no backend/serverless function required. Paired with
+// a WhatsApp deep-link button as a faster alternative channel. This
+// replaces the old site's broken shared "Request Data Sheet" popup.
+import { SITE, whatsappLink } from '../lib/site';
+
+interface Props {
+  presetMessage?: string;
+  whatsappMessage?: string;
+  submitLabel?: string;
+}
+
+const {
+  presetMessage = '',
+  whatsappMessage = "Hello, I'd like more information about MBF's equipment and services.",
+  submitLabel = 'Send Message',
+} = Astro.props;
+---
+
+<div class="grid gap-6 sm:grid-cols-[1.4fr_1fr] sm:items-start">
+  <form
+    action={`mailto:${SITE.email}`}
+    method="post"
+    enctype="text/plain"
+    class="grid gap-4 rounded-card-lg bg-surface p-6 sm:p-8"
+  >
+    <div class="grid gap-4 sm:grid-cols-2">
+      <label class="flex flex-col gap-1.5 text-sm">
+        <span class="font-medium text-text-primary">Full Name</span>
+        <input
+          type="text"
+          name="Full Name"
+          required
+          class="rounded-2xl border border-border bg-bg px-4 py-3 text-sm text-text-primary outline-none focus:border-ink"
+        />
+      </label>
+      <label class="flex flex-col gap-1.5 text-sm">
+        <span class="font-medium text-text-primary">Phone</span>
+        <input
+          type="tel"
+          name="Phone"
+          class="rounded-2xl border border-border bg-bg px-4 py-3 text-sm text-text-primary outline-none focus:border-ink"
+        />
+      </label>
+    </div>
+    <label class="flex flex-col gap-1.5 text-sm">
+      <span class="font-medium text-text-primary">Email</span>
+      <input
+        type="email"
+        name="Email"
+        required
+        class="rounded-2xl border border-border bg-bg px-4 py-3 text-sm text-text-primary outline-none focus:border-ink"
+      />
+    </label>
+    <label class="flex flex-col gap-1.5 text-sm">
+      <span class="font-medium text-text-primary">Message</span>
+      <textarea
+        name="Message"
+        rows="5"
+        required
+        class="resize-none rounded-2xl border border-border bg-bg px-4 py-3 text-sm text-text-primary outline-none focus:border-ink"
+      >{presetMessage}</textarea>
+    </label>
+    <button
+      type="submit"
+      class="group mt-2 inline-flex w-fit items-center gap-3 rounded-pill bg-ink py-2 pl-6 pr-2 text-sm font-semibold text-text-inverse transition-colors hover:bg-ink-soft"
+    >
+      {submitLabel}
+      <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-pill bg-accent text-accent-ink">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </span>
+    </button>
+  </form>
+
+  <div class="rounded-card-lg bg-ink p-6 text-text-inverse sm:p-8">
+    <p class="font-display text-lg font-bold tracking-tightest">Prefer WhatsApp?</p>
+    <p class="mt-2 text-sm text-text-inverse-muted">
+      Message our team directly for a faster response.
+    </p>
+    <a
+      href={whatsappLink(whatsappMessage)}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="mt-5 inline-flex items-center gap-3 rounded-pill bg-accent py-2 pl-6 pr-2 text-sm font-semibold text-accent-ink"
+    >
+      Chat on WhatsApp
+      <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-pill bg-ink text-accent">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </span>
+    </a>
+    <p class="mt-6 text-sm text-text-inverse-muted">{SITE.mobile}</p>
+    <p class="text-sm text-text-inverse-muted">{SITE.email}</p>
+  </div>
+</div>

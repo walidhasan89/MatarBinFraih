@@ -1,0 +1,11 @@
+{
+  "name": "Centrifugal Pump",
+  "category": "pumps",
+  "summary": "Converts rotational kinetic energy to hydrodynamic energy for high-volume fluid transport.",
+  "specs": [
+    "Available sizes: 6×5×14, 8×6×14"
+  ],
+  "image": "/images/equipment/centrifugal-pump.svg",
+  "imageAlt": "Placeholder image of a centrifugal pump — TODO: replace with real MBF photo",
+  "featured": false
+}

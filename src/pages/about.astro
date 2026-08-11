@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PillTag from '../components/PillTag.astro';
+import Button from '../components/Button.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import MixedText from '../components/MixedText.astro';
+import { currentYearsInOperation } from '../lib/site';
+
+const years = currentYearsInOperation();
+
+const milestones = [
+  { year: '1998', label: 'MBF founded in Abu Dhabi to provide oil and gas logistics and well-site equipment.' },
+  { year: 'Since', label: 'Certified, fully-integrated HSEQ management system — one of few in the Middle East.' },
+  { year: 'Growth', label: 'Over 20% year-on-year growth across three successive years, per the MD\'s business review.' },
+  { year: 'Today', label: `${years}+ years manufacturing, renting and maintaining oilfield equipment locally.` },
+];
+---
+
+<BaseLayout
+  title="About MBF"
+  description="Matar Bin Fraih Trading & Oilfield Equipment Rental was established in 1998 to provide oil and gas logistics and well-site equipment from Abu Dhabi, UAE."
+>
+  <section class="bg-ink-soft py-20 text-text-inverse sm:py-28">
+    <div class="container-page">
+      <PillTag label="About MBF" />
+      <h1 class="mt-6 font-display text-4xl font-bold leading-[0.95] tracking-tightest sm:text-6xl">
+        Established in 1998 to
+        <span class="block text-text-inverse-muted">equip the region's well sites.</span>
+      </h1>
+      <p class="mt-6 max-w-xl text-sm text-text-inverse-muted sm:text-base">
+        Matar Bin Fraih Trading &amp; Oilfield Equipment Rental was established in 1998 to provide oil and gas
+        logistics and well-site equipment.
+      </p>
+    </div>
+  </section>
+
+  <!-- Who we are -->
+  <section class="container-page py-section">
+    <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
+      <div>
+        <PillTag label="Who We Are" class="mb-4" />
+        <p class="font-display text-2xl font-medium leading-snug tracking-tightest text-text-primary sm:text-3xl">
+          <MixedText
+            text="Matar Bin Fraih Trading & Oilfield Equipment Rental was established in **1998** to provide oil and gas logistics and well-site equipment. We pride ourselves on **the quality of our services** and the professionalism of our staff."
+          />
+        </p>
+        <p class="mt-6 text-sm text-text-secondary sm:text-base">
+          We are one of the few companies in the Middle East to have a certified, fully-integrated HSEQ
+          management system in place. We strongly believe that with the devotion and sincerity of our
+          employees, the support of our investors, and the trust of our clients, we will develop new ventures
+          leading to further progress and prosperity in the years to come.
+        </p>
+      </div>
+      <img
+        src="/images/about/about-facility.svg"
+        alt="500 BBL Acid Storage Tank, skid mounted — placeholder photo — TODO: replace with real MBF facility photo"
+        loading="lazy"
+        class="aspect-[4/3] w-full rounded-card-lg object-cover"
+      />
+    </div>
+
+    <!-- Milestones -->
+    <div class="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        milestones.map((m) => (
+          <div class="rounded-card-lg bg-surface p-6">
+            <span class="inline-flex rounded-pill bg-accent px-3 py-1 text-sm font-semibold text-accent-ink">
+              {m.year}
+            </span>
+            <p class="mt-4 text-sm text-text-secondary">{m.label}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- HSEQ certification callout -->
+  <section class="container-page pb-section">
+    <div class="hatch-pattern rounded-card-lg bg-ink p-8 text-text-inverse sm:p-12">
+      <div class="grid gap-8 lg:grid-cols-[1fr_2fr] lg:items-center">
+        <PillTag label="HSEQ Certified" />
+        <p class="font-display text-2xl font-medium leading-snug tracking-tightest sm:text-3xl">
+          <MixedText
+            text="MBF stands out in the industry for **“zero” lost-time injury operation**. The foundations of our business are the **ethical and moral principle of respect for people and the environment**."
+            emphasisClass="font-semibold text-text-inverse"
+            mutedClass="text-text-inverse-muted"
+          />
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Managing Director Statement -->
+  <section class="container-page py-section">
+    <SectionHeading eyebrow="Leadership" lineOne="A message from our" lineTwo="Managing Director." />
+    <div class="mt-10 grid gap-10 lg:grid-cols-[1fr_2fr] lg:items-start">
+      <img
+        src="/images/about/md-portrait.svg"
+        alt="Portrait of Matar Mohamed Fraih Al Qubaisi, Managing Director — placeholder photo — TODO: replace with real MBF portrait"
+        loading="lazy"
+        class="aspect-[4/5] w-full max-w-xs rounded-card-lg object-cover"
+      />
+      <div class="space-y-5 text-sm leading-relaxed text-text-secondary sm:text-base">
+        <p>
+          Our business plan is focused on providing superior and cost-effective petroleum services to a wide
+          range of markets using products and services, the experience of our diverse management team,
+          capital and all available resources. We will continue our aim to profitably expand our services and
+          areas of operations while further developing our existing lines of business. Our primary objectives
+          are to increase the volume of services delivered, generate significant revenue growth, continue
+          expansion, identify operating efficiencies and reduce the cost of capital.
+        </p>
+        <p>
+          We believe that these objectives can be achieved by continued adherence to the step-by-step
+          completion of our business plan, which will result in bottom-line financial performance and
+          increased equity value to our shareholders. MBF stands out in the industry for &ldquo;zero&rdquo;
+          lost time injury operation. The foundations of our business are based on the ethical and moral
+          principle of respect for people and the environment.
+        </p>
+        <p>
+          Business wise, we firmly believe in adherence to strong corporate governance in support of our
+          shareholders. All this has helped MBF tremendously in, not only, moulding our dreams into reality
+          but also earning respect from our clients. Our team of experienced professionals are dedicated to
+          providing outstanding services and ensuring customer satisfaction in all areas of operation. We are
+          always determined to achieve safe and improved operational records.
+        </p>
+        <p>
+          With the vision and mission that MBF carries, we are moving towards a stronger market position day
+          by day. This trend has been justified by an outstanding increase of over twenty per cent growth in
+          the last three successive years. In order to achieve overall goals effectively, we put great
+          emphasis on Quality, Health, Safety and the Environment.
+        </p>
+        <p>
+          We provide our clients with services which are of the highest professional and technical standards,
+          which comply with QHSE and local statutory requirements. We strongly believe that with the
+          devotion and sincerity of our employees, support of our investors and trust of our clients, we will
+          develop new ventures leading to further progress and prosperity in the years to come. We greatly
+          value our business relationships and look forward to your continued support and interest in the
+          exciting years ahead in making MBF the supplier company of choice in the oil &amp; gas industry.
+        </p>
+        <div class="pt-2">
+          <p class="font-display text-lg font-bold tracking-tightest text-text-primary">
+            Matar Mohamed Fraih Al Qubaisi
+          </p>
+          <p class="text-sm text-text-secondary">Managing Director</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CSR — fresh, unique copy (not a duplicate of the homepage "Who We Are" paragraph, per the content audit). -->
+  <section class="container-page pb-section">
+    <div class="grid gap-8 lg:grid-cols-[1fr_2fr] lg:items-start">
+      <PillTag label="Corporate Social Responsibility" class="w-fit" />
+      <div class="space-y-4 text-sm text-text-secondary sm:text-base">
+        <h2 class="font-display text-2xl font-bold leading-snug tracking-tightest text-text-primary sm:text-3xl">
+          Our responsibility runs alongside every job we take on.
+        </h2>
+        <p>
+          Working in oilfield equipment means our safety record and environmental practices affect the
+          people and land around every site we touch. That responsibility shapes how MBF operates day to
+          day: every rental and cleaning job follows the same HSEQ discipline we hold ourselves to
+          internally, so spill prevention, waste handling and site cleanup are never an afterthought.
+        </p>
+        <p>
+          We invest in our Emirati and long-tenured workforce through hands-on training on the equipment
+          they operate and maintain, rather than treating safety compliance as paperwork. Zero lost-time
+          injury isn't a slogan for us — it's the standard we measure every job against, for our own crews
+          and for the clients whose sites we work on.
+        </p>
+        <p>
+          As a locally owned and operated Abu Dhabi manufacturer, we see our long-term role as building
+          equipment and expertise that stays in the region — supporting the local supply chain rather than
+          depending solely on imported capacity.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-page pb-section">
+    <div class="rounded-card-lg bg-surface p-8 text-center sm:p-12">
+      <p class="font-display text-2xl font-bold tracking-tightest text-text-primary sm:text-3xl">
+        Ready to work with MBF?
+      </p>
+      <p class="mx-auto mt-3 max-w-md text-sm text-text-secondary">
+        Get in touch to discuss equipment rental, tank cleaning, maintenance or caravan manufacturing.
+      </p>
+      <div class="mt-6 flex justify-center">
+        <Button href="/contact" variant="primary">Contact Us</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,32 @@
+---
+// Renders the design system's signature mixed-weight inline pattern: plain
+// text runs in muted gray, with `**phrase**` runs rendered bold/dark for
+// emphasis. Used inside hero blurbs, section intros, and headline
+// paragraphs (design-system.md §2).
+interface Props {
+  text: string;
+  class?: string;
+  emphasisClass?: string;
+  mutedClass?: string;
+}
+
+const {
+  text,
+  class: className = '',
+  emphasisClass = 'font-semibold text-text-primary',
+  mutedClass = 'text-text-secondary',
+} = Astro.props;
+
+const parts = text.split(/(\*\*[^*]+\*\*)/g).filter((p) => p.length > 0);
+---
+
+<span class={className}>
+  {
+    parts.map((part) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        return <span class={emphasisClass}>{part.slice(2, -2)}</span>;
+      }
+      return <span class={mutedClass}>{part}</span>;
+    })
+  }
+</span>

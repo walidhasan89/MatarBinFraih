@@ -1,0 +1,63 @@
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+@import '@fontsource/archivo/700.css';
+@import '@fontsource/archivo/800.css';
+@import '@fontsource/archivo/900.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-bg text-text-primary font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display tracking-tightest;
+  }
+}
+
+@layer components {
+  /* Diagonal hatch/stripe decorative texture, per design-system.md §3 */
+  .hatch-pattern {
+    background-image: repeating-linear-gradient(
+      45deg,
+      currentColor 0,
+      currentColor 1px,
+      transparent 1px,
+      transparent 10px
+    );
+  }
+
+  .container-page {
+    @apply mx-auto w-full max-w-page px-6 sm:px-8 lg:px-12;
+  }
+
+  /* Edge-fade mask for the logo/partner marquee strip */
+  .fade-edges {
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      black 10%,
+      black 90%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      black 10%,
+      black 90%,
+      transparent 100%
+    );
+  }
+}

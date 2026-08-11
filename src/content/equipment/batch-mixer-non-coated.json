@@ -1,0 +1,16 @@
+{
+  "name": "Batch Mixer – Non-Coated",
+  "category": "storage-tanks",
+  "summary": "Standard mild-steel batch mixing tanks, same configuration as the coated model without acid-resistant lining.",
+  "specs": [
+    "Engine: Cat C9, 300 bhp or equivalent",
+    "Tank sizes: 2×50, 2×60, 2×70 or 2×100 BBL mild steel",
+    "1 agitator per tank",
+    "2× centrifugal pumps (4×5×11)",
+    "Control panel with air-strut lid",
+    "No acid-resistant coating"
+  ],
+  "image": "/images/equipment/batch-mixer-non-coated.svg",
+  "imageAlt": "Placeholder image of a non-coated batch mixer unit — TODO: replace with real MBF photo",
+  "featured": false
+}

@@ -1,0 +1,23 @@
+{
+  "name": "Caravan Manufacturing",
+  "shortSummary": "Locally manufactured, ADNOC-compliant portacabins — accommodation, office, mosque and ablution units, skid or trailer mounted.",
+  "body": [
+    "MBF is a trusted name in oilfield equipment manufacturing in the local and regional markets. We are one of the few companies in the Middle East to have a certified, fully-integrated HSEQ management system in place, which carries through to every caravan we build.",
+    "Our local manufacturing facility produces customized portacabins in various sizes — offices, sleepers, mosques, security cabins and ablution units — fulfilling ADNOC requirements for quality and safety. Full product specifications for each caravan variant are listed in our equipment catalog.",
+    "Caravans are available for purchase outright or on a 12-month lease-to-own installment plan, priced per unit below."
+  ],
+  "image": "/images/services/caravan-manufacturing-hero.svg",
+  "imageAlt": "Placeholder image of caravan manufacturing at the MBF facility — TODO: replace with real MBF photo",
+  "order": 3,
+  "priceTable": [
+    { "no": "01", "description": "40 FT Accommodation Caravan Skid Mounted – Junior Level (12 person)", "qty": 2, "price": "85,000 AED", "monthly": "9,600 AED" },
+    { "no": "02", "description": "30 FT Senior Level Accommodation Skid Mounted (6 person)", "qty": 2, "price": "85,000 AED", "monthly": "9,600 AED" },
+    { "no": "03", "description": "30 FT Senior Level Accommodation Skid Mounted (8 person)", "qty": 1, "price": "85,000 AED", "monthly": "9,600 AED" },
+    { "no": "04", "description": "30 FT Junior Level Accommodation Skid Mounted (12 person)", "qty": 2, "price": "85,000 AED", "monthly": "9,600 AED" },
+    { "no": "05", "description": "30 FT Junior Level Accommodation Skid Mounted (16 person)", "qty": 1, "price": "85,000 AED", "monthly": "9,600 AED" },
+    { "no": "06", "description": "30 FT Mess / Office Caravan Skid Mounted", "qty": 2, "price": "85,000 AED", "monthly": "9,600 AED" },
+    { "no": "07", "description": "30 FT Masjid Caravan Skid Mounted", "qty": 1, "price": "85,000 AED", "monthly": "9,600 AED" },
+    { "no": "08", "description": "20 FT Guard / Security Caravan Skid Mounted", "qty": 3, "price": "25,000 AED", "monthly": "3,000 AED" },
+    { "no": "09", "description": "30 FT Toilet Caravan / Ablution Unit Skid Mounted", "qty": 1, "price": "85,000 AED", "monthly": "9,600 AED" }
+  ]
+}

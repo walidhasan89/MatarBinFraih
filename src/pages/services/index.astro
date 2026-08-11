@@ -1,0 +1,91 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PillTag from '../../components/PillTag.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import Button from '../../components/Button.astro';
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+
+const tiles = [
+  {
+    slug: 'equipment-rental',
+    name: 'Equipment Rental',
+    summary: 'Storage tanks, pumps, well-control equipment and specialized units — rented and maintained to MBF\'s HSEQ standard.',
+    image: '/images/services/carousel-equipment-rental.svg',
+    imageAlt: 'Placeholder photo of an MBF equipment rental yard — TODO: replace with real MBF photo',
+    href: '/equipment',
+  },
+  ...services.map((s) => ({
+    slug: s.id,
+    name: s.data.name,
+    summary: s.data.shortSummary,
+    image: s.data.image,
+    imageAlt: s.data.imageAlt,
+    href: `/services/${s.id}`,
+  })),
+];
+---
+
+<BaseLayout
+  title="Our Services"
+  description="MBF provides equipment rental, tank cleaning, maintenance and caravan manufacturing services, backed by a certified fully-integrated HSEQ management system."
+>
+  <section class="bg-ink-soft py-20 text-text-inverse sm:py-28">
+    <div class="container-page">
+      <PillTag label="Our Services" />
+      <h1 class="mt-6 font-display text-4xl font-bold leading-[0.95] tracking-tightest sm:text-6xl">
+        Field-ready services,
+        <span class="block text-text-inverse-muted">backed by certified HSEQ.</span>
+      </h1>
+      <p class="mt-6 max-w-xl text-sm text-text-inverse-muted sm:text-base">
+        MBF Trading &amp; Oilfield Equipment Rental prides itself as one of the few companies in the Middle
+        East to have a certified, fully-integrated HSEQ management system in place.
+      </p>
+    </div>
+  </section>
+
+  <section class="container-page py-section">
+    <SectionHeading eyebrow="What We Do" lineOne="Four ways we keep" lineTwo="your site running." />
+
+    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        tiles.map((tile) => (
+          <a href={tile.href} class="group flex flex-col overflow-hidden rounded-card-lg bg-surface">
+            <div class="aspect-[4/3] w-full overflow-hidden bg-ink-soft">
+              <img
+                src={tile.image}
+                alt={tile.imageAlt}
+                loading="lazy"
+                class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+              />
+            </div>
+            <div class="flex flex-1 flex-col p-6">
+              <h2 class="font-display text-lg font-bold leading-snug tracking-tightest text-text-primary">
+                {tile.name}
+              </h2>
+              <p class="mt-2 flex-1 text-sm text-text-secondary">{tile.summary}</p>
+              <span class="mt-4 text-sm font-semibold text-text-primary group-hover:text-accent-ink">
+                Learn More →
+              </span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="container-page pb-section">
+    <div class="rounded-card-lg bg-surface p-8 text-center sm:p-12">
+      <p class="font-display text-2xl font-bold tracking-tightest text-text-primary sm:text-3xl">
+        Need a custom quote?
+      </p>
+      <p class="mx-auto mt-3 max-w-md text-sm text-text-secondary">
+        Tell us about your site and we'll match the right equipment and service package.
+      </p>
+      <div class="mt-6 flex justify-center">
+        <Button href="/contact" variant="primary">Contact Us</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

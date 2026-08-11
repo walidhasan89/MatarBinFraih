@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <defs>
+  <pattern id="hye2n74" width="14" height="14" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+    <line x1="0" y1="0" x2="0" y2="14" stroke="#FFFFFF" stroke-opacity="0.05" stroke-width="2" />
+  </pattern></defs>
+  <rect width="1400" height="900" fill="#1B1C20"/>
+  <rect width="1400" height="900" fill="url(#hye2n74)"/>
+  <g transform="translate(45,711) scale(0.72)" color="#FFC01E"><rect x="70" y="40" width="20" height="40" fill="none" stroke="currentColor" stroke-width="4"/><rect x="40" y="80" width="80" height="34" rx="6" fill="none" stroke="currentColor" stroke-width="4"/><line x1="40" y1="97" x2="10" y2="97" stroke="currentColor" stroke-width="4"/><line x1="120" y1="97" x2="150" y2="97" stroke="currentColor" stroke-width="4"/><line x1="55" y1="30" x2="105" y2="30" stroke="currentColor" stroke-width="4"/></g>
+  <text x="203" y="790.56" font-family="Arial, sans-serif" font-size="21.6" fill="#6B6D72">500 BBL Acid Storage Tank — placeholder photo</text>
+</svg>

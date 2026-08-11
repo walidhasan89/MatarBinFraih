@@ -1,0 +1,22 @@
+---
+// Eyebrow / section-label pill — design-system.md §4.3.
+interface Props {
+  label: string;
+  class?: string;
+  variant?: 'accent' | 'dark' | 'outline';
+}
+
+const { label, class: className = '', variant = 'accent' } = Astro.props;
+
+const variants: Record<string, string> = {
+  accent: 'bg-accent text-accent-ink',
+  dark: 'bg-ink-soft text-text-inverse',
+  outline: 'bg-transparent text-text-primary border border-border',
+};
+---
+
+<span
+  class={`inline-flex items-center rounded-pill px-4 py-1.5 text-[11px] font-semibold uppercase tracking-wide ${variants[variant]} ${className}`}
+>
+  {label}
+</span>

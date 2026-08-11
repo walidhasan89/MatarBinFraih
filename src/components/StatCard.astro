@@ -1,0 +1,112 @@
+---
+// 3-up stat/feature card row — design-system.md §4.5.
+// One component, three variants (stat / quote / photo) to keep the row's
+// visual language consistent while covering each card's distinct content.
+import MixedText from './MixedText.astro';
+import Button from './Button.astro';
+
+interface Props {
+  variant: 'stat' | 'quote' | 'photo';
+  class?: string;
+  // stat
+  value?: string;
+  label?: string;
+  href?: string;
+  ctaLabel?: string;
+  // quote
+  statement?: string;
+  name?: string;
+  role?: string;
+  avatar?: string;
+  // photo
+  image?: string;
+  imageAlt?: string;
+  statLine?: string;
+  captionLabel?: string;
+}
+
+const {
+  variant,
+  class: className = '',
+  value,
+  label,
+  href,
+  ctaLabel = 'See More',
+  statement,
+  name,
+  role,
+  avatar,
+  image,
+  imageAlt,
+  statLine,
+  captionLabel,
+} = Astro.props;
+---
+
+{
+  variant === 'stat' && (
+    <div class={`relative flex h-full min-h-[260px] flex-col justify-between overflow-hidden rounded-card-lg bg-surface p-7 ${className}`}>
+      <div
+        class="pointer-events-none absolute inset-0 opacity-[0.08]"
+        style="background-image: radial-gradient(currentColor 1px, transparent 1px); background-size: 10px 10px; color: #101114;"
+        aria-hidden="true"
+      />
+      <div class="relative">
+        <p class="font-display text-5xl font-bold tracking-tightest text-text-primary sm:text-6xl">{value}</p>
+        <p class="mt-2 text-sm text-text-secondary">{label}</p>
+      </div>
+      {href && (
+        <div class="relative mt-8 self-end">
+          <Button href={href} class="!pl-5 !py-1.5 text-xs">
+            {ctaLabel}
+          </Button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+{
+  variant === 'quote' && (
+    <div class={`flex h-full min-h-[260px] flex-col justify-between rounded-card-lg bg-surface p-7 ${className}`}>
+      <div class="flex items-start justify-between">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" class="text-text-primary">
+          <path d="M2 11L11 2M11 2H4M11 2V9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="flex h-6 w-11 items-center rounded-pill bg-ink p-1" aria-hidden="true">
+          <span class="h-4 w-4 rounded-pill bg-accent" />
+        </span>
+      </div>
+      <p class="mt-4 text-lg leading-snug">
+        <MixedText text={statement ?? ''} />
+      </p>
+      <div class="mt-6 flex items-center gap-3">
+        {avatar && (
+          <img src={avatar} alt="" width="40" height="40" loading="lazy" class="h-10 w-10 rounded-full object-cover" />
+        )}
+        <div>
+          <p class="text-sm font-semibold text-text-primary">{name}</p>
+          <p class="text-xs text-text-secondary">{role}</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+{
+  variant === 'photo' && (
+    <div class={`relative flex h-full min-h-[260px] flex-col justify-end overflow-hidden rounded-card-lg ${className}`}>
+      <img src={image} alt={imageAlt ?? ''} loading="lazy" class="absolute inset-0 h-full w-full object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/10 to-transparent" aria-hidden="true" />
+      <div class="relative p-6 text-text-inverse">
+        <p class="font-display text-lg font-bold leading-tight tracking-tightest">{statLine}</p>
+        {captionLabel && (
+          <p class="mt-2 flex items-center gap-2 text-xs text-text-inverse-muted">
+            <span class="h-1.5 w-1.5 rounded-full bg-accent" />
+            {captionLabel}
+          </p>
+        )}
+      </div>
+    </div>
+  )
+}

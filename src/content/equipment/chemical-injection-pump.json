@@ -1,0 +1,15 @@
+{
+  "name": "Chemical Injection Pump",
+  "category": "pumps",
+  "summary": "Air-operated, double-acting hydraulic pump for pressure testing and chemical injection duty.",
+  "specs": [
+    "Air-operated, double-acting hydraulic",
+    "For pressure testing and chemical injection",
+    "Infinitely variable output pressure and flow",
+    "Holds static pressure without heat or power draw",
+    "Suited for oil or water applications; low-cost servicing"
+  ],
+  "image": "/images/equipment/chemical-injection-pump.svg",
+  "imageAlt": "Placeholder image of a chemical injection pump — TODO: replace with real MBF photo",
+  "featured": false
+}

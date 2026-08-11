@@ -1,0 +1,107 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PillTag from '../../components/PillTag.astro';
+import EquipmentCard from '../../components/EquipmentCard.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import { equipmentCategoryLabel } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const equipment = await getCollection('equipment');
+  return equipment.map((item) => ({
+    params: { slug: item.id },
+    props: { item, all: equipment },
+  }));
+}
+
+interface Props {
+  item: CollectionEntry<'equipment'>;
+  all: CollectionEntry<'equipment'>[];
+}
+
+const { item, all } = Astro.props;
+const { name, category, summary, description, specs, image, imageAlt } = item.data;
+
+const related = all.filter((e) => e.data.category === category && e.id !== item.id).slice(0, 3);
+---
+
+<BaseLayout title={name} description={summary}>
+  <section class="container-page py-12">
+    <nav class="text-sm text-text-secondary" aria-label="Breadcrumb">
+      <a href="/equipment" class="hover:text-text-primary">Equipment</a>
+      <span class="mx-2">/</span>
+      <span class="text-text-primary">{name}</span>
+    </nav>
+
+    <div class="mt-8 grid gap-10 lg:grid-cols-2 lg:items-start">
+      <img
+        src={image}
+        alt={imageAlt}
+        loading="eager"
+        class="aspect-[4/3] w-full rounded-card-lg object-cover"
+      />
+
+      <div>
+        <PillTag label={equipmentCategoryLabel(category)} />
+        <h1 class="mt-4 font-display text-3xl font-bold leading-tight tracking-tightest text-text-primary sm:text-4xl">
+          {name}
+        </h1>
+        <p class="mt-4 text-sm text-text-secondary sm:text-base">{summary}</p>
+        {description && <p class="mt-3 text-sm text-text-secondary sm:text-base">{description}</p>}
+
+        <div class="mt-8 rounded-card-lg bg-surface p-6">
+          <p class="text-[11px] font-semibold uppercase tracking-wide text-text-secondary">Specifications</p>
+          <ul class="mt-4 space-y-3 text-sm text-text-primary">
+            {
+              specs.map((spec) => (
+                <li class="flex gap-3">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                  <span>{spec}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-page pb-section">
+    <div class="rounded-card-lg bg-ink p-8 text-text-inverse sm:p-10">
+      <p class="font-display text-2xl font-bold tracking-tightest">Request a Data Sheet</p>
+      <p class="mt-2 max-w-lg text-sm text-text-inverse-muted">
+        Send us your project details and we'll get back to you with pricing, availability and the full spec
+        sheet for the {name}.
+      </p>
+      <div class="mt-8">
+        <ContactForm
+          presetMessage={`Hello, I'm interested in the ${name}. Please send me the data sheet and availability.`}
+          whatsappMessage={`Hello, I'm interested in learning more about your ${name}.`}
+          submitLabel="Request Data Sheet"
+        />
+      </div>
+    </div>
+  </section>
+
+  {
+    related.length > 0 && (
+      <section class="container-page pb-section">
+        <p class="font-display text-2xl font-bold tracking-tightest text-text-primary">
+          More in {equipmentCategoryLabel(category)}
+        </p>
+        <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {related.map((r) => (
+            <EquipmentCard
+              slug={r.id}
+              name={r.data.name}
+              category={r.data.category}
+              summary={r.data.summary}
+              image={r.data.image}
+              imageAlt={r.data.imageAlt}
+            />
+          ))}
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>

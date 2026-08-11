@@ -1,0 +1,13 @@
+{
+  "name": "40 FT Senior-Level Accommodation Caravan – Skid Mounted",
+  "category": "caravans-cabins",
+  "summary": "Senior-level skid-mounted unit combining one bedroom and one office room.",
+  "specs": [
+    "1 bedroom + 1 office room per unit, 2 separate rooms per caravan",
+    "ADNOC-approved fire alarm system",
+    "Beds, TV, water dispenser, fridge"
+  ],
+  "image": "/images/equipment/caravan-40ft-senior-accommodation.svg",
+  "imageAlt": "Placeholder image of a 40 FT senior-level accommodation caravan — TODO: replace with real MBF photo",
+  "featured": false
+}

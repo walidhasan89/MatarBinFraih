@@ -1,0 +1,16 @@
+{
+  "name": "Surface Safety Valve 5K",
+  "category": "well-control",
+  "summary": "Hydraulic fail-safe sour-service gate valve, skid mounted, 5,000 psi rated.",
+  "specs": [
+    "3.125\" – 5K hydraulic fail-safe, sour-service FC-style gate valve",
+    "EE trim, temperature class P+U",
+    "PSL-3, PR-1",
+    "BX-154 ring grooves, flanged crossover",
+    "Skid mounted",
+    "3\" Fig 1502 hammer unions (male/female)"
+  ],
+  "image": "/images/equipment/surface-safety-valve-5k.svg",
+  "imageAlt": "Placeholder image of a Surface Safety Valve 5K — TODO: replace with real MBF photo",
+  "featured": false
+}

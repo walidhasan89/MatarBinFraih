@@ -1,0 +1,16 @@
+{
+  "name": "Choke Manifold 5K",
+  "category": "well-control",
+  "summary": "Controls the well during flowing periods with fixed and calibrated adjustable chokes, 5,000 psi rated.",
+  "specs": [
+    "2\" fixed choke + 2\" calibrated adjustable choke",
+    "Material: API 6A EE, hard faced",
+    "Sour service: NACE MR.01.75",
+    "Pressure rating: 5,000 psi",
+    "Temperature rating: -20°F to 250°F",
+    "Piping to ANSI B31.3"
+  ],
+  "image": "/images/equipment/choke-manifold-5k.svg",
+  "imageAlt": "Placeholder image of a Choke Manifold 5K — TODO: replace with real MBF photo",
+  "featured": true
+}

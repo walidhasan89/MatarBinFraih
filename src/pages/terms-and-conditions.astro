@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PillTag from '../components/PillTag.astro';
+import { SITE } from '../lib/site';
+---
+
+<BaseLayout
+  title="Terms and Conditions"
+  description="Terms and conditions for Matar Bin Fraih Trading & Oilfield Equipment Rental."
+>
+  <section class="container-page py-section">
+    <PillTag label="Legal" />
+    <h1 class="mt-6 font-display text-4xl font-bold tracking-tightest text-text-primary">Terms &amp; Conditions</h1>
+    <div class="mt-8 max-w-2xl space-y-4 text-sm text-text-secondary sm:text-base">
+      <p>
+        {/* TODO: replace with MBF's reviewed, legally-approved terms & conditions text
+        (rental agreements, lease-to-own terms, liability, etc.). The original site's
+        terms copy was not captured in the content audit, so a placeholder notice is
+        shown here rather than inventing legal terms. */}
+        This page is a placeholder. Matar Bin Fraih Trading &amp; Oilfield Equipment Rental's full terms and
+        conditions — covering equipment rental, lease-to-own agreements and site use — will be published
+        here.
+      </p>
+      <p>
+        For current rental and service terms, please contact us directly at
+        <a href={`mailto:${SITE.email}`} class="font-semibold text-text-primary hover:underline">{SITE.email}</a>
+        or <a href={`tel:${SITE.phone.replace(/\s/g, '')}`} class="font-semibold text-text-primary hover:underline">{SITE.phone}</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

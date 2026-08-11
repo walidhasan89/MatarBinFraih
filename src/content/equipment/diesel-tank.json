@@ -1,0 +1,12 @@
+{
+  "name": "Diesel Tank",
+  "category": "storage-tanks",
+  "summary": "Skid-mounted diesel storage tank with integrated fuel pump.",
+  "specs": [
+    "Capacities: 750 USG or 5,000 USG",
+    "Includes fuel pump"
+  ],
+  "image": "/images/equipment/diesel-tank.svg",
+  "imageAlt": "Placeholder image of a diesel storage tank with fuel pump — TODO: replace with real MBF photo",
+  "featured": false
+}

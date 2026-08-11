@@ -1,0 +1,23 @@
+{
+  "name": "Acid Storage Tank – Skid Mounted",
+  "category": "storage-tanks",
+  "summary": "Circular-shell skid-mounted tank for acid and chemical storage up to 34% HCL, built to ASTM A-36.",
+  "description": "Spec content moved here from the old site's Caravan Manufacturing page, where it had been misfiled — this is a tank product, not a caravan.",
+  "specs": [
+    "Shell: 6mm thick HR steel plate to ASTM A-36 or equivalent, fully welded staggered joints",
+    "2 shallow-drawn dish heads (8mm), mounted on heavy-duty skid frame",
+    "GMAW welding using ACM gas for bead appearance, penetration and strength",
+    "Coating: Derakane 411-45 laminate system — 3 matting layers + tissue + gel/wax coat (E-glass chopped strand mat 600gsm ×2 + 450gsm ×1)",
+    "Shape: cylindrical horizontal",
+    "Medium: acid/chemical storage up to 34% HCL",
+    "Capacity: 6,000–7,500 USG",
+    "Single compartment with baffle plates",
+    "Piping: 4\" inlet with PTFE-lined BF valve & hammer union (Fig 206 thread); 4\" discharge manifold with PTFE-lined BF valves, 2× 4\" Fig 206 female discharge connections",
+    "Atmospheric pressure, 2× hinged manholes",
+    "Sand tires 24/21 Tianli 16pr",
+    "Surface treatment: sandblasted inside & outside to SA2.5"
+  ],
+  "image": "/images/equipment/acid-storage-tank-skid-mounted.svg",
+  "imageAlt": "Placeholder image of a skid-mounted acid storage tank — TODO: replace with real MBF photo",
+  "featured": true
+}

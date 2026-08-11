@@ -1,0 +1,12 @@
+{
+  "name": "Well-Site Equipment Rental",
+  "summary": "Full-fleet rental of pumps, tanks and well-control equipment to operators across the UAE, backed by MBF's certified HSEQ management system.",
+  "featured": true,
+  "href": "/equipment",
+  "ctaLabel": "See Project",
+  "stats": [
+    { "label": "Equipment Categories", "value": "5" },
+    { "label": "Response", "value": "24/7" },
+    { "label": "Years Active", "value": "28+" }
+  ]
+}

@@ -1,0 +1,20 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+*.log
+
+# environment
+.env
+.env.production
+
+# editor
+.DS_Store
+
+# dev-only tooling (not part of the shipped site)
+/scripts/_*.mjs

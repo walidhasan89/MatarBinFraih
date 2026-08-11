@@ -1,0 +1,21 @@
+---
+// Partner/client logo strip — design-system.md §4.4.
+// TODO: replace the 10 generated placeholder blocks with real MBF client
+// logos (the live site's Client_1.jpeg … Client_10.jpeg, unlabeled).
+const logos = Array.from({ length: 10 }, (_, i) => i + 1);
+---
+
+<div class="fade-edges flex items-center gap-10 overflow-x-auto py-2">
+  {
+    logos.map((n) => (
+      <img
+        src={`/images/clients/client-${n}.svg`}
+        alt={`MBF client partner logo placeholder ${n} — TODO: replace with real client logo`}
+        width="160"
+        height="70"
+        loading="lazy"
+        class="h-10 w-auto shrink-0 opacity-60 grayscale transition hover:opacity-100 hover:grayscale-0"
+      />
+    ))
+  }
+</div>

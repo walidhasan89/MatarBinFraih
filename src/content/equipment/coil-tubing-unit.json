@@ -1,0 +1,15 @@
+{
+  "name": "Coil Tubing Unit — Hydra Rig (NOV)",
+  "category": "specialized-units",
+  "summary": "Fully integrated diesel-powered coiled tubing unit for well intervention, drilling and cleanout operations.",
+  "specs": [
+    "Applications: well intervention, coiled tubing drilling, cleanouts, maintenance",
+    "Diesel powered",
+    "High-capacity injector",
+    "Advanced controls",
+    "Integrated safety systems"
+  ],
+  "image": "/images/equipment/coil-tubing-unit.svg",
+  "imageAlt": "Placeholder image of a Hydra Rig coil tubing unit — TODO: replace with real MBF photo",
+  "featured": true
+}

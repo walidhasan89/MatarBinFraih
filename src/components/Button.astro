@@ -1,0 +1,54 @@
+---
+// Buttons — design-system.md §4.11.
+// primary: near-black pill + trailing circular accent arrow chip.
+// secondary: outline/white pill, no arrow chip.
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'secondary-inverse' | 'accent';
+  class?: string;
+  type?: 'button' | 'submit';
+}
+
+const { href, variant = 'primary', class: className = '', type = 'button' } = Astro.props;
+const Tag = href ? 'a' : 'button';
+
+const base =
+  'group inline-flex items-center gap-3 rounded-pill pl-6 pr-2 py-2 text-sm font-semibold transition-colors duration-200';
+
+// Each variant fully owns its color classes (bg/text/border) so a caller
+// never has to override them piecemeal via `class` — Tailwind's utility
+// order in the compiled stylesheet isn't guaranteed to match prop order,
+// so partial overrides can silently lose (e.g. text color reverting).
+const variants: Record<string, string> = {
+  primary: 'bg-ink text-text-inverse hover:bg-ink-soft',
+  secondary: 'bg-transparent text-text-primary border border-border pr-6 hover:border-ink',
+  'secondary-inverse':
+    'bg-transparent text-text-inverse border border-white/40 pr-6 hover:border-white',
+  accent: 'bg-accent text-accent-ink hover:bg-accent-soft',
+};
+
+const isSecondary = variant === 'secondary' || variant === 'secondary-inverse';
+---
+
+<Tag
+  href={href}
+  type={!href ? type : undefined}
+  class={`${base} ${variants[variant]} ${className}`}
+>
+  <slot />
+  {
+    !isSecondary && (
+      <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-pill bg-accent text-accent-ink transition-transform duration-200 group-hover:translate-x-0.5">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path
+            d="M2 12L12 2M12 2H4M12 2V10"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </span>
+    )
+  }
+</Tag>

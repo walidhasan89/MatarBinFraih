@@ -1,0 +1,15 @@
+{
+  "name": "40 FT Caravan – Skid Mounted",
+  "category": "caravans-cabins",
+  "summary": "Two-room skid-mounted accommodation caravan for up to 12 people, ADNOC-compliant safety fit-out.",
+  "specs": [
+    "2 rooms per caravan, emergency shower, small kitchen",
+    "Each room fits 2–4 people; up to 12 people per caravan",
+    "1 toilet per room; beds, TV, water dispenser, fridge in each room",
+    "Smoke detectors, fire extinguisher, first-aid boxes",
+    "Safety drawing available on request"
+  ],
+  "image": "/images/equipment/caravan-40ft-skid-mounted.svg",
+  "imageAlt": "Placeholder image of a 40 FT skid-mounted safety caravan — TODO: replace with real MBF photo",
+  "featured": true
+}

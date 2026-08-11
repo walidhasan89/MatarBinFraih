@@ -1,0 +1,9 @@
+{
+  "name": "Caravan Manufacturing",
+  "summary": "Locally manufactured, ADNOC-compliant caravans built at MBF's Abu Dhabi facility.",
+  "featured": false,
+  "href": "/services/caravan-manufacturing",
+  "ctaLabel": "View Project",
+  "image": "/images/projects/thumb-rig.svg",
+  "imageAlt": "Placeholder image of caravan manufacturing at the MBF facility — TODO: replace with real MBF project photo"
+}

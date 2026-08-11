@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PillTag from '../components/PillTag.astro';
+import { SITE } from '../lib/site';
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="Privacy policy for Matar Bin Fraih Trading & Oilfield Equipment Rental."
+>
+  <section class="container-page py-section">
+    <PillTag label="Legal" />
+    <h1 class="mt-6 font-display text-4xl font-bold tracking-tightest text-text-primary">Privacy Policy</h1>
+    <div class="mt-8 max-w-2xl space-y-4 text-sm text-text-secondary sm:text-base">
+      <p>
+        {/* TODO: replace with MBF's reviewed, legally-approved privacy policy text. The
+        original site's policy copy was not captured in the content audit, so a
+        placeholder notice is shown here rather than inventing legal terms. */}
+        This page is a placeholder. Matar Bin Fraih Trading &amp; Oilfield Equipment Rental's full privacy
+        policy will be published here — covering what information is collected through this site (for
+        example, via the contact form), how it is used, and how it is protected.
+      </p>
+      <p>
+        In the meantime, for any questions about how your information is handled, please contact us directly
+        at <a href={`mailto:${SITE.email}`} class="font-semibold text-text-primary hover:underline">{SITE.email}</a>
+        or <a href={`tel:${SITE.phone.replace(/\s/g, '')}`} class="font-semibold text-text-primary hover:underline">{SITE.phone}</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

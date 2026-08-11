@@ -1,0 +1,15 @@
+{
+  "name": "500 BBL Rectangle Storage Tank",
+  "category": "storage-tanks",
+  "summary": "Skid-mounted rectangular tank for water, mud and brine solution storage.",
+  "specs": [
+    "Type: storage skid-mounted tank, capacity 500 BBL",
+    "Media: water / mud / brine solution, single compartment, no baffle",
+    "Internal dimensions: 10,700mm (L) × 2,700mm (W) × 2,820mm (H), average, sloped floor",
+    "Skid dimensions: 12,000mm (L) × 2,720mm (W) × 3,350mm (H), handrails folded",
+    "Actual volume: 81,469 L / 512 BBL"
+  ],
+  "image": "/images/equipment/500-bbl-rectangle-storage-tank.svg",
+  "imageAlt": "Placeholder image of a 500 BBL rectangle storage tank, skid mounted — TODO: replace with real MBF photo",
+  "featured": false
+}

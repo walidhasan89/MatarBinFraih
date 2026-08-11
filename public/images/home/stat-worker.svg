@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="900" viewBox="0 0 700 900">
+  <defs>
+  <pattern id="hkr3ikn" width="14" height="14" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+    <line x1="0" y1="0" x2="0" y2="14" stroke="#FFFFFF" stroke-opacity="0.05" stroke-width="2" />
+  </pattern></defs>
+  <rect width="700" height="900" fill="#101114"/>
+  <rect width="700" height="900" fill="url(#hkr3ikn)"/>
+  <g transform="translate(35,753) scale(0.56)" color="#FFC01E"><circle cx="100" cy="65" r="26" fill="none" stroke="currentColor" stroke-width="4"/><path d="M55 165 Q55 110 100 108 Q145 110 145 165" fill="none" stroke="currentColor" stroke-width="4"/><path d="M78 55 Q100 40 122 55" fill="none" stroke="currentColor" stroke-width="4"/></g>
+  <text x="161" y="814.88" font-family="Arial, sans-serif" font-size="16.8" fill="#6B6D72">Field team in PPE — placeholder photo</text>
+</svg>

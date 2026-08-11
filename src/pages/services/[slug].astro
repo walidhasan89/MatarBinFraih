@@ -1,0 +1,125 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PillTag from '../../components/PillTag.astro';
+import EquipmentCard from '../../components/EquipmentCard.astro';
+import ContactForm from '../../components/ContactForm.astro';
+
+export async function getStaticPaths() {
+  const services = await getCollection('services');
+  const equipment = await getCollection('equipment');
+  return services.map((service) => ({
+    params: { slug: service.id },
+    props: { service, equipment },
+  }));
+}
+
+interface Props {
+  service: CollectionEntry<'services'>;
+  equipment: CollectionEntry<'equipment'>[];
+}
+
+const { service, equipment } = Astro.props;
+const { name, shortSummary, body, image, imageAlt, priceTable } = service.data;
+
+const caravanEquipment =
+  service.id === 'caravan-manufacturing'
+    ? equipment.filter((e) => e.data.category === 'caravans-cabins')
+    : [];
+---
+
+<BaseLayout title={name} description={shortSummary}>
+  <section class="container-page py-12">
+    <nav class="text-sm text-text-secondary" aria-label="Breadcrumb">
+      <a href="/services" class="hover:text-text-primary">Services</a>
+      <span class="mx-2">/</span>
+      <span class="text-text-primary">{name}</span>
+    </nav>
+
+    <div class="mt-8 grid gap-10 lg:grid-cols-2 lg:items-center">
+      <div>
+        <PillTag label="Our Services" />
+        <h1 class="mt-4 font-display text-3xl font-bold leading-tight tracking-tightest text-text-primary sm:text-5xl">
+          {name}
+        </h1>
+        <div class="mt-6 space-y-4 text-sm text-text-secondary sm:text-base">
+          {body.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+      </div>
+      <img src={image} alt={imageAlt} loading="eager" class="aspect-[4/3] w-full rounded-card-lg object-cover" />
+    </div>
+  </section>
+
+  {
+    priceTable && priceTable.length > 0 && (
+      <section class="container-page pb-section">
+        <p class="font-display text-2xl font-bold tracking-tightest text-text-primary">
+          Lease-to-Own Pricing <span class="text-text-secondary">(12-Month Installments)</span>
+        </p>
+        <div class="mt-6 overflow-x-auto rounded-card-lg bg-surface">
+          <table class="w-full min-w-[640px] text-left text-sm">
+            <thead>
+              <tr class="border-b border-border text-[11px] uppercase tracking-wide text-text-secondary">
+                <th class="px-6 py-4 font-semibold">#</th>
+                <th class="px-6 py-4 font-semibold">Description</th>
+                <th class="px-6 py-4 font-semibold">Qty</th>
+                <th class="px-6 py-4 font-semibold">Price</th>
+                <th class="px-6 py-4 font-semibold">Monthly</th>
+              </tr>
+            </thead>
+            <tbody>
+              {priceTable.map((row) => (
+                <tr class="border-b border-border last:border-0">
+                  <td class="px-6 py-4 text-text-secondary">{row.no}</td>
+                  <td class="px-6 py-4 text-text-primary">{row.description}</td>
+                  <td class="px-6 py-4 text-text-secondary">{row.qty}</td>
+                  <td class="px-6 py-4 text-text-primary">{row.price}</td>
+                  <td class="px-6 py-4 font-semibold text-text-primary">{row.monthly}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-xs text-text-secondary">
+          Pricing shown in AED, correct at time of publishing. Contact us to confirm current availability and
+          final terms.
+        </p>
+      </section>
+    )
+  }
+
+  {
+    caravanEquipment.length > 0 && (
+      <section class="container-page pb-section">
+        <p class="font-display text-2xl font-bold tracking-tightest text-text-primary">Caravan Variants</p>
+        <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {caravanEquipment.map((item) => (
+            <EquipmentCard
+              slug={item.id}
+              name={item.data.name}
+              category={item.data.category}
+              summary={item.data.summary}
+              image={item.data.image}
+              imageAlt={item.data.imageAlt}
+            />
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <section class="container-page pb-section">
+    <div class="rounded-card-lg bg-ink p-8 text-text-inverse sm:p-10">
+      <p class="font-display text-2xl font-bold tracking-tightest">Get a Quote for {name}</p>
+      <p class="mt-2 max-w-lg text-sm text-text-inverse-muted">
+        Tell us about your site and timeline and we'll follow up with pricing and availability.
+      </p>
+      <div class="mt-8">
+        <ContactForm
+          presetMessage={`Hello, I'm interested in your ${name}. Please send me more information.`}
+          whatsappMessage={`Hello, I'm interested in learning more about your ${name}.`}
+        />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

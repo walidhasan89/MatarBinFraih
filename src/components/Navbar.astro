@@ -1,0 +1,110 @@
+---
+import { NAV_LINKS, SITE } from '../lib/site';
+import Button from './Button.astro';
+
+const currentPath = Astro.url.pathname;
+
+function isActive(href: string): boolean {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+}
+---
+
+<!--
+  Always sticky with a translucent dark scrim (design-system.md §4.1: "sits
+  directly over the hero image with a translucent dark background"). A
+  fully-transparent variant that toggled to opaque on scroll was tried and
+  dropped — combining `sticky` and `absolute` position utilities on one
+  element is undefined (Tailwind's compiled class order, not the markup
+  order, decides which wins), and a single translucent bar already reads
+  fine over both the hero photo and plain page backgrounds.
+-->
+<header class="sticky top-0 z-50 w-full bg-ink-soft/90 backdrop-blur" data-navbar>
+  <nav class="container-page flex items-center justify-between gap-4 py-4">
+    <a href="/" class="flex shrink-0 items-center gap-2 text-text-inverse" aria-label="MBF home">
+      <svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true">
+        <rect width="64" height="64" rx="14" fill="#FFC01E"/>
+        <rect x="14" y="34" width="8" height="18" fill="#101114"/>
+        <rect x="26" y="24" width="8" height="28" fill="#101114"/>
+        <rect x="38" y="14" width="8" height="38" fill="#101114"/>
+      </svg>
+      <span class="font-display text-lg font-bold tracking-tightest">MBF</span>
+    </a>
+
+    <div class="hidden items-center gap-2 rounded-pill bg-ink-soft/80 p-1.5 backdrop-blur md:flex">
+      {
+        NAV_LINKS.map((link) => (
+          <a
+            href={link.href}
+            class={`rounded-pill px-4 py-2 text-sm font-medium transition-colors ${
+              isActive(link.href)
+                ? 'bg-white/10 text-text-inverse'
+                : 'text-text-inverse-muted hover:text-text-inverse'
+            }`}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="hidden md:block">
+      <Button href="/contact" variant="accent">Get in Touch</Button>
+    </div>
+
+    <button
+      type="button"
+      class="flex h-11 w-11 items-center justify-center rounded-pill bg-white/10 text-text-inverse md:hidden"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+      data-mobile-toggle
+    >
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" data-icon-open>
+        <path d="M2 5H18M2 10H18M2 15H18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+      </svg>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" class="hidden" data-icon-close>
+        <path d="M3 3L17 17M17 3L3 17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+      </svg>
+    </button>
+  </nav>
+
+  <div
+    class="hidden flex-col gap-1 bg-ink-soft px-6 pb-6 md:hidden"
+    data-mobile-panel
+  >
+    {
+      NAV_LINKS.map((link) => (
+        <a
+          href={link.href}
+          class={`rounded-2xl px-4 py-3 text-base font-medium ${
+            isActive(link.href) ? 'bg-white/10 text-text-inverse' : 'text-text-inverse-muted'
+          }`}
+        >
+          {link.label}
+        </a>
+      ))
+    }
+    <a href="/contact" class="mt-2 rounded-pill bg-accent px-4 py-3 text-center text-sm font-semibold text-accent-ink">
+      Get in Touch
+    </a>
+    <a href={`tel:${SITE.phone.replace(/\s/g, '')}`} class="mt-1 px-4 py-2 text-sm text-text-inverse-muted">
+      {SITE.phone}
+    </a>
+  </div>
+</header>
+
+<script>
+  // Minimal-JS mobile nav toggle island (no framework — plain DOM).
+  const toggle = document.querySelector<HTMLButtonElement>('[data-mobile-toggle]');
+  const panel = document.querySelector<HTMLDivElement>('[data-mobile-panel]');
+  const iconOpen = document.querySelector('[data-icon-open]');
+  const iconClose = document.querySelector('[data-icon-close]');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = panel?.classList.toggle('flex');
+    panel?.classList.toggle('hidden');
+    iconOpen?.classList.toggle('hidden');
+    iconClose?.classList.toggle('hidden');
+    toggle.setAttribute('aria-expanded', String(Boolean(isOpen)));
+  });
+</script>

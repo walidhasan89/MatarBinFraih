@@ -1,0 +1,247 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PillTag from '../components/PillTag.astro';
+import Button from '../components/Button.astro';
+import MixedText from '../components/MixedText.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import LogoStrip from '../components/LogoStrip.astro';
+import StatCard from '../components/StatCard.astro';
+import TechCard from '../components/TechCard.astro';
+import TechDiagram from '../components/TechDiagram.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import ServiceCarousel from '../components/ServiceCarousel.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
+import { currentYearsInOperation, SITE } from '../lib/site';
+
+const projects = (await getCollection('projects')).sort((a, b) =>
+  a.data.featured === b.data.featured ? 0 : a.data.featured ? 1 : -1
+);
+const testimonials = await getCollection('testimonials');
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+
+const carouselSlides = [
+  {
+    title: 'Equipment Rental',
+    description:
+      'Storage tanks, pumps, well-control equipment and specialized units, rented and maintained to MBF\'s certified HSEQ standard.',
+    image: '/images/services/carousel-equipment-rental.svg',
+    imageAlt: 'Placeholder photo of an MBF equipment rental yard — TODO: replace with real MBF photo',
+    href: '/equipment',
+  },
+  ...services.map((service) => {
+    const imageMap: Record<string, string> = {
+      'tank-cleaning': '/images/services/carousel-tank-cleaning.svg',
+      maintenance: '/images/services/carousel-maintenance.svg',
+      'caravan-manufacturing': '/images/services/carousel-caravan-manufacturing.svg',
+    };
+    return {
+      title: service.data.name,
+      description: service.data.shortSummary,
+      image: imageMap[service.id] ?? service.data.image,
+      imageAlt: service.data.imageAlt,
+      href: `/services/${service.id}`,
+    };
+  }),
+];
+
+const years = currentYearsInOperation();
+---
+
+<BaseLayout
+  title="Matar Bin Fraih — Oilfield Equipment Manufacturing & Rental, Abu Dhabi"
+  description="Matar Bin Fraih Trading & Oilfield Equipment Rental provides specialist oilfield equipment and services from our base in Abu Dhabi, UAE."
+>
+  <!-- Hero — design-system.md §4.2 -->
+  <section class="relative flex min-h-[80vh] items-end overflow-hidden bg-ink text-text-inverse">
+    <img
+      src="/images/hero/hero-oilfield-yard.svg"
+      alt="Placeholder photo of an MBF oilfield equipment yard in Abu Dhabi — TODO: replace with real MBF hero photography"
+      class="absolute inset-0 h-full w-full object-cover"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-ink/10" aria-hidden="true" />
+
+    <div class="container-page relative flex w-full flex-col gap-10 py-16">
+      <div class="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-end">
+        <div>
+          <span class="mb-3 inline-flex items-center rounded-pill bg-accent px-4 py-1.5 text-[11px] font-semibold uppercase tracking-wide text-accent-ink">
+            Since {SITE.foundedYear}
+          </span>
+          <p class="font-display text-[15vw] font-extrabold leading-[0.85] tracking-tightest sm:text-[9vw] lg:text-[130px]">
+            Matar Bin Fraih
+          </p>
+        </div>
+        <p class="max-w-sm text-sm text-text-inverse-muted lg:text-base">
+          <MixedText
+            text="MBF is **a trusted name in oilfield equipment manufacturing** in the local and regional markets — guaranteed high quality, backed by a **certified HSEQ management system**."
+            emphasisClass="font-semibold text-text-inverse"
+            mutedClass="text-text-inverse-muted"
+          />
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-4">
+        <Button href="/services" variant="accent">View Our Services</Button>
+        <Button href="/contact" variant="secondary-inverse">Contact Us</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trusted partners logo strip -->
+  <section class="container-page py-16">
+    <div class="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
+      <p class="max-w-sm text-sm text-text-secondary">
+        Partnering with operators and logistics firms across Abu Dhabi to keep well sites equipped and running.
+      </p>
+      <PillTag label="Trusted Partners" />
+    </div>
+    <div class="mt-8">
+      <LogoStrip />
+    </div>
+  </section>
+
+  <!-- About intro -->
+  <section class="container-page py-section">
+    <div class="grid gap-8 lg:grid-cols-[1fr_2fr] lg:items-start">
+      <PillTag label="About MBF" class="w-fit" />
+      <p class="font-display text-2xl font-medium leading-snug tracking-tightest text-text-primary sm:text-3xl">
+        <MixedText
+          text={`MBF merges **almost three decades of oilfield expertise** with certified processes to safely and **efficiently equip well sites**, from Abu Dhabi across the wider region.`}
+        />
+      </p>
+    </div>
+
+    <!-- 3-up stat/feature card row — design-system.md §4.5 -->
+    <div class="mt-14 grid gap-6 lg:grid-cols-3">
+      <StatCard
+        variant="stat"
+        value={`${years}+`}
+        label="Years delivering oilfield equipment and services since 1998"
+        href="/about"
+        ctaLabel="See More"
+      />
+      <StatCard
+        variant="quote"
+        statement="MBF is **one of the few companies in the Middle East** with a certified, fully-integrated HSEQ management system in place."
+        name="Matar Mohamed Fraih Al Qubaisi"
+        role="Managing Director"
+        avatar="/images/team/voice-md.svg"
+      />
+      <StatCard
+        variant="photo"
+        image="/images/home/stat-worker.svg"
+        imageAlt="Placeholder photo of an MBF field technician in PPE — TODO: replace with real MBF photo"
+        statLine="Zero lost-time injury operation across our HSEQ-certified workforce"
+        captionLabel="HSEQ Certified"
+      />
+    </div>
+  </section>
+
+  <!-- Technology / Capabilities — design-system.md §4.6 -->
+  <section class="container-page py-section">
+    <div class="grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-end">
+      <SectionHeading eyebrow="Our Equipment" lineOne="Engineered for" lineTwo="reliability in the field." />
+      <p class="text-sm text-text-secondary lg:text-right">
+        <MixedText text="From **5,000 psi-rated well-control equipment** to **SA2.5 sandblasted storage tanks**, every unit is built and maintained to MBF's certified HSEQ standard." />
+      </p>
+    </div>
+
+    <div class="mt-10 grid gap-6 lg:grid-cols-[1fr_1fr]">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <TechCard
+          tone="accent"
+          eyebrow="Catalog"
+          headline="5 Equipment Categories"
+          description="Storage tanks, pumps, well control, caravans & specialized units."
+        />
+        <TechCard tone="white" showToggle stat="5,000 psi" headline="Well-Control Rating" />
+        <TechCard
+          tone="white"
+          eyebrow="Fabrication"
+          headline="SA2.5 Surface Prep"
+          description="Every tank sandblasted inside & outside before coating."
+          pillLabel="HSEQ Certified"
+        />
+        <TechCard
+          tone="accent"
+          eyebrow="Since"
+          headline="1998"
+          description="Locally manufacturing oilfield equipment in Abu Dhabi."
+        />
+      </div>
+      <TechDiagram class="min-h-[320px]" />
+    </div>
+  </section>
+
+  <!-- Projects — design-system.md §4.7 -->
+  <section class="container-page py-section">
+    <div class="grid gap-10 lg:grid-cols-[1fr_1.4fr]">
+      <div>
+        <SectionHeading eyebrow="Our Projects" lineOne="Built to perform," lineTwo="proven to last." />
+        <p class="mt-4 max-w-sm text-sm text-text-secondary">
+          <MixedText text="From well-site rental fleets to **locally manufactured caravans**, MBF delivers oilfield equipment engineering with decades of hands-on reliability." />
+        </p>
+        <div class="mt-8 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-text-secondary">
+          <span class="h-1.5 w-1.5 rounded-full bg-accent" />
+          Equipment Deployment
+        </div>
+        <div class="mt-4 flex gap-3">
+          <img src="/images/projects/thumb-tanks.svg" alt="Placeholder photo of a storage tank yard — TODO: replace with real MBF project photo" class="h-24 w-24 rounded-2xl object-cover" loading="lazy" />
+          <img src="/images/projects/thumb-rig.svg" alt="Placeholder photo of a well-site deployment — TODO: replace with real MBF project photo" class="h-24 w-24 rounded-2xl object-cover" loading="lazy" />
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        {
+          projects.map((project) => (
+            <ProjectCard
+              name={project.data.name}
+              href={project.data.href}
+              ctaLabel={project.data.ctaLabel}
+              featured={project.data.featured}
+              stats={project.data.stats}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Services carousel — design-system.md §4.8 -->
+  <ServiceCarousel slides={carouselSlides} eyebrow="Our Services" />
+
+  <!-- Team commitment / "clients" section — design-system.md §4.9.
+       NOTE: the live MBF site has no client testimonial quotes (only an
+       unlabeled client-logo strip, already used above). Rather than invent
+       fictional client praise, this section carries short value statements
+       genuinely attributed to real MBF people (the MD statement is verbatim
+       from the site; the others are tight paraphrases of real HSEQ/service
+       copy attributed by real role) — reusing the reference's staggered
+       card layout without fabricating outside testimonials. -->
+  <section class="container-page py-section">
+    <div class="mx-auto max-w-2xl text-center">
+      <PillTag label="Our Commitment" class="mx-auto" />
+      <h2 class="mt-6 font-display text-3xl font-bold leading-[1.05] tracking-tightest sm:text-4xl">
+        <MixedText
+          text="What our team stands behind, **every time equipment leaves the yard.**"
+          emphasisClass="text-text-primary"
+          mutedClass="text-text-secondary"
+        />
+      </h2>
+    </div>
+
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        testimonials.map((t, i) => (
+          <TestimonialCard
+            quote={t.data.quote}
+            name={t.data.name}
+            role={t.data.role}
+            avatar={t.data.avatar}
+            offset={i % 2 === 1}
+          />
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

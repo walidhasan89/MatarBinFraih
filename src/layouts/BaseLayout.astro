@@ -1,0 +1,52 @@
+---
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../lib/site';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  noindex?: boolean;
+}
+
+const { title, description, ogImage = '/images/og/og-default.png', noindex = false } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? SITE.url);
+const pageTitle = title.includes('MBF') ? title : `${title} | Matar Bin Fraih (MBF)`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalURL} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site ?? SITE.url)} />
+    <meta property="og:site_name" content={SITE.legalName} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, Astro.site ?? SITE.url)} />
+
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body class="min-h-screen bg-bg">
+    <Navbar />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

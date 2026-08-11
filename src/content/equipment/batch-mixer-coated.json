@@ -1,0 +1,16 @@
+{
+  "name": "Batch Mixer – Coated",
+  "category": "storage-tanks",
+  "summary": "Acid-resistant coated batch mixing tanks with dual agitators and centrifugal pumps, Cat C9 powered.",
+  "specs": [
+    "Engine: Cat C9, 300 bhp or equivalent",
+    "Tank sizes: 2×50, 2×60, 2×70 or 2×100 BBL mild steel",
+    "Coating: Derakane anti-acid coating rated up to 32% HCL",
+    "1 agitator per tank",
+    "2× centrifugal pumps (4×5×11)",
+    "Control panel with air-strut lid"
+  ],
+  "image": "/images/equipment/batch-mixer-coated.svg",
+  "imageAlt": "Placeholder image of a coated batch mixer unit — TODO: replace with real MBF photo",
+  "featured": false
+}

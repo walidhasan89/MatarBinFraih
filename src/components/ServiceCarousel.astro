@@ -1,0 +1,147 @@
+---
+// Full-bleed services carousel — design-system.md §4.8.
+// Vanilla-TS island: auto-advances every 6s (no exact timing was specified
+// in the design system, so 6000ms was chosen as a readable default —
+// long enough to read the two-line headline, short enough to feel alive)
+// and pauses/resets on manual prev/next interaction.
+import PillTag from './PillTag.astro';
+
+interface Slide {
+  title: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+  href: string;
+}
+
+interface Props {
+  slides: Slide[];
+  eyebrow?: string;
+}
+
+const { slides, eyebrow = 'Our Services' } = Astro.props;
+const total = slides.length;
+---
+
+<section class="relative isolate min-h-[560px] w-full overflow-hidden bg-ink text-text-inverse" data-carousel data-total={total}>
+  {
+    slides.map((slide, i) => (
+      <div
+        class="absolute inset-0 transition-opacity duration-700 ease-out"
+        data-slide
+        data-index={i}
+        aria-hidden={i === 0 ? 'false' : 'true'}
+        style={i === 0 ? 'opacity:1' : 'opacity:0;pointer-events:none'}
+      >
+        <img src={slide.image} alt={slide.imageAlt} class="absolute inset-0 h-full w-full object-cover" loading={i === 0 ? 'eager' : 'lazy'} />
+        <div class="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/60 to-ink/20" />
+      </div>
+    ))
+  }
+
+  <div class="container-page relative flex min-h-[560px] flex-col justify-between py-10">
+    <PillTag label={eyebrow} />
+
+    <div class="grid items-end gap-8 sm:grid-cols-2">
+      <div class="flex items-end gap-4">
+        <span class="font-display text-5xl font-bold tracking-tightest sm:text-6xl" data-counter-current>01</span>
+        <span class="pb-1 font-display text-xl text-text-inverse-muted">/{String(total).padStart(2, '0')}</span>
+      </div>
+
+      <div>
+        {
+          slides.map((slide, i) => (
+            <div data-panel data-index={i} class={i === 0 ? '' : 'hidden'}>
+              <h3 class="font-display text-2xl font-bold leading-tight tracking-tightest sm:text-4xl">{slide.title}</h3>
+              <p class="mt-3 max-w-md text-sm text-text-inverse-muted">{slide.description}</p>
+              <a href={slide.href} class="mt-4 inline-block text-sm font-semibold text-accent hover:underline">
+                Learn more →
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="mt-8 flex items-center gap-6">
+      <div class="h-1 flex-1 overflow-hidden rounded-pill bg-white/20">
+        <div class="h-full rounded-pill bg-accent transition-all duration-500" data-progress style="width: calc(100% / var(--total, 4))" />
+      </div>
+      <div class="flex shrink-0 gap-2">
+        <button
+          type="button"
+          class="flex h-11 w-11 items-center justify-center rounded-pill border border-white/30 text-text-inverse transition hover:border-accent hover:text-accent"
+          aria-label="Previous slide"
+          data-prev
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M12 1L2 7L12 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="flex h-11 w-11 items-center justify-center rounded-pill bg-accent text-accent-ink transition hover:bg-accent-soft"
+          aria-label="Next slide"
+          data-next
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M2 1L12 7L2 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const AUTO_ADVANCE_MS = 6000;
+
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
+    const total = Number(root.dataset.total ?? '1');
+    const slides = Array.from(root.querySelectorAll<HTMLElement>('[data-slide]'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-panel]'));
+    const counter = root.querySelector<HTMLElement>('[data-counter-current]');
+    const progress = root.querySelector<HTMLElement>('[data-progress]');
+    const prevBtn = root.querySelector<HTMLButtonElement>('[data-prev]');
+    const nextBtn = root.querySelector<HTMLButtonElement>('[data-next]');
+
+    let index = 0;
+    let timer: ReturnType<typeof setInterval> | undefined;
+
+    function render() {
+      slides.forEach((slide, i) => {
+        const active = i === index;
+        slide.style.opacity = active ? '1' : '0';
+        slide.style.pointerEvents = active ? 'auto' : 'none';
+        slide.setAttribute('aria-hidden', String(!active));
+      });
+      panels.forEach((panel, i) => {
+        panel.classList.toggle('hidden', i !== index);
+      });
+      if (counter) counter.textContent = String(index + 1).padStart(2, '0');
+      if (progress) progress.style.width = `${((index + 1) / total) * 100}%`;
+    }
+
+    function goTo(next: number) {
+      index = ((next % total) + total) % total;
+      render();
+    }
+
+    function restartTimer() {
+      if (timer) clearInterval(timer);
+      timer = setInterval(() => goTo(index + 1), AUTO_ADVANCE_MS);
+    }
+
+    prevBtn?.addEventListener('click', () => {
+      goTo(index - 1);
+      restartTimer();
+    });
+    nextBtn?.addEventListener('click', () => {
+      goTo(index + 1);
+      restartTimer();
+    });
+
+    render();
+    restartTimer();
+  });
+</script>

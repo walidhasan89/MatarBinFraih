@@ -1,0 +1,57 @@
+---
+// One cell of the 2×2 technology/capabilities grid — design-system.md §4.6.
+interface Props {
+  tone: 'accent' | 'white';
+  eyebrow?: string;
+  headline?: string;
+  description?: string;
+  stat?: string;
+  pillLabel?: string;
+  showToggle?: boolean;
+  class?: string;
+}
+
+const {
+  tone,
+  eyebrow,
+  headline,
+  description,
+  stat,
+  pillLabel,
+  showToggle = false,
+  class: className = '',
+} = Astro.props;
+
+const toneClasses =
+  tone === 'accent' ? 'bg-accent text-accent-ink' : 'bg-surface text-text-primary';
+---
+
+<div class={`flex min-h-[200px] flex-col justify-between rounded-card p-6 ${toneClasses} ${className}`}>
+  <div class="flex items-start justify-between">
+    {eyebrow && (
+      <span class="text-[11px] font-semibold uppercase tracking-wide opacity-70">{eyebrow}</span>
+    )}
+    {showToggle && (
+      <span class={`flex h-6 w-11 items-center rounded-pill p-1 ${tone === 'accent' ? 'bg-ink' : 'bg-ink'}`} aria-hidden="true">
+        <span class="h-4 w-4 rounded-pill bg-accent" />
+      </span>
+    )}
+  </div>
+
+  {stat && (
+    <p class="font-display text-5xl font-bold tracking-tightest">{stat}</p>
+  )}
+
+  {headline && (
+    <p class="mt-3 font-display text-xl font-bold leading-snug tracking-tightest">{headline}</p>
+  )}
+
+  {description && <p class={`mt-2 text-sm ${tone === 'accent' ? 'text-accent-ink/80' : 'text-text-secondary'}`}>{description}</p>}
+
+  {pillLabel && (
+    <span class="mt-4 inline-flex w-fit items-center gap-2 rounded-pill bg-ink px-4 py-2 text-xs font-medium text-text-inverse">
+      <span class="h-1.5 w-1.5 rounded-full bg-accent" />
+      {pillLabel}
+    </span>
+  )}
+</div>

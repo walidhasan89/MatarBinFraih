@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+  <pattern id="hyp3qt9" width="14" height="14" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+    <line x1="0" y1="0" x2="0" y2="14" stroke="#FFFFFF" stroke-opacity="0.05" stroke-width="2" />
+  </pattern></defs>
+  <rect width="1920" height="1080" fill="#101114"/>
+  <rect width="1920" height="1080" fill="url(#hyp3qt9)"/>
+  <g transform="translate(54,853.2) scale(0.8640000000000001)" color="#FFC01E"><rect x="70" y="40" width="20" height="40" fill="none" stroke="currentColor" stroke-width="4"/><rect x="40" y="80" width="80" height="34" rx="6" fill="none" stroke="currentColor" stroke-width="4"/><line x1="40" y1="97" x2="10" y2="97" stroke="currentColor" stroke-width="4"/><line x1="120" y1="97" x2="150" y2="97" stroke="currentColor" stroke-width="4"/><line x1="55" y1="30" x2="105" y2="30" stroke="currentColor" stroke-width="4"/></g>
+  <text x="240.8" y="948.672" font-family="Arial, sans-serif" font-size="25.92" fill="#6B6D72">Maintenance &amp; servicing — placeholder photo</text>
+</svg>

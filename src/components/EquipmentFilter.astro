@@ -1,0 +1,82 @@
+---
+// Category filter/toggle island for the equipment catalog. Reads/writes
+// ?category= in the URL so links like /equipment?category=storage-tanks
+// (used by ProjectCard on the homepage) land pre-filtered.
+import { EQUIPMENT_CATEGORIES } from '../lib/site';
+---
+
+<div class="flex flex-wrap gap-2" data-equipment-filter role="group" aria-label="Filter equipment by category">
+  <button
+    type="button"
+    class="rounded-pill px-4 py-2 text-sm font-medium transition"
+    data-filter-btn
+    data-category="all"
+  >
+    All Equipment
+  </button>
+  {
+    EQUIPMENT_CATEGORIES.map((cat) => (
+      <button type="button" class="rounded-pill px-4 py-2 text-sm font-medium transition" data-filter-btn data-category={cat.slug}>
+        {cat.label}
+      </button>
+    ))
+  }
+</div>
+
+<p class="mt-4 text-sm text-text-secondary" data-empty-state hidden>
+  No equipment found in this category yet.
+</p>
+
+<style>
+  [data-filter-btn] {
+    background-color: theme('colors.surface');
+    color: theme('colors.text.secondary');
+    border: 1px solid theme('colors.border.DEFAULT');
+  }
+  [data-filter-btn][aria-pressed='true'] {
+    background-color: theme('colors.accent.DEFAULT');
+    color: theme('colors.accent.ink');
+    border-color: theme('colors.accent.DEFAULT');
+  }
+</style>
+
+<script>
+  const filterRoot = document.querySelector<HTMLElement>('[data-equipment-filter]');
+  const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-filter-btn]'));
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-equipment-card]'));
+  const emptyState = document.querySelector<HTMLElement>('[data-empty-state]');
+
+  function applyFilter(category: string) {
+    let visibleCount = 0;
+    cards.forEach((card) => {
+      const match = category === 'all' || card.dataset.category === category;
+      card.classList.toggle('hidden', !match);
+      if (match) visibleCount += 1;
+    });
+    buttons.forEach((btn) => {
+      btn.setAttribute('aria-pressed', String(btn.dataset.category === category));
+    });
+    if (emptyState) emptyState.hidden = visibleCount !== 0;
+  }
+
+  function setCategory(category: string, pushState: boolean) {
+    applyFilter(category);
+    if (pushState) {
+      const url = new URL(window.location.href);
+      if (category === 'all') {
+        url.searchParams.delete('category');
+      } else {
+        url.searchParams.set('category', category);
+      }
+      window.history.replaceState({}, '', url);
+    }
+  }
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => setCategory(btn.dataset.category ?? 'all', true));
+  });
+
+  const initial = new URLSearchParams(window.location.search).get('category') ?? 'all';
+  setCategory(initial, false);
+  filterRoot?.setAttribute('data-ready', 'true');
+</script>

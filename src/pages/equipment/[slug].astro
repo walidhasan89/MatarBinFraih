@@ -4,7 +4,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PillTag from '../../components/PillTag.astro';
 import EquipmentCard from '../../components/EquipmentCard.astro';
 import ContactForm from '../../components/ContactForm.astro';
-import { equipmentCategoryLabel } from '../../lib/site';
+import { SITE, equipmentCategoryLabel } from '../../lib/site';
+import { breadcrumbSchema, productSchema } from '../../lib/schema';
 
 export async function getStaticPaths() {
   const equipment = await getCollection('equipment');
@@ -21,11 +22,23 @@ interface Props {
 
 const { item, all } = Astro.props;
 const { name, category, summary, description, specs, image, imageAlt } = item.data;
+const categoryLabel = equipmentCategoryLabel(category);
 
 const related = all.filter((e) => e.data.category === category && e.id !== item.id).slice(0, 3);
+
+const pageUrl = `${SITE.url}/equipment/${item.id}`;
+const seoDescription = `${summary} Available for rent from MBF in Abu Dhabi, UAE — part of our ${categoryLabel.toLowerCase()} equipment catalog.`;
+const pageSchema = [
+  breadcrumbSchema([
+    { name: 'Home', url: SITE.url },
+    { name: 'Equipment', url: `${SITE.url}/equipment` },
+    { name, url: pageUrl },
+  ]),
+  productSchema({ name, description: summary, image, url: pageUrl, category: categoryLabel }),
+];
 ---
 
-<BaseLayout title={name} description={summary}>
+<BaseLayout title={`${name} for Rent in Abu Dhabi`} description={seoDescription} ogType="product" schema={pageSchema}>
   <section class="container-page py-12">
     <nav class="text-sm text-text-secondary" aria-label="Breadcrumb">
       <a href="/equipment" class="hover:text-text-primary">Equipment</a>

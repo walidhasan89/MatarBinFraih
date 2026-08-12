@@ -4,9 +4,15 @@ import PillTag from '../components/PillTag.astro';
 import Button from '../components/Button.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import MixedText from '../components/MixedText.astro';
-import { currentYearsInOperation } from '../lib/site';
+import { SITE, currentYearsInOperation } from '../lib/site';
+import { breadcrumbSchema } from '../lib/schema';
 
 const years = currentYearsInOperation();
+
+const pageSchema = breadcrumbSchema([
+  { name: 'Home', url: SITE.url },
+  { name: 'About Us', url: `${SITE.url}/about` },
+]);
 
 const milestones = [
   { year: '1998', label: 'MBF founded in Abu Dhabi to provide oil and gas logistics and well-site equipment.' },
@@ -17,8 +23,9 @@ const milestones = [
 ---
 
 <BaseLayout
-  title="About MBF"
-  description="Matar Bin Fraih Trading & Oilfield Equipment Rental was established in 1998 to provide oil and gas logistics and well-site equipment from Abu Dhabi, UAE."
+  title="About Us — Oilfield Equipment Manufacturer in Abu Dhabi Since 1998"
+  description="Matar Bin Fraih Trading & Oilfield Equipment Rental was established in 1998 to provide oil and gas logistics and well-site equipment from Abu Dhabi, UAE. HSEQ certified, locally manufactured."
+  schema={pageSchema}
 >
   <section class="bg-ink-soft py-20 text-text-inverse sm:py-28">
     <div class="container-page">

@@ -4,6 +4,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PillTag from '../../components/PillTag.astro';
 import EquipmentCard from '../../components/EquipmentCard.astro';
 import ContactForm from '../../components/ContactForm.astro';
+import { SITE } from '../../lib/site';
+import { breadcrumbSchema, serviceSchema } from '../../lib/schema';
 
 export async function getStaticPaths() {
   const services = await getCollection('services');
@@ -26,9 +28,19 @@ const caravanEquipment =
   service.id === 'caravan-manufacturing'
     ? equipment.filter((e) => e.data.category === 'caravans-cabins')
     : [];
+
+const pageUrl = `${SITE.url}/services/${service.id}`;
+const pageSchema = [
+  breadcrumbSchema([
+    { name: 'Home', url: SITE.url },
+    { name: 'Services', url: `${SITE.url}/services` },
+    { name, url: pageUrl },
+  ]),
+  serviceSchema({ name, description: shortSummary, url: pageUrl }),
+];
 ---
 
-<BaseLayout title={name} description={shortSummary}>
+<BaseLayout title={`${name} in Abu Dhabi`} description={shortSummary} schema={pageSchema}>
   <section class="container-page py-12">
     <nav class="text-sm text-text-secondary" aria-label="Breadcrumb">
       <a href="/services" class="hover:text-text-primary">Services</a>

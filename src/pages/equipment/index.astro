@@ -5,13 +5,21 @@ import PillTag from '../../components/PillTag.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import EquipmentCard from '../../components/EquipmentCard.astro';
 import EquipmentFilter from '../../components/EquipmentFilter.astro';
+import { SITE } from '../../lib/site';
+import { breadcrumbSchema } from '../../lib/schema';
 
 const equipment = (await getCollection('equipment')).sort((a, b) => a.data.name.localeCompare(b.data.name));
+
+const pageSchema = breadcrumbSchema([
+  { name: 'Home', url: SITE.url },
+  { name: 'Equipment', url: `${SITE.url}/equipment` },
+]);
 ---
 
 <BaseLayout
-  title="Equipment Catalog"
-  description="Browse MBF's full oilfield equipment catalog — storage tanks, pumps, well-control equipment, caravans & cabins, and specialized units, available for rental in Abu Dhabi."
+  title="Oilfield Equipment Rental Catalog — Storage Tanks, Pumps & Caravans"
+  description="Browse MBF's full oilfield equipment catalog in Abu Dhabi — storage tanks, pumps, well-control equipment, caravans & cabins, and specialized units, all available for rental."
+  schema={pageSchema}
 >
   <section class="bg-ink-soft py-20 text-text-inverse sm:py-28">
     <div class="container-page">

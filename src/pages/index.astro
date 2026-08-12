@@ -12,13 +12,79 @@ import TechDiagram from '../components/TechDiagram.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import ServiceCarousel from '../components/ServiceCarousel.astro';
 import TestimonialCard from '../components/TestimonialCard.astro';
+import IconFeatureCard from '../components/IconFeatureCard.astro';
+import EquipmentCard from '../components/EquipmentCard.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
 import { currentYearsInOperation, SITE } from '../lib/site';
+import { faqSchema } from '../lib/schema';
 
 const projects = (await getCollection('projects')).sort((a, b) =>
   a.data.featured === b.data.featured ? 0 : a.data.featured ? 1 : -1
 );
 const testimonials = await getCollection('testimonials');
 const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const featuredEquipment = (await getCollection('equipment')).filter((e) => e.data.featured).slice(0, 4);
+
+const years = currentYearsInOperation();
+
+const differentiators = [
+  {
+    icon: 'shield' as const,
+    title: 'Certified HSEQ System',
+    description:
+      'One of the few oilfield equipment companies in the Middle East with a certified, fully-integrated HSEQ management system, run on a zero lost-time-injury standard.',
+  },
+  {
+    icon: 'factory' as const,
+    title: 'Locally Manufactured',
+    description:
+      'Storage tanks, batch mixers and caravans are fabricated in-house at our Abu Dhabi facility, sandblasted and coated to spec, not imported or subcontracted.',
+  },
+  {
+    icon: 'clock' as const,
+    title: `${years}+ Years in the Field`,
+    description: `Serving oil & gas operators since ${SITE.foundedYear}, with equipment proven across well sites throughout the UAE.`,
+  },
+  {
+    icon: 'wrench' as const,
+    title: 'Full-Service Support',
+    description:
+      'From rental and delivery to on-site maintenance and tank cleaning, one team handles the full equipment lifecycle — not a handoff between vendors.',
+  },
+];
+
+const faqs = [
+  {
+    question: 'What areas does MBF serve?',
+    answer:
+      'MBF is based in Madinat Zayed, Abu Dhabi, and serves oil & gas operators across Abu Dhabi and the wider UAE region.',
+  },
+  {
+    question: 'What equipment can I rent from MBF?',
+    answer:
+      'Storage tanks, pumps, well-control equipment (choke manifolds and surface safety valves), caravans & cabins, and specialized units like coil tubing and nitrogen pumps. Browse the full equipment catalog for specs on every unit.',
+  },
+  {
+    question: 'Is MBF\'s equipment HSEQ certified?',
+    answer:
+      'Yes. MBF is one of the few companies in the Middle East with a certified, fully-integrated Health, Safety, Environment and Quality (HSEQ) management system, applied across our rental fleet and services.',
+  },
+  {
+    question: 'Do you offer caravans on a lease-to-own basis?',
+    answer:
+      'Yes — our caravan manufacturing service includes a 12-month lease-to-own installment plan alongside outright purchase. See current unit pricing on the Caravan Manufacturing service page.',
+  },
+  {
+    question: 'How do I request a data sheet or quote?',
+    answer:
+      'Use the "Request Data Sheet" button on any equipment page, fill out our contact form, or message us directly on WhatsApp for a fast response.',
+  },
+  {
+    question: 'Do you provide maintenance after I rent equipment?',
+    answer:
+      'Yes — MBF\'s Maintenance service covers transfer pumps, triplex pumps, caravans, tanks and acid injectors, held to the same HSEQ standard as our rental fleet. Tank Cleaning is available separately for acid, water, crude oil and mud tanks.',
+  },
+];
 
 const carouselSlides = [
   {
@@ -45,12 +111,13 @@ const carouselSlides = [
   }),
 ];
 
-const years = currentYearsInOperation();
+const pageSchema = faqSchema(faqs);
 ---
 
 <BaseLayout
-  title="Matar Bin Fraih — Oilfield Equipment Manufacturing & Rental, Abu Dhabi"
-  description="Matar Bin Fraih Trading & Oilfield Equipment Rental provides specialist oilfield equipment and services from our base in Abu Dhabi, UAE."
+  title="Oilfield Equipment Rental & Manufacturing in Abu Dhabi | Matar Bin Fraih"
+  description="Matar Bin Fraih (MBF) supplies storage tanks, pumps, well-control equipment and caravans for rent in Abu Dhabi, UAE, plus tank cleaning, maintenance and caravan manufacturing — HSEQ certified since 1998."
+  schema={pageSchema}
 >
   <!-- Hero — design-system.md §4.2 -->
   <section class="relative flex min-h-[80vh] items-end overflow-hidden bg-ink text-text-inverse">
@@ -137,6 +204,18 @@ const years = currentYearsInOperation();
     </div>
   </section>
 
+  <!-- Why Choose MBF — differentiators -->
+  <section class="container-page pb-section">
+    <SectionHeading eyebrow="Why MBF" lineOne="Built on certified," lineTwo="hands-on reliability." />
+    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        differentiators.map((item) => (
+          <IconFeatureCard icon={item.icon} title={item.title} description={item.description} />
+        ))
+      }
+    </div>
+  </section>
+
   <!-- Technology / Capabilities — design-system.md §4.6 -->
   <section class="container-page py-section">
     <div class="grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-end">
@@ -170,6 +249,28 @@ const years = currentYearsInOperation();
         />
       </div>
       <TechDiagram class="min-h-[320px]" />
+    </div>
+  </section>
+
+  <!-- Featured Equipment — showcases real catalog items + internal links into /equipment -->
+  <section class="container-page py-section">
+    <div class="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
+      <SectionHeading eyebrow="Featured Equipment" lineOne="Ready to deploy," lineTwo="available now." />
+      <Button href="/equipment" variant="secondary" class="shrink-0">View Full Catalog</Button>
+    </div>
+    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        featuredEquipment.map((item) => (
+          <EquipmentCard
+            slug={item.id}
+            name={item.data.name}
+            category={item.data.category}
+            summary={item.data.summary}
+            image={item.data.image}
+            imageAlt={item.data.imageAlt}
+          />
+        ))
+      }
     </div>
   </section>
 
@@ -242,6 +343,22 @@ const years = currentYearsInOperation();
           />
         ))
       }
+    </div>
+  </section>
+
+  <!-- FAQ — real Q&A grounded in site content, native <details> accordion so
+       the answer text is crawlable without JS, matched by FAQPage JSON-LD. -->
+  <section class="container-page pb-section">
+    <div class="grid gap-10 lg:grid-cols-[1fr_1.6fr]">
+      <div>
+        <SectionHeading eyebrow="FAQs" lineOne="Common questions" lineTwo="about renting from MBF." />
+        <p class="mt-4 max-w-sm text-sm text-text-secondary">
+          Can't find what you're looking for?
+          <a href="/contact" class="font-semibold text-text-primary hover:underline">Contact our team</a>
+          directly.
+        </p>
+      </div>
+      <FaqAccordion faqs={faqs} />
     </div>
   </section>
 </BaseLayout>

@@ -6,6 +6,7 @@ import SectionHeading from '../components/SectionHeading.astro';
 import ContactForm from '../components/ContactForm.astro';
 import TeamCard from '../components/TeamCard.astro';
 import { SITE } from '../lib/site';
+import { breadcrumbSchema } from '../lib/schema';
 
 const team = await getCollection('team');
 
@@ -14,11 +15,17 @@ const infoCards = [
   { label: 'Our Phones', value: `${SITE.phone} / ${SITE.mobile}`, href: `tel:${SITE.phone.replace(/\s/g, '')}` },
   { label: 'Our Address', value: SITE.address, href: SITE.mapsUrl },
 ];
+
+const pageSchema = breadcrumbSchema([
+  { name: 'Home', url: SITE.url },
+  { name: 'Contact', url: `${SITE.url}/contact` },
+]);
 ---
 
 <BaseLayout
-  title="Contact Us"
+  title="Contact Us — Oilfield Equipment Rental in Abu Dhabi, UAE"
   description="Get in touch with Matar Bin Fraih Trading & Oilfield Equipment Rental in Abu Dhabi, UAE — phone, email, WhatsApp and our team's direct contacts."
+  schema={pageSchema}
 >
   <section class="bg-ink-soft py-20 text-text-inverse sm:py-28">
     <div class="container-page">

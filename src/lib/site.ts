@@ -10,9 +10,15 @@ export const SITE = {
   fax: '+971 2 55 388 67',
   email: 'info@matarbinfraih.com',
   address: 'Abu Rayyal St, Madinat Zayed, Abu Dhabi, UAE',
+  addressLocality: 'Madinat Zayed',
+  addressRegion: 'Abu Dhabi',
+  addressCountry: 'AE',
   mapsUrl: 'https://goo.gl/maps/YD73TKCYau5ChDJy7',
   mapEmbedUrl:
     'https://maps.google.com/maps?q=23%C2%B039%2712.5%22N%2053%C2%B044%2728.2%22E&z=15&output=embed',
+  // 23°39'12.5"N 53°44'28.2"E converted to decimal degrees, for geo meta tags + LocalBusiness schema.
+  latitude: 23.6535,
+  longitude: 53.7412,
   whatsapp: 'https://wa.me/971506143903',
   linkedin: 'https://www.linkedin.com/company/matar-bin-fraih-trading/',
 } as const;

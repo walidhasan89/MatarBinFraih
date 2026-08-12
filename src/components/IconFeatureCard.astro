@@ -1,0 +1,32 @@
+---
+// Simple line-art icon + headline + description card, used for the
+// homepage "Why Choose MBF" differentiator row. Icons are hand-drawn
+// inline SVG (same technique as TechDiagram.astro) to avoid an icon
+// library dependency.
+interface Props {
+  icon: 'shield' | 'factory' | 'clock' | 'wrench';
+  title: string;
+  description: string;
+}
+
+const { icon, title, description } = Astro.props;
+
+const icons: Record<string, string> = {
+  shield:
+    '<path d="M16 3L27 7V15C27 22 22 26.5 16 29C10 26.5 5 22 5 15V7L16 3Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M11 15.5L14.5 19L21.5 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>',
+  factory:
+    '<path d="M4 27V14L11 18V14L18 18V10L27 15V27H4Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 27V21M15 27V21M21 27V21" stroke="currentColor" stroke-width="1.6"/><path d="M20 10V5H24V9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>',
+  clock:
+    '<circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M16 9V16L21 19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>',
+  wrench:
+    '<path d="M22.5 6.5a6 6 0 00-8 7l-9 9a2.1 2.1 0 003 3l9-9a6 6 0 007-8l-4 4-3-3z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>',
+};
+---
+
+<div class="rounded-card-lg bg-surface p-6">
+  <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-ink text-accent">
+    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true" set:html={icons[icon]} />
+  </span>
+  <p class="mt-4 font-display text-lg font-bold leading-snug tracking-tightest text-text-primary">{title}</p>
+  <p class="mt-2 text-sm text-text-secondary">{description}</p>
+</div>

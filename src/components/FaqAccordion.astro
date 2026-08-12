@@ -1,0 +1,30 @@
+---
+// Zero-JS accordion built on native <details>/<summary> — fully accessible,
+// keyboard-operable out of the box, and the answer text is real DOM content
+// (not hidden behind client JS), which matters both for users and for
+// crawlers reading it alongside the matching FAQPage JSON-LD.
+interface Props {
+  faqs: { question: string; answer: string }[];
+  class?: string;
+}
+
+const { faqs, class: className = '' } = Astro.props;
+---
+
+<div class={`divide-y divide-border overflow-hidden rounded-card-lg bg-surface ${className}`}>
+  {
+    faqs.map((faq) => (
+      <details class="group px-6 py-5 sm:px-8">
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-base font-bold tracking-tightest text-text-primary sm:text-lg">
+          {faq.question}
+          <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-pill bg-bg text-text-primary transition-transform duration-200 group-open:rotate-45">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M7 1V13M1 7H13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+            </svg>
+          </span>
+        </summary>
+        <p class="mt-3 max-w-2xl text-sm text-text-secondary sm:text-base">{faq.answer}</p>
+      </details>
+    ))
+  }
+</div>

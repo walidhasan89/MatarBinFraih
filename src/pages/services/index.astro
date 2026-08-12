@@ -4,8 +4,15 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PillTag from '../../components/PillTag.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import Button from '../../components/Button.astro';
+import { SITE } from '../../lib/site';
+import { breadcrumbSchema } from '../../lib/schema';
 
 const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+
+const pageSchema = breadcrumbSchema([
+  { name: 'Home', url: SITE.url },
+  { name: 'Services', url: `${SITE.url}/services` },
+]);
 
 const tiles = [
   {
@@ -28,8 +35,9 @@ const tiles = [
 ---
 
 <BaseLayout
-  title="Our Services"
-  description="MBF provides equipment rental, tank cleaning, maintenance and caravan manufacturing services, backed by a certified fully-integrated HSEQ management system."
+  title="Oilfield Services — Equipment Rental, Tank Cleaning & Caravan Manufacturing"
+  description="MBF provides equipment rental, tank cleaning, maintenance and caravan manufacturing services in Abu Dhabi, backed by a certified fully-integrated HSEQ management system."
+  schema={pageSchema}
 >
   <section class="bg-ink-soft py-20 text-text-inverse sm:py-28">
     <div class="container-page">

@@ -1,0 +1,40 @@
+---
+// Soft, slow-drifting blurred gradient blobs — a decorative background
+// layer for sections that sit on a flat page background and want some
+// depth without a photo. Purely CSS (transform-only keyframes), absolutely
+// positioned behind the section's real content (caller adds `relative` +
+// `isolate` to its own wrapper and stacks content with a higher z-index).
+interface Props {
+  tone?: 'amber' | 'dark' | 'mixed';
+  class?: string;
+}
+
+const { tone = 'mixed', class: className = '' } = Astro.props;
+---
+
+<div class={`pointer-events-none absolute inset-0 -z-10 overflow-hidden ${className}`} aria-hidden="true">
+  {
+    (tone === 'amber' || tone === 'mixed') && (
+      <div
+        class="absolute -left-[10%] -top-[20%] h-[55%] w-[55%] rounded-full opacity-40 blur-[90px]"
+        style="background: radial-gradient(circle, #FFC01E 0%, transparent 70%); animation: mesh-drift-a 22s ease-in-out infinite;"
+      />
+    )
+  }
+  {
+    (tone === 'dark' || tone === 'mixed') && (
+      <div
+        class="absolute -right-[10%] top-[10%] h-[50%] w-[50%] rounded-full opacity-[0.15] blur-[100px]"
+        style="background: radial-gradient(circle, #101114 0%, transparent 70%); animation: mesh-drift-b 26s ease-in-out infinite;"
+      />
+    )
+  }
+  {
+    tone === 'mixed' && (
+      <div
+        class="absolute bottom-[-15%] left-[30%] h-[45%] w-[45%] rounded-full opacity-25 blur-[90px]"
+        style="background: radial-gradient(circle, #FFE8A8 0%, transparent 70%); animation: mesh-drift-b 30s ease-in-out infinite;"
+      />
+    )
+  }
+</div>

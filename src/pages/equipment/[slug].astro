@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PillTag from '../../components/PillTag.astro';
 import EquipmentCard from '../../components/EquipmentCard.astro';
 import ContactForm from '../../components/ContactForm.astro';
+import GradientMesh from '../../components/GradientMesh.astro';
 import { SITE, equipmentCategoryLabel } from '../../lib/site';
 import { breadcrumbSchema, productSchema } from '../../lib/schema';
 
@@ -52,9 +53,10 @@ const pageSchema = [
         alt={imageAlt}
         loading="eager"
         class="aspect-[4/3] w-full rounded-card-lg object-cover"
+        data-reveal
       />
 
-      <div>
+      <div data-reveal data-reveal-delay="120">
         <PillTag label={equipmentCategoryLabel(category)} />
         <h1 class="mt-4 font-display text-3xl font-bold leading-tight tracking-tightest text-text-primary sm:text-4xl">
           {name}
@@ -80,13 +82,14 @@ const pageSchema = [
   </section>
 
   <section class="container-page pb-section">
-    <div class="rounded-card-lg bg-ink p-8 text-text-inverse sm:p-10">
-      <p class="font-display text-2xl font-bold tracking-tightest">Request a Data Sheet</p>
-      <p class="mt-2 max-w-lg text-sm text-text-inverse-muted">
+    <div class="relative isolate overflow-hidden rounded-card-lg bg-ink p-8 text-text-inverse sm:p-10" data-reveal>
+      <GradientMesh tone="amber" class="opacity-30" />
+      <p class="relative font-display text-2xl font-bold tracking-tightest">Request a Data Sheet</p>
+      <p class="relative mt-2 max-w-lg text-sm text-text-inverse-muted">
         Send us your project details and we'll get back to you with pricing, availability and the full spec
         sheet for the {name}.
       </p>
-      <div class="mt-8">
+      <div class="relative mt-8">
         <ContactForm
           presetMessage={`Hello, I'm interested in the ${name}. Please send me the data sheet and availability.`}
           whatsappMessage={`Hello, I'm interested in learning more about your ${name}.`}
@@ -99,19 +102,21 @@ const pageSchema = [
   {
     related.length > 0 && (
       <section class="container-page pb-section">
-        <p class="font-display text-2xl font-bold tracking-tightest text-text-primary">
+        <p class="font-display text-2xl font-bold tracking-tightest text-text-primary" data-reveal>
           More in {equipmentCategoryLabel(category)}
         </p>
         <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {related.map((r) => (
-            <EquipmentCard
-              slug={r.id}
-              name={r.data.name}
-              category={r.data.category}
-              summary={r.data.summary}
-              image={r.data.image}
-              imageAlt={r.data.imageAlt}
-            />
+          {related.map((r, i) => (
+            <div data-reveal data-reveal-delay={String(i * 90)}>
+              <EquipmentCard
+                slug={r.id}
+                name={r.data.name}
+                category={r.data.category}
+                summary={r.data.summary}
+                image={r.data.image}
+                imageAlt={r.data.imageAlt}
+              />
+            </div>
           ))}
         </div>
       </section>

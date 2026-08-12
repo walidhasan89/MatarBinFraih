@@ -4,6 +4,8 @@ import PillTag from '../components/PillTag.astro';
 import Button from '../components/Button.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import MixedText from '../components/MixedText.astro';
+import GradientMesh from '../components/GradientMesh.astro';
+import PageHero from '../components/PageHero.astro';
 import { SITE, currentYearsInOperation } from '../lib/site';
 import { breadcrumbSchema } from '../lib/schema';
 
@@ -27,23 +29,16 @@ const milestones = [
   description="Matar Bin Fraih Trading & Oilfield Equipment Rental was established in 1998 to provide oil and gas logistics and well-site equipment from Abu Dhabi, UAE. HSEQ certified, locally manufactured."
   schema={pageSchema}
 >
-  <section class="bg-ink-soft py-20 text-text-inverse sm:py-28">
-    <div class="container-page">
-      <PillTag label="About MBF" />
-      <h1 class="mt-6 font-display text-4xl font-bold leading-[0.95] tracking-tightest sm:text-6xl">
-        Established in 1998 to
-        <span class="block text-text-inverse-muted">equip the region's well sites.</span>
-      </h1>
-      <p class="mt-6 max-w-xl text-sm text-text-inverse-muted sm:text-base">
-        Matar Bin Fraih Trading &amp; Oilfield Equipment Rental was established in 1998 to provide oil and gas
-        logistics and well-site equipment.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    eyebrow="About MBF"
+    lineOne="Established in 1998 to"
+    lineTwo="equip the region's well sites."
+    intro="Matar Bin Fraih Trading & Oilfield Equipment Rental was established in 1998 to provide oil and gas logistics and well-site equipment."
+  />
 
   <!-- Who we are -->
   <section class="container-page py-section">
-    <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
+    <div class="grid gap-10 lg:grid-cols-2 lg:items-center" data-reveal>
       <div>
         <PillTag label="Who We Are" class="mb-4" />
         <p class="font-display text-2xl font-medium leading-snug tracking-tightest text-text-primary sm:text-3xl">
@@ -59,18 +54,22 @@ const milestones = [
         </p>
       </div>
       <img
-        src="/images/about/about-facility.svg"
-        alt="500 BBL Acid Storage Tank, skid mounted — placeholder photo — TODO: replace with real MBF facility photo"
+        src="/images/about/about-facility.webp"
+        alt="MBF mixing skid unit fabricated at our Abu Dhabi facility"
         loading="lazy"
-        class="aspect-[4/3] w-full rounded-card-lg object-cover"
+        class="aspect-[4/3] w-full rounded-card-lg object-cover transition-transform duration-500 hover:scale-[1.02]"
       />
     </div>
 
     <!-- Milestones -->
     <div class="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {
-        milestones.map((m) => (
-          <div class="rounded-card-lg bg-surface p-6">
+        milestones.map((m, i) => (
+          <div
+            class="rounded-card-lg bg-surface p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg"
+            data-reveal
+            data-reveal-delay={String(i * 90)}
+          >
             <span class="inline-flex rounded-pill bg-accent px-3 py-1 text-sm font-semibold text-accent-ink">
               {m.year}
             </span>
@@ -83,8 +82,13 @@ const milestones = [
 
   <!-- HSEQ certification callout -->
   <section class="container-page pb-section">
-    <div class="hatch-pattern rounded-card-lg bg-ink p-8 text-text-inverse sm:p-12">
-      <div class="grid gap-8 lg:grid-cols-[1fr_2fr] lg:items-center">
+    <div class="hatch-pattern relative isolate overflow-hidden rounded-card-lg bg-ink p-8 text-text-inverse sm:p-12" data-reveal>
+      <div
+        class="pointer-events-none absolute -right-[10%] -top-[30%] h-[70%] w-[40%] rounded-full opacity-30 blur-[80px]"
+        style="background: radial-gradient(circle, #FFC01E 0%, transparent 70%);"
+        aria-hidden="true"
+      />
+      <div class="relative grid gap-8 lg:grid-cols-[1fr_2fr] lg:items-center">
         <PillTag label="HSEQ Certified" />
         <p class="font-display text-2xl font-medium leading-snug tracking-tightest sm:text-3xl">
           <MixedText
@@ -99,15 +103,18 @@ const milestones = [
 
   <!-- Managing Director Statement -->
   <section class="container-page py-section">
-    <SectionHeading eyebrow="Leadership" lineOne="A message from our" lineTwo="Managing Director." />
+    <div data-reveal>
+      <SectionHeading eyebrow="Leadership" lineOne="A message from our" lineTwo="Managing Director." />
+    </div>
     <div class="mt-10 grid gap-10 lg:grid-cols-[1fr_2fr] lg:items-start">
       <img
         src="/images/about/md-portrait.svg"
         alt="Portrait of Matar Mohamed Fraih Al Qubaisi, Managing Director — placeholder photo — TODO: replace with real MBF portrait"
         loading="lazy"
         class="aspect-[4/5] w-full max-w-xs rounded-card-lg object-cover"
+        data-reveal
       />
-      <div class="space-y-5 text-sm leading-relaxed text-text-secondary sm:text-base">
+      <div class="space-y-5 text-sm leading-relaxed text-text-secondary sm:text-base" data-reveal data-reveal-delay="120">
         <p>
           Our business plan is focused on providing superior and cost-effective petroleum services to a wide
           range of markets using products and services, the experience of our diverse management team,
@@ -156,7 +163,7 @@ const milestones = [
 
   <!-- CSR — fresh, unique copy (not a duplicate of the homepage "Who We Are" paragraph, per the content audit). -->
   <section class="container-page pb-section">
-    <div class="grid gap-8 lg:grid-cols-[1fr_2fr] lg:items-start">
+    <div class="grid gap-8 lg:grid-cols-[1fr_2fr] lg:items-start" data-reveal>
       <PillTag label="Corporate Social Responsibility" class="w-fit" />
       <div class="space-y-4 text-sm text-text-secondary sm:text-base">
         <h2 class="font-display text-2xl font-bold leading-snug tracking-tightest text-text-primary sm:text-3xl">
@@ -184,15 +191,16 @@ const milestones = [
   </section>
 
   <section class="container-page pb-section">
-    <div class="rounded-card-lg bg-surface p-8 text-center sm:p-12">
-      <p class="font-display text-2xl font-bold tracking-tightest text-text-primary sm:text-3xl">
+    <div class="relative isolate overflow-hidden rounded-card-lg bg-surface p-8 text-center sm:p-12" data-reveal>
+      <GradientMesh tone="amber" class="opacity-40" />
+      <p class="relative font-display text-2xl font-bold tracking-tightest text-text-primary sm:text-3xl">
         Ready to work with MBF?
       </p>
-      <p class="mx-auto mt-3 max-w-md text-sm text-text-secondary">
+      <p class="relative mx-auto mt-3 max-w-md text-sm text-text-secondary">
         Get in touch to discuss equipment rental, tank cleaning, maintenance or caravan manufacturing.
       </p>
-      <div class="mt-6 flex justify-center">
-        <Button href="/contact" variant="primary">Contact Us</Button>
+      <div class="relative mt-6 flex justify-center">
+        <Button href="/contact" variant="primary" class="glossy">Contact Us</Button>
       </div>
     </div>
   </section>

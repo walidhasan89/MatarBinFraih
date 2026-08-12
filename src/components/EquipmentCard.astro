@@ -15,7 +15,7 @@ const { slug, name, category, summary, image, imageAlt } = Astro.props;
 
 <a
   href={`/equipment/${slug}`}
-  class="group flex flex-col overflow-hidden rounded-card-lg bg-surface transition hover:-translate-y-1 hover:shadow-lg"
+  class="group flex flex-col overflow-hidden rounded-card-lg bg-surface transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:ring-1 hover:ring-accent/40"
   data-equipment-card
   data-category={category}
 >

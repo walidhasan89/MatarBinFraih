@@ -19,19 +19,23 @@ function isActive(href: string): boolean {
   order, decides which wins), and a single translucent bar already reads
   fine over both the hero photo and plain page backgrounds.
 -->
-<header class="sticky top-0 z-50 w-full bg-ink-soft/90 backdrop-blur" data-navbar>
+<header
+  class="glass-dark sticky top-0 z-50 w-full border-x-0 border-t-0 border-b-accent/20"
+  data-navbar
+>
   <nav class="container-page flex items-center justify-between gap-4 py-4">
-    <a href="/" class="flex shrink-0 items-center gap-2 text-text-inverse" aria-label="MBF home">
-      <svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true">
-        <rect width="64" height="64" rx="14" fill="#FFC01E"/>
-        <rect x="14" y="34" width="8" height="18" fill="#101114"/>
-        <rect x="26" y="24" width="8" height="28" fill="#101114"/>
-        <rect x="38" y="14" width="8" height="38" fill="#101114"/>
-      </svg>
+    <a href="/" class="group flex shrink-0 items-center gap-2 text-text-inverse" aria-label="MBF home">
+      <img
+        src="/images/brand/icon.png"
+        alt=""
+        width="32"
+        height="44"
+        class="h-11 w-auto transition-transform duration-300 group-hover:scale-110"
+      />
       <span class="font-display text-lg font-bold tracking-tightest">MBF</span>
     </a>
 
-    <div class="hidden items-center gap-2 rounded-pill bg-ink-soft/80 p-1.5 backdrop-blur md:flex">
+    <div class="hidden items-center gap-2 rounded-pill bg-white/5 p-1.5 backdrop-blur md:flex">
       {
         NAV_LINKS.map((link) => (
           <a

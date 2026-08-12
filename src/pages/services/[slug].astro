@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PillTag from '../../components/PillTag.astro';
 import EquipmentCard from '../../components/EquipmentCard.astro';
 import ContactForm from '../../components/ContactForm.astro';
+import GradientMesh from '../../components/GradientMesh.astro';
 import { SITE } from '../../lib/site';
 import { breadcrumbSchema, serviceSchema } from '../../lib/schema';
 
@@ -49,7 +50,7 @@ const pageSchema = [
     </nav>
 
     <div class="mt-8 grid gap-10 lg:grid-cols-2 lg:items-center">
-      <div>
+      <div data-reveal>
         <PillTag label="Our Services" />
         <h1 class="mt-4 font-display text-3xl font-bold leading-tight tracking-tightest text-text-primary sm:text-5xl">
           {name}
@@ -58,13 +59,20 @@ const pageSchema = [
           {body.map((paragraph) => <p>{paragraph}</p>)}
         </div>
       </div>
-      <img src={image} alt={imageAlt} loading="eager" class="aspect-[4/3] w-full rounded-card-lg object-cover" />
+      <img
+        src={image}
+        alt={imageAlt}
+        loading="eager"
+        class="aspect-[4/3] w-full rounded-card-lg object-cover"
+        data-reveal
+        data-reveal-delay="120"
+      />
     </div>
   </section>
 
   {
     priceTable && priceTable.length > 0 && (
-      <section class="container-page pb-section">
+      <section class="container-page pb-section" data-reveal>
         <p class="font-display text-2xl font-bold tracking-tightest text-text-primary">
           Lease-to-Own Pricing <span class="text-text-secondary">(12-Month Installments)</span>
         </p>
@@ -103,17 +111,21 @@ const pageSchema = [
   {
     caravanEquipment.length > 0 && (
       <section class="container-page pb-section">
-        <p class="font-display text-2xl font-bold tracking-tightest text-text-primary">Caravan Variants</p>
+        <p class="font-display text-2xl font-bold tracking-tightest text-text-primary" data-reveal>
+          Caravan Variants
+        </p>
         <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {caravanEquipment.map((item) => (
-            <EquipmentCard
-              slug={item.id}
-              name={item.data.name}
-              category={item.data.category}
-              summary={item.data.summary}
-              image={item.data.image}
-              imageAlt={item.data.imageAlt}
-            />
+          {caravanEquipment.map((item, i) => (
+            <div data-reveal data-reveal-delay={String((i % 3) * 90)}>
+              <EquipmentCard
+                slug={item.id}
+                name={item.data.name}
+                category={item.data.category}
+                summary={item.data.summary}
+                image={item.data.image}
+                imageAlt={item.data.imageAlt}
+              />
+            </div>
           ))}
         </div>
       </section>
@@ -121,12 +133,13 @@ const pageSchema = [
   }
 
   <section class="container-page pb-section">
-    <div class="rounded-card-lg bg-ink p-8 text-text-inverse sm:p-10">
-      <p class="font-display text-2xl font-bold tracking-tightest">Get a Quote for {name}</p>
-      <p class="mt-2 max-w-lg text-sm text-text-inverse-muted">
+    <div class="relative isolate overflow-hidden rounded-card-lg bg-ink p-8 text-text-inverse sm:p-10" data-reveal>
+      <GradientMesh tone="amber" class="opacity-30" />
+      <p class="relative font-display text-2xl font-bold tracking-tightest">Get a Quote for {name}</p>
+      <p class="relative mt-2 max-w-lg text-sm text-text-inverse-muted">
         Tell us about your site and timeline and we'll follow up with pricing and availability.
       </p>
-      <div class="mt-8">
+      <div class="relative mt-8">
         <ContactForm
           presetMessage={`Hello, I'm interested in your ${name}. Please send me more information.`}
           whatsappMessage={`Hello, I'm interested in learning more about your ${name}.`}

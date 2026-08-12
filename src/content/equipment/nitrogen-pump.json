@@ -9,7 +9,7 @@
     "Output temperature approximately 20°C (70°F)",
     "Rated to 10,000 psi (690 bar), or 14,500 psi (1,000 bar) with PED-approved vaporizer pot"
   ],
-  "image": "/images/equipment/nitrogen-pump.svg",
-  "imageAlt": "Placeholder image of a nitrogen pump unit — TODO: replace with real MBF photo",
+  "image": "/images/equipment/nitrogen-pump.webp",
+  "imageAlt": "MBF nitrogen pump unit",
   "featured": true
 }

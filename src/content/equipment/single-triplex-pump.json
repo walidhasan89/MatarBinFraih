@@ -9,7 +9,7 @@
     "MAWP: 10,000 psi",
     "Minimum rate: 2.5 BPM @ 6,290 psi"
   ],
-  "image": "/images/equipment/single-triplex-pump.svg",
-  "imageAlt": "Placeholder image of a single triplex pump skid — TODO: replace with real MBF photo",
+  "image": "/images/equipment/single-triplex-pump.webp",
+  "imageAlt": "MBF single triplex pump skid",
   "featured": false
 }

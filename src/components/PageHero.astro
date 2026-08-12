@@ -1,0 +1,29 @@
+---
+// Shared dark header band for inner pages (About, Equipment, Services,
+// Contact) — eyebrow pill + two-tone H1 + intro paragraph, over an amber
+// gradient-mesh glow. Extracted once several pages needed the identical
+// structure rather than repeating it per page.
+import PillTag from './PillTag.astro';
+import GradientMesh from './GradientMesh.astro';
+
+interface Props {
+  eyebrow: string;
+  lineOne: string;
+  lineTwo: string;
+  intro?: string;
+}
+
+const { eyebrow, lineOne, lineTwo, intro } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden bg-ink-soft py-20 text-text-inverse sm:py-28">
+  <GradientMesh tone="amber" class="opacity-40" />
+  <div class="container-page" data-reveal>
+    <PillTag label={eyebrow} />
+    <h1 class="mt-6 font-display text-4xl font-bold leading-[0.95] tracking-tightest sm:text-6xl">
+      {lineOne}
+      <span class="block text-text-inverse-muted">{lineTwo}</span>
+    </h1>
+    {intro && <p class="mt-6 max-w-xl text-sm text-text-inverse-muted sm:text-base">{intro}</p>}
+  </div>
+</section>

@@ -8,14 +8,22 @@ interface Props {
   role: string;
   avatar: string;
   offset?: boolean;
+  glass?: boolean;
   class?: string;
 }
 
-const { quote, name, role, avatar, offset = false, class: className = '' } = Astro.props;
+const { quote, name, role, avatar, offset = false, glass = false, class: className = '' } = Astro.props;
 ---
 
 <div
-  class={`rounded-card-lg bg-surface p-7 ${offset ? 'sm:translate-y-8' : ''} ${className}`}
+  class:list={[
+    // Translate-based hover lift would fight the zig-zag `offset` translate
+    // (both write --tw-translate-y), so hover feedback here is shadow-only.
+    'rounded-card-lg p-7 transition-shadow duration-300 hover:shadow-xl',
+    glass ? 'glass-light' : 'bg-surface',
+    offset ? 'sm:translate-y-8' : '',
+    className,
+  ]}
 >
   <p class="text-sm leading-relaxed text-text-secondary">&ldquo;{quote}&rdquo;</p>
   <div class="mt-6 flex items-center gap-3">

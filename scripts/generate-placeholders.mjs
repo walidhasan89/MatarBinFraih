@@ -120,50 +120,16 @@ function add(rel, svg) {
   files.push({ rel, svg });
 }
 
-// Hero
-add(
-  'hero/hero-oilfield-yard.svg',
-  card({
-    w: 1920,
-    h: 1080,
-    bg: INK,
-    icon: 'rig',
-    iconColor: AMBER,
-    title: 'MBF oilfield yard, Abu Dhabi — placeholder photo',
-    photoMode: true,
-  })
-);
+// NOTE: hero, about-facility, stat-photo, projects thumbnails, services
+// hero/carousel images and every equipment product shot are now real MBF
+// photography (see scripts/process-real-images.mjs) — this generator only
+// covers the slots that still lack a real photo: the MD portrait, client
+// logos, and team/testimonial avatars.
 
-// About page
-add(
-  'about/about-facility.svg',
-  card({ w: 1400, h: 1000, bg: INK_SOFT, icon: 'tank', title: '500 BBL Acid Storage Tank — placeholder photo', photoMode: true })
-);
 add(
   'about/md-portrait.svg',
   card({ w: 900, h: 1100, bg: INK, icon: 'worker', title: 'Managing Director portrait — placeholder photo', photoMode: true })
 );
-
-// Stat card C (portrait worker photo)
-add(
-  'home/stat-worker.svg',
-  card({ w: 700, h: 900, bg: INK, icon: 'worker', title: 'Field team in PPE — placeholder photo', photoMode: true })
-);
-
-// Projects thumbnails
-add('projects/thumb-tanks.svg', card({ w: 500, h: 500, bg: INK_SOFT, icon: 'tank', title: 'Storage tank yard — placeholder', photoMode: true }));
-add('projects/thumb-rig.svg', card({ w: 500, h: 500, bg: INK_SOFT, icon: 'rig', title: 'Well-site deployment — placeholder', photoMode: true }));
-
-// Services carousel (4 slides)
-add('services/carousel-equipment-rental.svg', card({ w: 1920, h: 1080, bg: INK, icon: 'pump', title: 'Equipment rental yard — placeholder photo', photoMode: true }));
-add('services/carousel-tank-cleaning.svg', card({ w: 1920, h: 1080, bg: INK, icon: 'tank', title: 'Tank cleaning crew — placeholder photo', photoMode: true }));
-add('services/carousel-maintenance.svg', card({ w: 1920, h: 1080, bg: INK, icon: 'valve', title: 'Maintenance & servicing — placeholder photo', photoMode: true }));
-add('services/carousel-caravan-manufacturing.svg', card({ w: 1920, h: 1080, bg: INK, icon: 'caravan', title: 'Caravan manufacturing — placeholder photo', photoMode: true }));
-
-// Service detail hero images
-add('services/tank-cleaning-hero.svg', card({ w: 1400, h: 900, bg: INK_SOFT, icon: 'tank', title: 'Tank cleaning service — placeholder photo', photoMode: true }));
-add('services/maintenance-hero.svg', card({ w: 1400, h: 900, bg: INK_SOFT, icon: 'valve', title: '500 BBL Acid Storage Tank — placeholder photo', photoMode: true }));
-add('services/caravan-manufacturing-hero.svg', card({ w: 1400, h: 900, bg: INK_SOFT, icon: 'caravan', title: 'Caravan manufacturing — placeholder photo', photoMode: true }));
 
 // Client logos x10 (wordmark blocks, white cards)
 for (let i = 1; i <= 10; i++) {

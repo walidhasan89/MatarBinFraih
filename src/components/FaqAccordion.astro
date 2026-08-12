@@ -5,13 +5,20 @@
 // crawlers reading it alongside the matching FAQPage JSON-LD.
 interface Props {
   faqs: { question: string; answer: string }[];
+  glass?: boolean;
   class?: string;
 }
 
-const { faqs, class: className = '' } = Astro.props;
+const { faqs, glass = false, class: className = '' } = Astro.props;
 ---
 
-<div class={`divide-y divide-border overflow-hidden rounded-card-lg bg-surface ${className}`}>
+<div
+  class:list={[
+    'divide-y divide-border overflow-hidden rounded-card-lg',
+    glass ? 'glass-light' : 'bg-surface',
+    className,
+  ]}
+>
   {
     faqs.map((faq) => (
       <details class="group px-6 py-5 sm:px-8">

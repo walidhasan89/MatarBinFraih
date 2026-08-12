@@ -1,0 +1,37 @@
+---
+// Slim fixed progress bar showing scroll position down the page — sits
+// above the navbar (higher z-index) so it reads as a persistent strip.
+---
+
+<div class="fixed inset-x-0 top-0 z-[60] h-[3px] bg-transparent" aria-hidden="true">
+  <div
+    class="h-full w-0 bg-gradient-to-r from-accent via-accent-soft to-accent origin-left"
+    data-scroll-progress-bar
+  />
+</div>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-scroll-progress-bar]');
+  let ticking = false;
+
+  function update() {
+    ticking = false;
+    if (!bar) return;
+    const doc = document.documentElement;
+    const scrollTop = doc.scrollTop || document.body.scrollTop;
+    const scrollHeight = (doc.scrollHeight || document.body.scrollHeight) - doc.clientHeight;
+    const progress = scrollHeight > 0 ? Math.min(1, Math.max(0, scrollTop / scrollHeight)) : 0;
+    bar.style.width = `${progress * 100}%`;
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  }
+
+  update();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+</script>

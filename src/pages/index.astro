@@ -15,6 +15,7 @@ import TestimonialCard from '../components/TestimonialCard.astro';
 import IconFeatureCard from '../components/IconFeatureCard.astro';
 import EquipmentCard from '../components/EquipmentCard.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
+import GradientMesh from '../components/GradientMesh.astro';
 import { currentYearsInOperation, SITE } from '../lib/site';
 import { faqSchema } from '../lib/schema';
 
@@ -91,15 +92,15 @@ const carouselSlides = [
     title: 'Equipment Rental',
     description:
       'Storage tanks, pumps, well-control equipment and specialized units, rented and maintained to MBF\'s certified HSEQ standard.',
-    image: '/images/services/carousel-equipment-rental.svg',
-    imageAlt: 'Placeholder photo of an MBF equipment rental yard — TODO: replace with real MBF photo',
+    image: '/images/services/carousel-equipment-rental.webp',
+    imageAlt: 'MBF diesel-powered pump skid, tagged MBF 06231, in the Abu Dhabi yard',
     href: '/equipment',
   },
   ...services.map((service) => {
     const imageMap: Record<string, string> = {
-      'tank-cleaning': '/images/services/carousel-tank-cleaning.svg',
-      maintenance: '/images/services/carousel-maintenance.svg',
-      'caravan-manufacturing': '/images/services/carousel-caravan-manufacturing.svg',
+      'tank-cleaning': '/images/services/carousel-tank-cleaning.webp',
+      maintenance: '/images/services/carousel-maintenance.webp',
+      'caravan-manufacturing': '/images/services/carousel-caravan-manufacturing.webp',
     };
     return {
       title: service.data.name,
@@ -119,26 +120,33 @@ const pageSchema = faqSchema(faqs);
   description="Matar Bin Fraih (MBF) supplies storage tanks, pumps, well-control equipment and caravans for rent in Abu Dhabi, UAE, plus tank cleaning, maintenance and caravan manufacturing — HSEQ certified since 1998."
   schema={pageSchema}
 >
-  <!-- Hero — design-system.md §4.2 -->
-  <section class="relative flex min-h-[80vh] items-end overflow-hidden bg-ink text-text-inverse">
+  <!-- Hero — design-system.md §4.2, upgraded with a slow Ken-Burns drift,
+       an amber gradient-mesh glow, and a floating glass stat card. -->
+  <section class="relative flex min-h-[85vh] items-end overflow-hidden bg-ink text-text-inverse">
     <img
-      src="/images/hero/hero-oilfield-yard.svg"
-      alt="Placeholder photo of an MBF oilfield equipment yard in Abu Dhabi — TODO: replace with real MBF hero photography"
-      class="absolute inset-0 h-full w-full object-cover"
+      src="/images/hero/hero-oilfield-yard.webp"
+      alt="MBF equipment yard at golden hour in Abu Dhabi — storage tanks, tanker truck and caravan on site"
+      class="absolute inset-0 h-full w-full object-cover [animation:hero-zoom_24s_ease-in-out_infinite_alternate]"
     />
-    <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-ink/10" aria-hidden="true" />
+    <div
+      class="absolute inset-0 opacity-50 mix-blend-overlay"
+      style="background: radial-gradient(ellipse at 15% 20%, #FFC01E 0%, transparent 55%);"
+      aria-hidden="true"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-ink/10" aria-hidden="true" />
+    <div class="absolute inset-0 bg-gradient-to-r from-ink/60 via-transparent to-transparent" aria-hidden="true" />
 
     <div class="container-page relative flex w-full flex-col gap-10 py-16">
       <div class="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-end">
-        <div>
-          <span class="mb-3 inline-flex items-center rounded-pill bg-accent px-4 py-1.5 text-[11px] font-semibold uppercase tracking-wide text-accent-ink">
+        <div data-reveal>
+          <span class="glossy mb-3 inline-flex items-center rounded-pill bg-accent px-4 py-1.5 text-[11px] font-semibold uppercase tracking-wide text-accent-ink">
             Since {SITE.foundedYear}
           </span>
           <p class="font-display text-[15vw] font-extrabold leading-[0.85] tracking-tightest sm:text-[9vw] lg:text-[130px]">
             Matar Bin Fraih
           </p>
         </div>
-        <p class="max-w-sm text-sm text-text-inverse-muted lg:text-base">
+        <p class="max-w-sm text-sm text-text-inverse-muted lg:text-base" data-reveal data-reveal-delay="120">
           <MixedText
             text="MBF is **a trusted name in oilfield equipment manufacturing** in the local and regional markets — guaranteed high quality, backed by a **certified HSEQ management system**."
             emphasisClass="font-semibold text-text-inverse"
@@ -147,15 +155,26 @@ const pageSchema = faqSchema(faqs);
         </p>
       </div>
 
-      <div class="flex flex-wrap items-center gap-4">
-        <Button href="/services" variant="accent">View Our Services</Button>
-        <Button href="/contact" variant="secondary-inverse">Contact Us</Button>
+      <div class="flex flex-wrap items-end justify-between gap-8">
+        <div class="flex flex-wrap items-center gap-4" data-reveal data-reveal-delay="220">
+          <Button href="/services" variant="accent" class="glossy">View Our Services</Button>
+          <Button href="/contact" variant="secondary-inverse">Contact Us</Button>
+        </div>
+
+        <div
+          class="glass hidden shrink-0 rounded-card-lg px-6 py-4 sm:block"
+          data-reveal
+          data-reveal-delay="300"
+        >
+          <p class="font-display text-3xl font-bold tracking-tightest text-text-inverse">{years}+</p>
+          <p class="mt-1 text-xs text-text-inverse-muted">Years HSEQ-certified in Abu Dhabi</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Trusted partners logo strip -->
-  <section class="container-page py-16">
+  <section class="container-page py-16" data-reveal>
     <div class="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
       <p class="max-w-sm text-sm text-text-secondary">
         Partnering with operators and logistics firms across Abu Dhabi to keep well sites equipped and running.
@@ -169,7 +188,7 @@ const pageSchema = faqSchema(faqs);
 
   <!-- About intro -->
   <section class="container-page py-section">
-    <div class="grid gap-8 lg:grid-cols-[1fr_2fr] lg:items-start">
+    <div class="grid gap-8 lg:grid-cols-[1fr_2fr] lg:items-start" data-reveal>
       <PillTag label="About MBF" class="w-fit" />
       <p class="font-display text-2xl font-medium leading-snug tracking-tightest text-text-primary sm:text-3xl">
         <MixedText
@@ -180,45 +199,61 @@ const pageSchema = faqSchema(faqs);
 
     <!-- 3-up stat/feature card row — design-system.md §4.5 -->
     <div class="mt-14 grid gap-6 lg:grid-cols-3">
-      <StatCard
-        variant="stat"
-        value={`${years}+`}
-        label="Years delivering oilfield equipment and services since 1998"
-        href="/about"
-        ctaLabel="See More"
-      />
-      <StatCard
-        variant="quote"
-        statement="MBF is **one of the few companies in the Middle East** with a certified, fully-integrated HSEQ management system in place."
-        name="Matar Mohamed Fraih Al Qubaisi"
-        role="Managing Director"
-        avatar="/images/team/voice-md.svg"
-      />
-      <StatCard
-        variant="photo"
-        image="/images/home/stat-worker.svg"
-        imageAlt="Placeholder photo of an MBF field technician in PPE — TODO: replace with real MBF photo"
-        statLine="Zero lost-time injury operation across our HSEQ-certified workforce"
-        captionLabel="HSEQ Certified"
-      />
+      <div data-reveal>
+        <StatCard
+          variant="stat"
+          value={`${years}+`}
+          label="Years delivering oilfield equipment and services since 1998"
+          href="/about"
+          ctaLabel="See More"
+          class="transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl"
+        />
+      </div>
+      <div data-reveal data-reveal-delay="90">
+        <StatCard
+          variant="quote"
+          statement="MBF is **one of the few companies in the Middle East** with a certified, fully-integrated HSEQ management system in place."
+          name="Matar Mohamed Fraih Al Qubaisi"
+          role="Managing Director"
+          avatar="/images/team/voice-md.svg"
+          class="transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl"
+        />
+      </div>
+      <div data-reveal data-reveal-delay="180">
+        <StatCard
+          variant="photo"
+          image="/images/home/stat-photo.webp"
+          imageAlt="MBF twin pump skid and trailer unit deployed on site"
+          statLine="Zero lost-time injury operation across our HSEQ-certified fleet"
+          captionLabel="HSEQ Certified"
+          class="transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl"
+        />
+      </div>
     </div>
   </section>
 
-  <!-- Why Choose MBF — differentiators -->
-  <section class="container-page pb-section">
-    <SectionHeading eyebrow="Why MBF" lineOne="Built on certified," lineTwo="hands-on reliability." />
-    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      {
-        differentiators.map((item) => (
-          <IconFeatureCard icon={item.icon} title={item.title} description={item.description} />
-        ))
-      }
+  <!-- Why Choose MBF — differentiators, glass cards over a soft amber mesh -->
+  <section class="relative isolate py-section">
+    <GradientMesh tone="amber" class="opacity-60" />
+    <div class="container-page">
+      <div data-reveal>
+        <SectionHeading eyebrow="Why MBF" lineOne="Built on certified," lineTwo="hands-on reliability." />
+      </div>
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          differentiators.map((item, i) => (
+            <div data-reveal data-reveal-delay={String(i * 90)}>
+              <IconFeatureCard icon={item.icon} title={item.title} description={item.description} glass />
+            </div>
+          ))
+        }
+      </div>
     </div>
   </section>
 
   <!-- Technology / Capabilities — design-system.md §4.6 -->
   <section class="container-page py-section">
-    <div class="grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-end">
+    <div class="grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-end" data-reveal>
       <SectionHeading eyebrow="Our Equipment" lineOne="Engineered for" lineTwo="reliability in the field." />
       <p class="text-sm text-text-secondary lg:text-right">
         <MixedText text="From **5,000 psi-rated well-control equipment** to **SA2.5 sandblasted storage tanks**, every unit is built and maintained to MBF's certified HSEQ standard." />
@@ -226,7 +261,7 @@ const pageSchema = faqSchema(faqs);
     </div>
 
     <div class="mt-10 grid gap-6 lg:grid-cols-[1fr_1fr]">
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2" data-reveal data-reveal-delay="90">
         <TechCard
           tone="accent"
           eyebrow="Catalog"
@@ -248,27 +283,31 @@ const pageSchema = faqSchema(faqs);
           description="Locally manufacturing oilfield equipment in Abu Dhabi."
         />
       </div>
-      <TechDiagram class="min-h-[320px]" />
+      <div data-reveal data-reveal-delay="180">
+        <TechDiagram class="min-h-[320px]" />
+      </div>
     </div>
   </section>
 
   <!-- Featured Equipment — showcases real catalog items + internal links into /equipment -->
   <section class="container-page py-section">
-    <div class="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
+    <div class="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end" data-reveal>
       <SectionHeading eyebrow="Featured Equipment" lineOne="Ready to deploy," lineTwo="available now." />
       <Button href="/equipment" variant="secondary" class="shrink-0">View Full Catalog</Button>
     </div>
     <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {
-        featuredEquipment.map((item) => (
-          <EquipmentCard
-            slug={item.id}
-            name={item.data.name}
-            category={item.data.category}
-            summary={item.data.summary}
-            image={item.data.image}
-            imageAlt={item.data.imageAlt}
-          />
+        featuredEquipment.map((item, i) => (
+          <div data-reveal data-reveal-delay={String((i % 4) * 80)}>
+            <EquipmentCard
+              slug={item.id}
+              name={item.data.name}
+              category={item.data.category}
+              summary={item.data.summary}
+              image={item.data.image}
+              imageAlt={item.data.imageAlt}
+            />
+          </div>
         ))
       }
     </div>
@@ -277,7 +316,7 @@ const pageSchema = faqSchema(faqs);
   <!-- Projects — design-system.md §4.7 -->
   <section class="container-page py-section">
     <div class="grid gap-10 lg:grid-cols-[1fr_1.4fr]">
-      <div>
+      <div data-reveal>
         <SectionHeading eyebrow="Our Projects" lineOne="Built to perform," lineTwo="proven to last." />
         <p class="mt-4 max-w-sm text-sm text-text-secondary">
           <MixedText text="From well-site rental fleets to **locally manufactured caravans**, MBF delivers oilfield equipment engineering with decades of hands-on reliability." />
@@ -287,12 +326,12 @@ const pageSchema = faqSchema(faqs);
           Equipment Deployment
         </div>
         <div class="mt-4 flex gap-3">
-          <img src="/images/projects/thumb-tanks.svg" alt="Placeholder photo of a storage tank yard — TODO: replace with real MBF project photo" class="h-24 w-24 rounded-2xl object-cover" loading="lazy" />
-          <img src="/images/projects/thumb-rig.svg" alt="Placeholder photo of a well-site deployment — TODO: replace with real MBF project photo" class="h-24 w-24 rounded-2xl object-cover" loading="lazy" />
+          <img src="/images/projects/thumb-tanks.webp" alt="MBF large rectangular storage tank with pump train" class="h-24 w-24 rounded-2xl object-cover transition-transform duration-300 hover:scale-105" loading="lazy" />
+          <img src="/images/projects/thumb-rig.webp" alt="MBF chemical injection pump unit" class="h-24 w-24 rounded-2xl object-cover transition-transform duration-300 hover:scale-105" loading="lazy" />
         </div>
       </div>
 
-      <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-4" data-reveal data-reveal-delay="120">
         {
           projects.map((project) => (
             <ProjectCard
@@ -319,30 +358,36 @@ const pageSchema = faqSchema(faqs);
        from the site; the others are tight paraphrases of real HSEQ/service
        copy attributed by real role) — reusing the reference's staggered
        card layout without fabricating outside testimonials. -->
-  <section class="container-page py-section">
-    <div class="mx-auto max-w-2xl text-center">
-      <PillTag label="Our Commitment" class="mx-auto" />
-      <h2 class="mt-6 font-display text-3xl font-bold leading-[1.05] tracking-tightest sm:text-4xl">
-        <MixedText
-          text="What our team stands behind, **every time equipment leaves the yard.**"
-          emphasisClass="text-text-primary"
-          mutedClass="text-text-secondary"
-        />
-      </h2>
-    </div>
-
-    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      {
-        testimonials.map((t, i) => (
-          <TestimonialCard
-            quote={t.data.quote}
-            name={t.data.name}
-            role={t.data.role}
-            avatar={t.data.avatar}
-            offset={i % 2 === 1}
+  <section class="relative isolate py-section">
+    <GradientMesh tone="mixed" class="opacity-50" />
+    <div class="container-page">
+      <div class="mx-auto max-w-2xl text-center" data-reveal>
+        <PillTag label="Our Commitment" class="mx-auto" />
+        <h2 class="mt-6 font-display text-3xl font-bold leading-[1.05] tracking-tightest sm:text-4xl">
+          <MixedText
+            text="What our team stands behind, **every time equipment leaves the yard.**"
+            emphasisClass="text-text-primary"
+            mutedClass="text-text-secondary"
           />
-        ))
-      }
+        </h2>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          testimonials.map((t, i) => (
+            <div data-reveal data-reveal-delay={String((i % 4) * 90)}>
+              <TestimonialCard
+                quote={t.data.quote}
+                name={t.data.name}
+                role={t.data.role}
+                avatar={t.data.avatar}
+                offset={i % 2 === 1}
+                glass
+              />
+            </div>
+          ))
+        }
+      </div>
     </div>
   </section>
 
@@ -350,7 +395,7 @@ const pageSchema = faqSchema(faqs);
        the answer text is crawlable without JS, matched by FAQPage JSON-LD. -->
   <section class="container-page pb-section">
     <div class="grid gap-10 lg:grid-cols-[1fr_1.6fr]">
-      <div>
+      <div data-reveal>
         <SectionHeading eyebrow="FAQs" lineOne="Common questions" lineTwo="about renting from MBF." />
         <p class="mt-4 max-w-sm text-sm text-text-secondary">
           Can't find what you're looking for?
@@ -358,7 +403,9 @@ const pageSchema = faqSchema(faqs);
           directly.
         </p>
       </div>
-      <FaqAccordion faqs={faqs} />
+      <div data-reveal data-reveal-delay="120">
+        <FaqAccordion faqs={faqs} />
+      </div>
     </div>
   </section>
 </BaseLayout>

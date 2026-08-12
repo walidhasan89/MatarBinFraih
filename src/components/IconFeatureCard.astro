@@ -7,9 +7,11 @@ interface Props {
   icon: 'shield' | 'factory' | 'clock' | 'wrench';
   title: string;
   description: string;
+  glass?: boolean;
+  class?: string;
 }
 
-const { icon, title, description } = Astro.props;
+const { icon, title, description, glass = false, class: className = '' } = Astro.props;
 
 const icons: Record<string, string> = {
   shield:
@@ -23,7 +25,13 @@ const icons: Record<string, string> = {
 };
 ---
 
-<div class="rounded-card-lg bg-surface p-6">
+<div
+  class:list={[
+    'rounded-card-lg p-6 transition-transform duration-300 hover:-translate-y-1',
+    glass ? 'glass-light' : 'bg-surface',
+    className,
+  ]}
+>
   <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-ink text-accent">
     <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true" set:html={icons[icon]} />
   </span>

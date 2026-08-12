@@ -10,7 +10,7 @@
     "Temperature rating: -20°F to 250°F",
     "Piping to ANSI B31.3"
   ],
-  "image": "/images/equipment/choke-manifold-5k.svg",
-  "imageAlt": "Placeholder image of a Choke Manifold 5K — TODO: replace with real MBF photo",
+  "image": "/images/equipment/choke-manifold-5k.webp",
+  "imageAlt": "MBF Choke Manifold 5K skid with hand wheels and hydraulic actuator",
   "featured": true
 }

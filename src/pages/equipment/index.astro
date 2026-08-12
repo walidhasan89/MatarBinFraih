@@ -1,10 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PillTag from '../../components/PillTag.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import EquipmentCard from '../../components/EquipmentCard.astro';
 import EquipmentFilter from '../../components/EquipmentFilter.astro';
+import PageHero from '../../components/PageHero.astro';
 import { SITE } from '../../lib/site';
 import { breadcrumbSchema } from '../../lib/schema';
 
@@ -21,38 +21,35 @@ const pageSchema = breadcrumbSchema([
   description="Browse MBF's full oilfield equipment catalog in Abu Dhabi — storage tanks, pumps, well-control equipment, caravans & cabins, and specialized units, all available for rental."
   schema={pageSchema}
 >
-  <section class="bg-ink-soft py-20 text-text-inverse sm:py-28">
-    <div class="container-page">
-      <PillTag label="Our Equipment" />
-      <h1 class="mt-6 font-display text-4xl font-bold leading-[0.95] tracking-tightest sm:text-6xl">
-        Built to perform,
-        <span class="block text-text-inverse-muted">proven to last in the field.</span>
-      </h1>
-      <p class="mt-6 max-w-xl text-sm text-text-inverse-muted sm:text-base">
-        One catalog for every rental unit MBF manufactures and maintains — storage tanks, pumps, well-control
-        equipment, caravans and specialized units.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    eyebrow="Our Equipment"
+    lineOne="Built to perform,"
+    lineTwo="proven to last in the field."
+    intro="One catalog for every rental unit MBF manufactures and maintains — storage tanks, pumps, well-control equipment, caravans and specialized units."
+  />
 
   <section class="container-page py-section">
-    <SectionHeading eyebrow="Catalog" lineOne="Filter by" lineTwo="equipment category." />
+    <div data-reveal>
+      <SectionHeading eyebrow="Catalog" lineOne="Filter by" lineTwo="equipment category." />
+    </div>
 
-    <div class="mt-8">
+    <div class="mt-8" data-reveal data-reveal-delay="90">
       <EquipmentFilter />
     </div>
 
     <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {
-        equipment.map((item) => (
-          <EquipmentCard
-            slug={item.id}
-            name={item.data.name}
-            category={item.data.category}
-            summary={item.data.summary}
-            image={item.data.image}
-            imageAlt={item.data.imageAlt}
-          />
+        equipment.map((item, i) => (
+          <div data-reveal data-reveal-delay={String((i % 6) * 60)}>
+            <EquipmentCard
+              slug={item.id}
+              name={item.data.name}
+              category={item.data.category}
+              summary={item.data.summary}
+              image={item.data.image}
+              imageAlt={item.data.imageAlt}
+            />
+          </div>
         ))
       }
     </div>

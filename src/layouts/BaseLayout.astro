@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import JsonLd from '../components/JsonLd.astro';
+import ScrollProgress from '../components/ScrollProgress.astro';
 import { SITE } from '../lib/site';
 import { organizationSchema, localBusinessSchema } from '../lib/schema';
 
@@ -35,7 +36,7 @@ const pageSchemas = [organizationSchema(), localBusinessSchema(), ...(schema ? (
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="canonical" href={canonicalURL} />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
@@ -66,10 +67,41 @@ const pageSchemas = [organizationSchema(), localBusinessSchema(), ...(schema ? (
     <JsonLd schema={pageSchemas} />
   </head>
   <body class="min-h-screen bg-bg">
+    <ScrollProgress />
     <Navbar />
     <main>
       <slot />
     </main>
     <Footer />
+
+    <script>
+      // Sitewide scroll-reveal: any element with `data-reveal` fades/slides
+      // into place the first time it enters the viewport. One shared
+      // observer for the whole page — sections opt in just by adding the
+      // attribute, no per-component JS needed. Respects
+      // prefers-reduced-motion via the global CSS override (transitions
+      // collapse to ~0, so elements just appear).
+      const targets = document.querySelectorAll<HTMLElement>('[data-reveal]');
+
+      if (targets.length > 0) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-revealed');
+                observer.unobserve(entry.target);
+              }
+            }
+          },
+          { threshold: 0.15, rootMargin: '0px 0px -8% 0px' }
+        );
+
+        targets.forEach((el, i) => {
+          const delay = el.dataset.revealDelay ?? String(Math.min(i % 4, 3) * 90);
+          el.style.setProperty('--reveal-delay', `${delay}ms`);
+          observer.observe(el);
+        });
+      }
+    </script>
   </body>
 </html>

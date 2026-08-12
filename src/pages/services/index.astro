@@ -1,9 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PillTag from '../../components/PillTag.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import Button from '../../components/Button.astro';
+import GradientMesh from '../../components/GradientMesh.astro';
+import PageHero from '../../components/PageHero.astro';
 import { SITE } from '../../lib/site';
 import { breadcrumbSchema } from '../../lib/schema';
 
@@ -19,8 +20,8 @@ const tiles = [
     slug: 'equipment-rental',
     name: 'Equipment Rental',
     summary: 'Storage tanks, pumps, well-control equipment and specialized units — rented and maintained to MBF\'s HSEQ standard.',
-    image: '/images/services/carousel-equipment-rental.svg',
-    imageAlt: 'Placeholder photo of an MBF equipment rental yard — TODO: replace with real MBF photo',
+    image: '/images/services/carousel-equipment-rental.webp',
+    imageAlt: 'MBF diesel-powered pump skid, tagged MBF 06231, in the Abu Dhabi yard',
     href: '/equipment',
   },
   ...services.map((s) => ({
@@ -39,60 +40,61 @@ const tiles = [
   description="MBF provides equipment rental, tank cleaning, maintenance and caravan manufacturing services in Abu Dhabi, backed by a certified fully-integrated HSEQ management system."
   schema={pageSchema}
 >
-  <section class="bg-ink-soft py-20 text-text-inverse sm:py-28">
-    <div class="container-page">
-      <PillTag label="Our Services" />
-      <h1 class="mt-6 font-display text-4xl font-bold leading-[0.95] tracking-tightest sm:text-6xl">
-        Field-ready services,
-        <span class="block text-text-inverse-muted">backed by certified HSEQ.</span>
-      </h1>
-      <p class="mt-6 max-w-xl text-sm text-text-inverse-muted sm:text-base">
-        MBF Trading &amp; Oilfield Equipment Rental prides itself as one of the few companies in the Middle
-        East to have a certified, fully-integrated HSEQ management system in place.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    eyebrow="Our Services"
+    lineOne="Field-ready services,"
+    lineTwo="backed by certified HSEQ."
+    intro="MBF Trading & Oilfield Equipment Rental prides itself as one of the few companies in the Middle East to have a certified, fully-integrated HSEQ management system in place."
+  />
 
   <section class="container-page py-section">
-    <SectionHeading eyebrow="What We Do" lineOne="Four ways we keep" lineTwo="your site running." />
+    <div data-reveal>
+      <SectionHeading eyebrow="What We Do" lineOne="Four ways we keep" lineTwo="your site running." />
+    </div>
 
     <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {
-        tiles.map((tile) => (
-          <a href={tile.href} class="group flex flex-col overflow-hidden rounded-card-lg bg-surface">
-            <div class="aspect-[4/3] w-full overflow-hidden bg-ink-soft">
-              <img
-                src={tile.image}
-                alt={tile.imageAlt}
-                loading="lazy"
-                class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-              />
-            </div>
-            <div class="flex flex-1 flex-col p-6">
-              <h2 class="font-display text-lg font-bold leading-snug tracking-tightest text-text-primary">
-                {tile.name}
-              </h2>
-              <p class="mt-2 flex-1 text-sm text-text-secondary">{tile.summary}</p>
-              <span class="mt-4 text-sm font-semibold text-text-primary group-hover:text-accent-ink">
-                Learn More →
-              </span>
-            </div>
-          </a>
+        tiles.map((tile, i) => (
+          <div data-reveal data-reveal-delay={String(i * 90)}>
+            <a
+              href={tile.href}
+              class="group flex flex-col overflow-hidden rounded-card-lg bg-surface transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:ring-1 hover:ring-accent/40"
+            >
+              <div class="aspect-[4/3] w-full overflow-hidden bg-ink-soft">
+                <img
+                  src={tile.image}
+                  alt={tile.imageAlt}
+                  loading="lazy"
+                  class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                />
+              </div>
+              <div class="flex flex-1 flex-col p-6">
+                <h2 class="font-display text-lg font-bold leading-snug tracking-tightest text-text-primary">
+                  {tile.name}
+                </h2>
+                <p class="mt-2 flex-1 text-sm text-text-secondary">{tile.summary}</p>
+                <span class="mt-4 text-sm font-semibold text-text-primary group-hover:text-accent-ink">
+                  Learn More →
+                </span>
+              </div>
+            </a>
+          </div>
         ))
       }
     </div>
   </section>
 
   <section class="container-page pb-section">
-    <div class="rounded-card-lg bg-surface p-8 text-center sm:p-12">
-      <p class="font-display text-2xl font-bold tracking-tightest text-text-primary sm:text-3xl">
+    <div class="relative isolate overflow-hidden rounded-card-lg bg-surface p-8 text-center sm:p-12" data-reveal>
+      <GradientMesh tone="amber" class="opacity-40" />
+      <p class="relative font-display text-2xl font-bold tracking-tightest text-text-primary sm:text-3xl">
         Need a custom quote?
       </p>
-      <p class="mx-auto mt-3 max-w-md text-sm text-text-secondary">
+      <p class="relative mx-auto mt-3 max-w-md text-sm text-text-secondary">
         Tell us about your site and we'll match the right equipment and service package.
       </p>
-      <div class="mt-6 flex justify-center">
-        <Button href="/contact" variant="primary">Contact Us</Button>
+      <div class="relative mt-6 flex justify-center">
+        <Button href="/contact" variant="primary" class="glossy">Contact Us</Button>
       </div>
     </div>
   </section>

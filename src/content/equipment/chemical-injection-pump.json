@@ -9,7 +9,7 @@
     "Holds static pressure without heat or power draw",
     "Suited for oil or water applications; low-cost servicing"
   ],
-  "image": "/images/equipment/chemical-injection-pump.svg",
-  "imageAlt": "Placeholder image of a chemical injection pump — TODO: replace with real MBF photo",
+  "image": "/images/equipment/chemical-injection-pump.webp",
+  "imageAlt": "MBF chemical injection pump unit",
   "featured": false
 }

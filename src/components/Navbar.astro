@@ -11,18 +11,15 @@ function isActive(href: string): boolean {
 ---
 
 <!--
-  Always sticky with a translucent dark scrim (design-system.md §4.1: "sits
-  directly over the hero image with a translucent dark background"). A
-  fully-transparent variant that toggled to opaque on scroll was tried and
-  dropped — combining `sticky` and `absolute` position utilities on one
-  element is undefined (Tailwind's compiled class order, not the markup
-  order, decides which wins), and a single translucent bar already reads
-  fine over both the hero photo and plain page backgrounds.
+  Always sticky with a solid dark background (design-system.md §4.1: "sits
+  directly over the hero image with a dark background"). A fully-transparent
+  variant that toggled to opaque on scroll was tried and dropped — combining
+  `sticky` and `absolute` position utilities on one element is undefined
+  (Tailwind's compiled class order, not the markup order, decides which
+  wins), and a solid bar reads cleanly over both the hero photo and plain
+  page backgrounds without any see-through/glass effect.
 -->
-<header
-  class="glass-dark sticky top-0 z-50 w-full border-x-0 border-t-0 border-b-accent/20"
-  data-navbar
->
+<header class="sticky top-0 z-50 w-full border-b border-accent/20 bg-ink-soft" data-navbar>
   <nav class="container-page flex items-center justify-between gap-4 py-4">
     <a href="/" class="group flex shrink-0 items-center gap-2 text-text-inverse" aria-label="MBF home">
       <img

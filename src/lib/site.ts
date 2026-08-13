@@ -44,6 +44,7 @@ export const NAV_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'About Us', href: '/about' },
   { label: 'Equipment', href: '/equipment' },
+  { label: 'Rental Equipments', href: '/rental-equipment' },
   { label: 'Services', href: '/services' },
   { label: 'Contact', href: '/contact' },
 ] as const;

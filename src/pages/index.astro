@@ -174,15 +174,25 @@ const pageSchema = faqSchema(faqs);
   </section>
 
   <!-- Trusted partners logo strip -->
-  <section class="container-page py-16" data-reveal>
-    <div class="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
-      <p class="max-w-sm text-sm text-text-secondary">
-        Partnering with operators and logistics firms across Abu Dhabi to keep well sites equipped and running.
-      </p>
-      <PillTag label="Trusted Partners" />
-    </div>
-    <div class="mt-8">
-      <LogoStrip />
+  <section class="container-page pb-section">
+    <div
+      class="relative isolate overflow-hidden rounded-card-lg bg-ink px-6 py-12 text-text-inverse sm:px-10 sm:py-14"
+      data-reveal
+    >
+      <div
+        class="pointer-events-none absolute -left-[10%] -top-[50%] h-[100%] w-[45%] rounded-full opacity-25 blur-[100px]"
+        style="background: radial-gradient(circle, #FFC01E 0%, transparent 70%);"
+        aria-hidden="true"
+      />
+      <div class="relative flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
+        <p class="max-w-sm text-sm text-text-inverse-muted">
+          Partnering with operators and logistics firms across Abu Dhabi to keep well sites equipped and running.
+        </p>
+        <PillTag label="Trusted Partners" />
+      </div>
+      <div class="relative mt-10">
+        <LogoStrip />
+      </div>
     </div>
   </section>
 

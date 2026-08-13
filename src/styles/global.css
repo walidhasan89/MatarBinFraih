@@ -171,4 +171,11 @@
     0% { transform: scale(1); }
     100% { transform: scale(1.08); }
   }
+
+  /* Infinite marquee track for LogoStrip — the track renders the logo list
+     twice, so sliding exactly -50% loops seamlessly back to the start. */
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
 }

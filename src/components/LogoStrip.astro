@@ -1,5 +1,10 @@
 ---
 // Partner/client logo strip — design-system.md §4.4.
+// Infinite auto-scrolling marquee of real client logos, each in its own
+// white chip card (the source logos sit on white backgrounds, so a light
+// card reads cleanly against the dark panel instead of a mismatched edge).
+// The track is duplicated once for a seamless loop and pauses on
+// hover/focus so a visitor can actually read a label.
 const logos = [
   { file: 'client-1.webp', name: 'BJ Services' },
   { file: 'client-2.webp', name: 'ESNAAD — ADNOC Group' },
@@ -10,19 +15,29 @@ const logos = [
   { file: 'client-7.webp', name: 'Baker Hughes' },
   { file: 'client-8.webp', name: 'Schlumberger' },
 ];
+const track = [...logos, ...logos];
 ---
 
-<div class="fade-edges flex items-center gap-10 overflow-x-auto py-2">
-  {
-    logos.map((logo) => (
-      <img
-        src={`/images/clients/${logo.file}`}
-        alt={logo.name}
-        width="160"
-        height="70"
-        loading="lazy"
-        class="h-10 w-auto shrink-0 opacity-60 grayscale transition hover:opacity-100 hover:grayscale-0"
-      />
-    ))
-  }
+<div class="fade-edges group/marquee overflow-hidden">
+  <div
+    class="flex w-max items-center gap-5 [animation:marquee_32s_linear_infinite] group-hover/marquee:[animation-play-state:paused]"
+  >
+    {
+      track.map((logo, i) => (
+        <div
+          class="group flex h-24 w-44 shrink-0 items-center justify-center rounded-2xl bg-white px-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg"
+          aria-hidden={i >= logos.length ? 'true' : undefined}
+        >
+          <img
+            src={`/images/clients/${logo.file}`}
+            alt={i < logos.length ? logo.name : ''}
+            width="160"
+            height="70"
+            loading="lazy"
+            class="max-h-9 w-auto object-contain grayscale transition duration-300 group-hover:grayscale-0"
+          />
+        </div>
+      ))
+    }
+  </div>
 </div>

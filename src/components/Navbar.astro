@@ -30,15 +30,13 @@ function isActive(href: string): boolean {
       <span class="font-display text-lg font-bold tracking-tightest">MBF</span>
     </a>
 
-    <div class="hidden items-center gap-2 rounded-pill bg-white/5 p-1.5 backdrop-blur md:flex">
+    <div class="hidden items-center gap-2 rounded-pill bg-black/40 p-1.5 backdrop-blur md:flex">
       {
         NAV_LINKS.map((link) => (
           <a
             href={link.href}
-            class={`rounded-pill px-4 py-2 text-sm font-medium transition-colors ${
-              isActive(link.href)
-                ? 'bg-white/10 text-text-inverse'
-                : 'text-text-inverse-muted hover:text-text-inverse'
+            class={`rounded-pill px-4 py-2 text-sm font-medium text-white transition-colors ${
+              isActive(link.href) ? 'bg-white/10' : 'hover:bg-white/10'
             }`}
           >
             {link.label}

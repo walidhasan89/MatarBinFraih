@@ -1,9 +1,11 @@
 ---
-// Full-bleed services carousel — design-system.md §4.8.
+// Full-bleed services carousel — design-system.md §4.8, redesigned with a
+// glass text panel, a slow Ken-Burns drift on the active slide, and
+// clickable per-slide progress segments (instead of a single growing bar).
 // Vanilla-TS island: auto-advances every 6s (no exact timing was specified
 // in the design system, so 6000ms was chosen as a readable default —
 // long enough to read the two-line headline, short enough to feel alive)
-// and pauses/resets on manual prev/next interaction.
+// and pauses/resets on manual prev/next/dot interaction.
 import PillTag from './PillTag.astro';
 
 interface Slide {
@@ -23,7 +25,7 @@ const { slides, eyebrow = 'Our Services' } = Astro.props;
 const total = slides.length;
 ---
 
-<section class="relative isolate min-h-[560px] w-full overflow-hidden bg-ink text-text-inverse" data-carousel data-total={total}>
+<section class="relative isolate min-h-[600px] w-full overflow-hidden bg-ink text-text-inverse" data-carousel data-total={total}>
   {
     slides.map((slide, i) => (
       <div
@@ -33,22 +35,28 @@ const total = slides.length;
         aria-hidden={i === 0 ? 'false' : 'true'}
         style={i === 0 ? 'opacity:1' : 'opacity:0;pointer-events:none'}
       >
-        <img src={slide.image} alt={slide.imageAlt} class="absolute inset-0 h-full w-full object-cover" loading={i === 0 ? 'eager' : 'lazy'} />
-        <div class="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/60 to-ink/20" />
+        <img
+          src={slide.image}
+          alt={slide.imageAlt}
+          class="absolute inset-0 h-full w-full object-cover [animation:hero-zoom_16s_ease-in-out_infinite_alternate]"
+          loading={i === 0 ? 'eager' : 'lazy'}
+        />
+        <div class="absolute inset-0 bg-gradient-to-r from-ink/95 via-ink/60 to-ink/10" />
+        <div class="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
       </div>
     ))
   }
 
-  <div class="container-page relative flex min-h-[560px] flex-col justify-between py-10">
+  <div class="container-page relative flex min-h-[600px] flex-col justify-between py-10">
     <PillTag label={eyebrow} />
 
-    <div class="grid items-end gap-8 sm:grid-cols-2">
+    <div class="glass max-w-2xl rounded-card-lg p-6 sm:p-8">
       <div class="flex items-end gap-4">
         <span class="font-display text-5xl font-bold tracking-tightest sm:text-6xl" data-counter-current>01</span>
         <span class="pb-1 font-display text-xl text-text-inverse-muted">/{String(total).padStart(2, '0')}</span>
       </div>
 
-      <div>
+      <div class="mt-4">
         {
           slides.map((slide, i) => (
             <div data-panel data-index={i} class={i === 0 ? '' : 'hidden'}>
@@ -64,13 +72,27 @@ const total = slides.length;
     </div>
 
     <div class="mt-8 flex items-center gap-6">
-      <div class="h-1 flex-1 overflow-hidden rounded-pill bg-white/20">
-        <div class="h-full rounded-pill bg-accent transition-all duration-500" data-progress style="width: calc(100% / var(--total, 4))" />
+      <div class="flex flex-1 gap-2" role="tablist" aria-label="Service slides">
+        {
+          slides.map((slide, i) => (
+            <button
+              type="button"
+              class="h-1.5 flex-1 overflow-hidden rounded-pill bg-white/20 transition-colors hover:bg-white/30"
+              role="tab"
+              aria-label={`Show slide ${i + 1}: ${slide.title}`}
+              aria-selected={i === 0 ? 'true' : 'false'}
+              data-dot
+              data-index={i}
+            >
+              <span class="block h-full rounded-pill bg-accent transition-transform duration-300 ease-out" data-dot-fill style={i === 0 ? '' : 'transform: scaleX(0); transform-origin: left;'} />
+            </button>
+          ))
+        }
       </div>
       <div class="flex shrink-0 gap-2">
         <button
           type="button"
-          class="flex h-11 w-11 items-center justify-center rounded-pill border border-white/30 text-text-inverse transition hover:border-accent hover:text-accent"
+          class="glass flex h-11 w-11 items-center justify-center rounded-pill text-text-inverse transition hover:border-accent hover:text-accent"
           aria-label="Previous slide"
           data-prev
         >
@@ -80,7 +102,7 @@ const total = slides.length;
         </button>
         <button
           type="button"
-          class="flex h-11 w-11 items-center justify-center rounded-pill bg-accent text-accent-ink transition hover:bg-accent-soft"
+          class="glossy flex h-11 w-11 items-center justify-center rounded-pill bg-accent text-accent-ink transition hover:bg-accent-soft"
           aria-label="Next slide"
           data-next
         >
@@ -101,7 +123,7 @@ const total = slides.length;
     const slides = Array.from(root.querySelectorAll<HTMLElement>('[data-slide]'));
     const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-panel]'));
     const counter = root.querySelector<HTMLElement>('[data-counter-current]');
-    const progress = root.querySelector<HTMLElement>('[data-progress]');
+    const dots = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-dot]'));
     const prevBtn = root.querySelector<HTMLButtonElement>('[data-prev]');
     const nextBtn = root.querySelector<HTMLButtonElement>('[data-next]');
 
@@ -119,7 +141,11 @@ const total = slides.length;
         panel.classList.toggle('hidden', i !== index);
       });
       if (counter) counter.textContent = String(index + 1).padStart(2, '0');
-      if (progress) progress.style.width = `${((index + 1) / total) * 100}%`;
+      dots.forEach((dot, i) => {
+        dot.setAttribute('aria-selected', String(i === index));
+        const fill = dot.querySelector<HTMLElement>('[data-dot-fill]');
+        if (fill) fill.style.transform = i === index ? 'scaleX(1)' : 'scaleX(0)';
+      });
     }
 
     function goTo(next: number) {
@@ -139,6 +165,12 @@ const total = slides.length;
     nextBtn?.addEventListener('click', () => {
       goTo(index + 1);
       restartTimer();
+    });
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        goTo(Number(dot.dataset.index ?? '0'));
+        restartTimer();
+      });
     });
 
     render();

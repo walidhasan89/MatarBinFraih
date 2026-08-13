@@ -3,9 +3,9 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PillTag from '../../components/PillTag.astro';
 import EquipmentCard from '../../components/EquipmentCard.astro';
-import ContactForm from '../../components/ContactForm.astro';
+import Button from '../../components/Button.astro';
 import GradientMesh from '../../components/GradientMesh.astro';
-import { SITE } from '../../lib/site';
+import { SITE, whatsappLink } from '../../lib/site';
 import { breadcrumbSchema, serviceSchema } from '../../lib/schema';
 
 export async function getStaticPaths() {
@@ -133,17 +133,22 @@ const pageSchema = [
   }
 
   <section class="container-page pb-section">
-    <div class="relative isolate overflow-hidden rounded-card-lg bg-ink p-8 text-text-inverse sm:p-10" data-reveal>
+    <div
+      class="relative isolate flex flex-col items-start justify-between gap-6 overflow-hidden rounded-card-lg bg-ink p-8 text-text-inverse sm:flex-row sm:items-center sm:p-10"
+      data-reveal
+    >
       <GradientMesh tone="amber" class="opacity-30" />
-      <p class="relative font-display text-2xl font-bold tracking-tightest">Get a Quote for {name}</p>
-      <p class="relative mt-2 max-w-lg text-sm text-text-inverse-muted">
-        Tell us about your site and timeline and we'll follow up with pricing and availability.
-      </p>
-      <div class="relative mt-8">
-        <ContactForm
-          presetMessage={`Hello, I'm interested in your ${name}. Please send me more information.`}
-          whatsappMessage={`Hello, I'm interested in learning more about your ${name}.`}
-        />
+      <div class="relative">
+        <p class="font-display text-2xl font-bold tracking-tightest">Get a Quote for {name}</p>
+        <p class="mt-2 max-w-lg text-sm text-text-inverse-muted">
+          Tell us about your site and timeline and we'll follow up with pricing and availability.
+        </p>
+      </div>
+      <div class="relative flex shrink-0 flex-wrap gap-4">
+        <Button href="/contact" variant="accent" class="glossy">Contact Us</Button>
+        <Button href={whatsappLink(`Hello, I'm interested in learning more about your ${name}.`)} variant="secondary-inverse" external>
+          Chat on WhatsApp
+        </Button>
       </div>
     </div>
   </section>

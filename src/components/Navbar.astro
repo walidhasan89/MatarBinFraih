@@ -11,16 +11,18 @@ function isActive(href: string): boolean {
 ---
 
 <!--
-  Always sticky with a solid dark background (design-system.md §4.1: "sits
-  directly over the hero image with a dark background"). A fully-transparent
-  variant that toggled to opaque on scroll was tried and dropped — combining
-  `sticky` and `absolute` position utilities on one element is undefined
-  (Tailwind's compiled class order, not the markup order, decides which
-  wins), and a solid bar reads cleanly over both the hero photo and plain
-  page backgrounds without any see-through/glass effect.
+  No background color, per client request — the bar floats transparently
+  over whatever's beneath it. `h-0 overflow-visible` keeps it sticky at the
+  top WITHOUT reserving flow space, so it actually overlays the dark hero
+  band every page opens with (PageHero / homepage hero) instead of sitting
+  in the light page background above it — that mismatch was the original
+  cause of low-contrast nav text. Once scrolled past the hero, the script
+  below adds a translucent blurred backdrop so the (light-colored) nav text
+  stays readable over whatever section has scrolled underneath — the bar
+  itself still has no solid background color, only a blur.
 -->
-<header class="sticky top-0 z-50 w-full border-b border-accent/20 bg-ink-soft" data-navbar>
-  <nav class="container-page flex items-center justify-between gap-4 py-4">
+<header class="sticky top-0 z-50 h-0 w-full overflow-visible" data-navbar>
+  <nav class="container-page flex items-center justify-between gap-4 py-4 transition-[background-color,backdrop-filter,box-shadow] duration-300" data-navbar-inner>
     <a href="/" class="group flex shrink-0 items-center gap-2 text-text-inverse" aria-label="MBF home">
       <img
         src="/images/brand/icon.png"
@@ -108,4 +110,17 @@ function isActive(href: string): boolean {
     iconClose?.classList.toggle('hidden');
     toggle.setAttribute('aria-expanded', String(Boolean(isOpen)));
   });
+
+  // Adds a blurred backdrop (no solid color) once the page has scrolled
+  // past the dark hero band every page opens with, so nav text stays
+  // legible over lighter sections scrolling underneath the sticky bar.
+  const navInner = document.querySelector<HTMLElement>('[data-navbar-inner]');
+  const SCROLLED_THRESHOLD = 80;
+
+  function updateNavScrollState() {
+    navInner?.classList.toggle('is-scrolled', window.scrollY > SCROLLED_THRESHOLD);
+  }
+
+  window.addEventListener('scroll', updateNavScrollState, { passive: true });
+  updateNavScrollState();
 </script>

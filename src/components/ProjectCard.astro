@@ -2,7 +2,7 @@
 // Stacked project list entry — design-system.md §4.7.
 // Plain variant: white row, title + outline "View Project" pill.
 // Featured variant: black card, larger title, accent "See Project" pill,
-// and a 3-column mini-stat strip over the hatch texture.
+// and a 3-column mini-stat strip over a soft amber glow.
 import Button from './Button.astro';
 
 interface Props {
@@ -18,15 +18,20 @@ const { name, href, ctaLabel, featured = false, stats } = Astro.props;
 
 {
   featured ? (
-    <div class="hatch-pattern rounded-card-lg bg-ink p-8 text-text-inverse sm:p-10">
-      <div class="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
+    <div class="relative isolate overflow-hidden rounded-card-lg bg-ink p-8 text-text-inverse sm:p-10">
+      <div
+        class="pointer-events-none absolute -right-[15%] -top-[40%] h-[90%] w-[45%] rounded-full opacity-25 blur-[90px]"
+        style="background: radial-gradient(circle, #FFC01E 0%, transparent 70%);"
+        aria-hidden="true"
+      />
+      <div class="relative flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
         <p class="font-display text-3xl font-bold tracking-tightest sm:text-4xl">{name}</p>
         <Button href={href} variant="accent">
           {ctaLabel}
         </Button>
       </div>
       {stats && stats.length > 0 && (
-        <div class="mt-8 grid grid-cols-3 gap-4 border-t border-border-dark pt-6">
+        <div class="relative mt-8 grid grid-cols-3 gap-4 border-t border-border-dark pt-6">
           {stats.map((s) => (
             <div>
               <p class="font-display text-2xl font-bold tracking-tightest text-accent sm:text-3xl">{s.value}</p>

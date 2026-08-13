@@ -7,9 +7,10 @@ interface Props {
   variant?: 'primary' | 'secondary' | 'secondary-inverse' | 'accent';
   class?: string;
   type?: 'button' | 'submit';
+  external?: boolean;
 }
 
-const { href, variant = 'primary', class: className = '', type = 'button' } = Astro.props;
+const { href, variant = 'primary', class: className = '', type = 'button', external = false } = Astro.props;
 const Tag = href ? 'a' : 'button';
 
 const base =
@@ -33,6 +34,8 @@ const isSecondary = variant === 'secondary' || variant === 'secondary-inverse';
 <Tag
   href={href}
   type={!href ? type : undefined}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
   class={`${base} ${variants[variant]} ${className}`}
 >
   <slot />

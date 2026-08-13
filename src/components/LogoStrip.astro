@@ -1,16 +1,23 @@
 ---
 // Partner/client logo strip — design-system.md §4.4.
-// TODO: replace the 10 generated placeholder blocks with real MBF client
-// logos (the live site's Client_1.jpeg … Client_10.jpeg, unlabeled).
-const logos = Array.from({ length: 10 }, (_, i) => i + 1);
+const logos = [
+  { file: 'client-1.webp', name: 'BJ Services' },
+  { file: 'client-2.webp', name: 'ESNAAD — ADNOC Group' },
+  { file: 'client-3.webp', name: 'Bin Fraih Group' },
+  { file: 'client-4.webp', name: 'Al Ahlia Oil Fields Development Co.' },
+  { file: 'client-5.webp', name: 'Safwan Petroleum Technologies Establishment' },
+  { file: 'client-6.webp', name: 'National Drilling Company' },
+  { file: 'client-7.webp', name: 'Baker Hughes' },
+  { file: 'client-8.webp', name: 'Schlumberger' },
+];
 ---
 
 <div class="fade-edges flex items-center gap-10 overflow-x-auto py-2">
   {
-    logos.map((n) => (
+    logos.map((logo) => (
       <img
-        src={`/images/clients/client-${n}.svg`}
-        alt={`MBF client partner logo placeholder ${n} — TODO: replace with real client logo`}
+        src={`/images/clients/${logo.file}`}
+        alt={logo.name}
         width="160"
         height="70"
         loading="lazy"

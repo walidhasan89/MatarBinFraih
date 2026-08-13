@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PillTag from '../components/PillTag.astro';
+import PageHero from '../components/PageHero.astro';
 import { SITE } from '../lib/site';
 ---
 
@@ -8,10 +8,10 @@ import { SITE } from '../lib/site';
   title="Privacy Policy"
   description="Privacy policy for Matar Bin Fraih Trading & Oilfield Equipment Rental."
 >
+  <PageHero eyebrow="Legal" lineOne="Privacy" lineTwo="Policy" />
+
   <section class="container-page py-section">
-    <PillTag label="Legal" />
-    <h1 class="mt-6 font-display text-4xl font-bold tracking-tightest text-text-primary">Privacy Policy</h1>
-    <div class="mt-8 max-w-2xl space-y-4 text-sm text-text-secondary sm:text-base">
+    <div class="max-w-2xl space-y-4 text-sm text-text-secondary sm:text-base">
       <p>
         {/* TODO: replace with MBF's reviewed, legally-approved privacy policy text. The
         original site's policy copy was not captured in the content audit, so a

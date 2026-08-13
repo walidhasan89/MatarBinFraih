@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import JsonLd from '../components/JsonLd.astro';
 import ScrollProgress from '../components/ScrollProgress.astro';
-import { SITE } from '../lib/site';
+import { SITE, withBase } from '../lib/site';
 import { organizationSchema, localBusinessSchema } from '../lib/schema';
 
 interface Props {
@@ -36,7 +36,7 @@ const pageSchemas = [organizationSchema(), localBusinessSchema(), ...(schema ? (
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/png" href={withBase('/favicon.png')} />
     <link rel="canonical" href={canonicalURL} />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />

@@ -2,6 +2,8 @@
 // Buttons — design-system.md §4.11.
 // primary: near-black pill + trailing circular accent arrow chip.
 // secondary: outline/white pill, no arrow chip.
+import { withBase } from '../lib/site';
+
 interface Props {
   href?: string;
   variant?: 'primary' | 'secondary' | 'secondary-inverse' | 'accent';
@@ -12,6 +14,7 @@ interface Props {
 
 const { href, variant = 'primary', class: className = '', type = 'button', external = false } = Astro.props;
 const Tag = href ? 'a' : 'button';
+const resolvedHref = href ? withBase(href) : undefined;
 
 const base =
   'group inline-flex items-center gap-3 rounded-pill pl-6 pr-2 py-2 text-sm font-semibold transition-colors duration-200';
@@ -32,7 +35,7 @@ const isSecondary = variant === 'secondary' || variant === 'secondary-inverse';
 ---
 
 <Tag
-  href={href}
+  href={resolvedHref}
   type={!href ? type : undefined}
   target={external ? '_blank' : undefined}
   rel={external ? 'noopener noreferrer' : undefined}

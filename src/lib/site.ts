@@ -23,6 +23,19 @@ export const SITE = {
   linkedin: 'https://www.linkedin.com/company/matar-bin-fraih-trading/',
 } as const;
 
+/**
+ * Prefixes an internal, root-relative path (e.g. "/about",
+ * "/images/x.webp") with the configured deploy base path (see
+ * astro.config.mjs), so links and asset paths resolve correctly whether
+ * the site is built for its domain root or a preview subfolder. External
+ * URLs, `mailto:`, and `tel:` links are untouched.
+ */
+export function withBase(path: string): string {
+  if (!path.startsWith('/') || path.startsWith('//')) return path;
+  const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+  return `${base}${path}`;
+}
+
 export function currentYearsInOperation(): number {
   return new Date().getFullYear() - SITE.foundedYear;
 }

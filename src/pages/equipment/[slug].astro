@@ -5,7 +5,7 @@ import PillTag from '../../components/PillTag.astro';
 import EquipmentCard from '../../components/EquipmentCard.astro';
 import Button from '../../components/Button.astro';
 import GradientMesh from '../../components/GradientMesh.astro';
-import { SITE, equipmentCategoryLabel, whatsappLink } from '../../lib/site';
+import { SITE, equipmentCategoryLabel, whatsappLink, withBase } from '../../lib/site';
 import { breadcrumbSchema, productSchema } from '../../lib/schema';
 
 export async function getStaticPaths() {
@@ -43,7 +43,7 @@ const pageSchema = [
   <section class="relative isolate overflow-hidden bg-ink-soft pb-6 pt-24 text-text-inverse sm:pb-8 sm:pt-28">
     <GradientMesh tone="amber" class="opacity-25" />
     <nav class="container-page relative text-sm text-text-inverse-muted" aria-label="Breadcrumb">
-      <a href="/equipment" class="hover:text-text-inverse">Equipment</a>
+      <a href={withBase('/equipment')} class="hover:text-text-inverse">Equipment</a>
       <span class="mx-2">/</span>
       <span class="text-text-inverse">{name}</span>
     </nav>
@@ -52,7 +52,7 @@ const pageSchema = [
   <section class="container-page py-12">
     <div class="grid gap-10 lg:grid-cols-2 lg:items-start">
       <img
-        src={image}
+        src={withBase(image)}
         alt={imageAlt}
         loading="eager"
         class="aspect-[4/3] w-full rounded-card-lg object-cover"

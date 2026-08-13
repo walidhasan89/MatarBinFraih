@@ -16,7 +16,7 @@ import IconFeatureCard from '../components/IconFeatureCard.astro';
 import EquipmentCard from '../components/EquipmentCard.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import GradientMesh from '../components/GradientMesh.astro';
-import { currentYearsInOperation, SITE } from '../lib/site';
+import { currentYearsInOperation, SITE, withBase } from '../lib/site';
 import { faqSchema } from '../lib/schema';
 
 const projects = (await getCollection('projects')).sort((a, b) =>
@@ -124,7 +124,7 @@ const pageSchema = faqSchema(faqs);
        an amber gradient-mesh glow, and a floating glass stat card. -->
   <section class="relative flex min-h-[85vh] items-end overflow-hidden bg-ink text-text-inverse">
     <img
-      src="/images/hero/hero-oilfield-yard.webp"
+      src={withBase('/images/hero/hero-oilfield-yard.webp')}
       alt="MBF equipment yard at golden hour in Abu Dhabi — storage tanks, tanker truck and caravan on site"
       class="absolute inset-0 h-full w-full object-cover [animation:hero-zoom_24s_ease-in-out_infinite_alternate]"
     />
@@ -326,8 +326,8 @@ const pageSchema = faqSchema(faqs);
           Equipment Deployment
         </div>
         <div class="mt-4 flex gap-3">
-          <img src="/images/projects/thumb-tanks.webp" alt="MBF large rectangular storage tank with pump train" class="h-24 w-24 rounded-2xl object-cover transition-transform duration-300 hover:scale-105" loading="lazy" />
-          <img src="/images/projects/thumb-rig.webp" alt="MBF chemical injection pump unit" class="h-24 w-24 rounded-2xl object-cover transition-transform duration-300 hover:scale-105" loading="lazy" />
+          <img src={withBase('/images/projects/thumb-tanks.webp')} alt="MBF large rectangular storage tank with pump train" class="h-24 w-24 rounded-2xl object-cover transition-transform duration-300 hover:scale-105" loading="lazy" />
+          <img src={withBase('/images/projects/thumb-rig.webp')} alt="MBF chemical injection pump unit" class="h-24 w-24 rounded-2xl object-cover transition-transform duration-300 hover:scale-105" loading="lazy" />
         </div>
       </div>
 
@@ -399,7 +399,7 @@ const pageSchema = faqSchema(faqs);
         <SectionHeading eyebrow="FAQs" lineOne="Common questions" lineTwo="about renting from MBF." />
         <p class="mt-4 max-w-sm text-sm text-text-secondary">
           Can't find what you're looking for?
-          <a href="/contact" class="font-semibold text-text-primary hover:underline">Contact our team</a>
+          <a href={withBase('/contact')} class="font-semibold text-text-primary hover:underline">Contact our team</a>
           directly.
         </p>
       </div>

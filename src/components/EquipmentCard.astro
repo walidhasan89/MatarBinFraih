@@ -1,5 +1,5 @@
 ---
-import { equipmentCategoryLabel } from '../lib/site';
+import { equipmentCategoryLabel, withBase } from '../lib/site';
 
 interface Props {
   slug: string;
@@ -14,14 +14,14 @@ const { slug, name, category, summary, image, imageAlt } = Astro.props;
 ---
 
 <a
-  href={`/equipment/${slug}`}
+  href={withBase(`/equipment/${slug}`)}
   class="group flex flex-col overflow-hidden rounded-card-lg bg-surface transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:ring-1 hover:ring-accent/40"
   data-equipment-card
   data-category={category}
 >
   <div class="aspect-[4/3] w-full overflow-hidden bg-ink-soft">
     <img
-      src={image}
+      src={withBase(image)}
       alt={imageAlt}
       loading="lazy"
       class="h-full w-full object-cover transition duration-300 group-hover:scale-105"

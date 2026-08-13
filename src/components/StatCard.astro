@@ -4,6 +4,7 @@
 // visual language consistent while covering each card's distinct content.
 import MixedText from './MixedText.astro';
 import Button from './Button.astro';
+import { withBase } from '../lib/site';
 
 interface Props {
   variant: 'stat' | 'quote' | 'photo';
@@ -82,7 +83,7 @@ const {
       </p>
       <div class="mt-6 flex items-center gap-3">
         {avatar && (
-          <img src={avatar} alt="" width="40" height="40" loading="lazy" class="h-10 w-10 rounded-full object-cover" />
+          <img src={withBase(avatar)} alt="" width="40" height="40" loading="lazy" class="h-10 w-10 rounded-full object-cover" />
         )}
         <div>
           <p class="text-sm font-semibold text-text-primary">{name}</p>
@@ -96,7 +97,7 @@ const {
 {
   variant === 'photo' && (
     <div class={`relative flex h-full min-h-[260px] flex-col justify-end overflow-hidden rounded-card-lg ${className}`}>
-      <img src={image} alt={imageAlt ?? ''} loading="lazy" class="absolute inset-0 h-full w-full object-cover" />
+      <img src={withBase(image ?? '')} alt={imageAlt ?? ''} loading="lazy" class="absolute inset-0 h-full w-full object-cover" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/10 to-transparent" aria-hidden="true" />
       <div class="relative p-6 text-text-inverse">
         <p class="font-display text-lg font-bold leading-tight tracking-tightest">{statLine}</p>

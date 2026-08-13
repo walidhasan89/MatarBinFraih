@@ -5,7 +5,7 @@ import SectionHeading from '../../components/SectionHeading.astro';
 import Button from '../../components/Button.astro';
 import GradientMesh from '../../components/GradientMesh.astro';
 import PageHero from '../../components/PageHero.astro';
-import { SITE } from '../../lib/site';
+import { SITE, withBase } from '../../lib/site';
 import { breadcrumbSchema } from '../../lib/schema';
 
 const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
@@ -57,12 +57,12 @@ const tiles = [
         tiles.map((tile, i) => (
           <div data-reveal data-reveal-delay={String(i * 90)}>
             <a
-              href={tile.href}
+              href={withBase(tile.href)}
               class="group flex flex-col overflow-hidden rounded-card-lg bg-surface transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:ring-1 hover:ring-accent/40"
             >
               <div class="aspect-[4/3] w-full overflow-hidden bg-ink-soft">
                 <img
-                  src={tile.image}
+                  src={withBase(tile.image)}
                   alt={tile.imageAlt}
                   loading="lazy"
                   class="h-full w-full object-cover transition duration-300 group-hover:scale-105"

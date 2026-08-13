@@ -4,6 +4,8 @@
 // (colorizing on hover) directly on the page background — no card chrome,
 // to stay light and out of the way. The track is duplicated once for a
 // seamless loop and pauses on hover/focus so a visitor can read a label.
+import { withBase } from '../lib/site';
+
 const logos = [
   { file: 'client-1.webp', name: 'BJ Services' },
   { file: 'client-2.webp', name: 'ESNAAD — ADNOC Group' },
@@ -24,7 +26,7 @@ const track = [...logos, ...logos];
     {
       track.map((logo, i) => (
         <img
-          src={`/images/clients/${logo.file}`}
+          src={withBase(`/images/clients/${logo.file}`)}
           alt={i < logos.length ? logo.name : ''}
           width="160"
           height="70"

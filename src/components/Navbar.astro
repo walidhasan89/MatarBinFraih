@@ -1,8 +1,14 @@
 ---
-import { NAV_LINKS, SITE } from '../lib/site';
+import { NAV_LINKS, SITE, withBase } from '../lib/site';
 import Button from './Button.astro';
 
-const currentPath = Astro.url.pathname;
+// Strip the deploy base prefix (if any) before comparing against the
+// plain, un-prefixed hrefs in NAV_LINKS — works whether or not Astro.url
+// already includes it, and is a no-op when base is '/'.
+const baseRaw = import.meta.env.BASE_URL.replace(/\/$/, '');
+const currentPath = Astro.url.pathname.startsWith(baseRaw)
+  ? Astro.url.pathname.slice(baseRaw.length) || '/'
+  : Astro.url.pathname;
 
 function isActive(href: string): boolean {
   if (href === '/') return currentPath === '/';
@@ -19,9 +25,9 @@ function isActive(href: string): boolean {
 -->
 <header class="sticky top-0 z-50 h-0 w-full overflow-visible" data-navbar>
   <nav class="container-page flex items-center justify-between gap-4 py-4">
-    <a href="/" class="group flex shrink-0 items-center gap-2 text-text-inverse" aria-label="MBF home">
+    <a href={withBase('/')} class="group flex shrink-0 items-center gap-2 text-text-inverse" aria-label="MBF home">
       <img
-        src="/images/brand/icon.png"
+        src={withBase('/images/brand/icon.png')}
         alt=""
         width="32"
         height="44"
@@ -34,7 +40,7 @@ function isActive(href: string): boolean {
       {
         NAV_LINKS.map((link) => (
           <a
-            href={link.href}
+            href={withBase(link.href)}
             class={`rounded-pill px-4 py-2 text-sm font-medium text-white transition-colors ${
               isActive(link.href) ? 'bg-white/10' : 'hover:bg-white/10'
             }`}
@@ -76,8 +82,8 @@ function isActive(href: string): boolean {
     />
 
     <div class="container-page relative flex items-center justify-between py-4">
-      <a href="/" class="flex shrink-0 items-center gap-2" aria-label="MBF home" data-mobile-close>
-        <img src="/images/brand/icon.png" alt="" width="32" height="44" class="h-11 w-auto" />
+      <a href={withBase('/')} class="flex shrink-0 items-center gap-2" aria-label="MBF home" data-mobile-close>
+        <img src={withBase('/images/brand/icon.png')} alt="" width="32" height="44" class="h-11 w-auto" />
         <span class="font-display text-lg font-bold tracking-tightest">MBF</span>
       </a>
       <button
@@ -96,7 +102,7 @@ function isActive(href: string): boolean {
       {
         NAV_LINKS.map((link, i) => (
           <a
-            href={link.href}
+            href={withBase(link.href)}
             data-mobile-link
             style={`transition-delay:${i * 60}ms`}
             class={`translate-y-4 border-b border-white/10 py-4 font-display text-4xl font-bold tracking-tightest opacity-0 transition-all duration-500 ease-out ${
@@ -114,7 +120,7 @@ function isActive(href: string): boolean {
       data-mobile-link
       style={`transition-delay:${NAV_LINKS.length * 60}ms`}
     >
-      <a href="/contact" class="rounded-pill bg-accent px-4 py-4 text-center text-sm font-semibold text-accent-ink">
+      <a href={withBase('/contact')} class="rounded-pill bg-accent px-4 py-4 text-center text-sm font-semibold text-accent-ink">
         Get in Touch
       </a>
       <a href={`tel:${SITE.phone.replace(/\s/g, '')}`} class="text-center text-sm text-text-inverse-muted">

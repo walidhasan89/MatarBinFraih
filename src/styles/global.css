@@ -122,15 +122,6 @@
     border: 1px solid rgba(255, 255, 255, 0.08);
   }
 
-  /* Navbar: no background color, ever — this blur-only backdrop switches on
-     once JS marks the page as scrolled past the opening hero band, so nav
-     text stays legible over lighter sections without adding a background. */
-  [data-navbar-inner].is-scrolled {
-    backdrop-filter: blur(16px) saturate(160%);
-    -webkit-backdrop-filter: blur(16px) saturate(160%);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  }
-
   /* Glossy sheen overlay — a soft diagonal highlight, for buttons/cards
      that want a bit of "wet glass" polish. Purely decorative ::before,
      doesn't affect layout or interaction. */

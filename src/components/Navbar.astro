@@ -11,18 +11,14 @@ function isActive(href: string): boolean {
 ---
 
 <!--
-  No background color, per client request — the bar floats transparently
-  over whatever's beneath it. `h-0 overflow-visible` keeps it sticky at the
-  top WITHOUT reserving flow space, so it actually overlays the dark hero
-  band every page opens with (PageHero / homepage hero) instead of sitting
-  in the light page background above it — that mismatch was the original
-  cause of low-contrast nav text. Once scrolled past the hero, the script
-  below adds a translucent blurred backdrop so the (light-colored) nav text
-  stays readable over whatever section has scrolled underneath — the bar
-  itself still has no solid background color, only a blur.
+  No background color, ever — at rest or scrolled — per client request.
+  `h-0 overflow-visible` keeps the header sticky at the top WITHOUT
+  reserving flow space, so it overlays the dark hero band every page opens
+  with (PageHero / homepage hero) instead of sitting in the light page
+  background above it.
 -->
 <header class="sticky top-0 z-50 h-0 w-full overflow-visible" data-navbar>
-  <nav class="container-page flex items-center justify-between gap-4 py-4 transition-[background-color,backdrop-filter,box-shadow] duration-300" data-navbar-inner>
+  <nav class="container-page flex items-center justify-between gap-4 py-4">
     <a href="/" class="group flex shrink-0 items-center gap-2 text-text-inverse" aria-label="MBF home">
       <img
         src="/images/brand/icon.png"
@@ -183,17 +179,4 @@ function isActive(href: string): boolean {
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && isOpen) closeMenu();
   });
-
-  // Adds a blurred backdrop (no solid color) once the page has scrolled
-  // past the dark hero band every page opens with, so nav text stays
-  // legible over lighter sections scrolling underneath the sticky bar.
-  const navInner = document.querySelector<HTMLElement>('[data-navbar-inner]');
-  const SCROLLED_THRESHOLD = 80;
-
-  function updateNavScrollState() {
-    navInner?.classList.toggle('is-scrolled', window.scrollY > SCROLLED_THRESHOLD);
-  }
-
-  window.addEventListener('scroll', updateNavScrollState, { passive: true });
-  updateNavScrollState();
 </script>

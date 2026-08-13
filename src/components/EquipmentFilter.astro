@@ -50,8 +50,19 @@ import { EQUIPMENT_CATEGORIES } from '../lib/site';
     let visibleCount = 0;
     cards.forEach((card) => {
       const match = category === 'all' || card.dataset.category === category;
-      card.classList.toggle('hidden', !match);
-      if (match) visibleCount += 1;
+      // Hide the `[data-reveal]` grid-item wrapper, not just the inner
+      // card link. The grid uses the default `align-items: stretch`, so a
+      // wrapper left at `display: block` with a `display: none` child
+      // still gets stretched to match its row's height — an invisible,
+      // card-shaped gap wherever a filtered-out item used to sit.
+      // Hiding the wrapper removes it from grid layout entirely, so the
+      // remaining cards pack tightly with no phantom gaps.
+      const wrapper = card.closest<HTMLElement>('[data-reveal]') ?? card;
+      wrapper.classList.toggle('hidden', !match);
+      if (match) {
+        visibleCount += 1;
+        wrapper.classList.add('is-revealed');
+      }
     });
     buttons.forEach((btn) => {
       btn.setAttribute('aria-pressed', String(btn.dataset.category === category));

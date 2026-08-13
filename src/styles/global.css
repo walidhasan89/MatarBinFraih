@@ -122,11 +122,10 @@
     border: 1px solid rgba(255, 255, 255, 0.08);
   }
 
-  /* Navbar: no background at rest (per client request) — this blurred
-     backdrop only switches on once JS marks the page as scrolled past the
-     opening hero band, so nav text stays legible over lighter sections. */
+  /* Navbar: no background color, ever — this blur-only backdrop switches on
+     once JS marks the page as scrolled past the opening hero band, so nav
+     text stays legible over lighter sections without adding a background. */
   [data-navbar-inner].is-scrolled {
-    background: rgba(16, 17, 20, 0.72);
     backdrop-filter: blur(16px) saturate(160%);
     -webkit-backdrop-filter: blur(16px) saturate(160%);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);

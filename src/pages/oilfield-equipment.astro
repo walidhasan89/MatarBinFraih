@@ -1,0 +1,115 @@
+---
+import { getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Button from '../components/Button.astro';
+import GradientMesh from '../components/GradientMesh.astro';
+import { SITE, whatsappLink, withBase } from '../lib/site';
+import { breadcrumbSchema } from '../lib/schema';
+
+// Curated subset (not the full catalog — see /rental-equipment for that),
+// in a fixed order matching the client's reference page.
+const slugs = [
+  'coil-tubing-unit',
+  'twin-pump',
+  'trailer-mounted-nitrogen-pump-unit',
+  'nitrogen-pump-converter-unit',
+  'safety-caravan-unit',
+  'nitrogen-pump',
+];
+const items = (await Promise.all(slugs.map((slug) => getEntry('equipment', slug)))).filter((item) => item !== undefined);
+
+const pageUrl = `${SITE.url}/oilfield-equipment`;
+const pageSchema = breadcrumbSchema([
+  { name: 'Home', url: SITE.url },
+  { name: 'Oilfield Equipment', url: pageUrl },
+]);
+---
+
+<BaseLayout
+  title="Oilfield Equipment — Specialized Units in Abu Dhabi"
+  description="MBF's specialized oilfield equipment fleet — coiled tubing, twin pump, nitrogen pumping units and safety caravans — manufactured and maintained in-house in Abu Dhabi, UAE."
+  schema={pageSchema}
+>
+  <PageHero
+    eyebrow="Oilfield Equipment"
+    lineOne="Specialized units for"
+    lineTwo="demanding oilfield operations."
+    intro="From coiled tubing to high-pressure nitrogen pumping and site-ready safety caravans, MBF's specialized fleet is built and maintained to meet ADNOC-grade requirements."
+  />
+
+  <section class="container-page py-section">
+    <div class="space-y-20">
+      {
+        items.map((item, i) => {
+          const reversed = i % 2 === 1;
+          return (
+            <a
+              href={withBase(`/equipment/${item.id}`)}
+              class="group grid items-center gap-10 lg:grid-cols-[3fr_2fr] lg:gap-16"
+              data-reveal
+            >
+              <div class={`relative overflow-hidden rounded-card-lg shadow-sm transition-shadow duration-300 group-hover:shadow-xl ${reversed ? 'lg:order-2' : ''}`}>
+                <img
+                  src={withBase(item.data.image)}
+                  alt={item.data.imageAlt}
+                  loading="lazy"
+                  class="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+              <div class={`relative isolate ${reversed ? 'lg:order-1' : ''}`}>
+                <div
+                  class={`pointer-events-none absolute -top-10 h-40 w-40 rounded-full opacity-20 blur-[80px] ${reversed ? '-right-10' : '-left-10'}`}
+                  style="background: radial-gradient(circle, #FFC01E 0%, transparent 70%);"
+                  aria-hidden="true"
+                />
+                <h2 class="relative font-display text-2xl font-bold leading-tight tracking-tightest text-text-primary transition-colors group-hover:text-accent-ink sm:text-3xl">
+                  {item.data.name}
+                </h2>
+                <p class="relative mt-3 text-sm text-text-secondary sm:text-base">
+                  {item.data.description ?? item.data.summary}
+                </p>
+                <ul class="relative mt-4 space-y-2">
+                  {item.data.specs.slice(0, 6).map((spec) => (
+                    <li class="flex gap-3 text-sm text-text-secondary">
+                      <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                      <span>{spec}</span>
+                    </li>
+                  ))}
+                </ul>
+                <span class="relative mt-6 inline-flex items-center gap-3 rounded-pill border border-border py-2 pl-6 pr-6 text-sm font-semibold text-text-primary transition-colors group-hover:border-ink">
+                  Request Data Sheet
+                </span>
+              </div>
+            </a>
+          );
+        })
+      }
+    </div>
+  </section>
+
+  <section class="container-page pb-section">
+    <div
+      class="relative isolate flex flex-col items-start justify-between gap-6 overflow-hidden rounded-card-lg bg-ink p-8 text-text-inverse sm:flex-row sm:items-center sm:p-10"
+      data-reveal
+    >
+      <GradientMesh tone="amber" class="opacity-30" />
+      <div class="relative">
+        <p class="font-display text-2xl font-bold tracking-tightest">Need a specification sheet?</p>
+        <p class="mt-2 max-w-lg text-sm text-text-inverse-muted">
+          Tell us about your operation and we'll confirm pricing, availability and full technical data sheets.
+        </p>
+      </div>
+      <div class="relative flex shrink-0 flex-wrap gap-4">
+        <Button href="/contact" variant="accent" class="glossy">Contact Us</Button>
+        <Button
+          href={whatsappLink("Hello, I'd like to enquire about your specialized oilfield equipment.")}
+          variant="secondary-inverse"
+          external
+        >
+          Chat on WhatsApp
+        </Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

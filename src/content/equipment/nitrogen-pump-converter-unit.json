@@ -1,0 +1,19 @@
+{
+  "name": "Nitrogen Pump / Converter Unit",
+  "category": "specialized-units",
+  "summary": "High-performance nitrogen pump/converter unit for well stimulation, pressure testing, nitrogen lifting, and other oilfield operations.",
+  "description": "The units are designed for reliable and efficient conversion of liquid nitrogen into high-pressure nitrogen gas, providing a high-capacity solution for demanding oilfield operations.",
+  "specs": [
+    "Configuration: nitrogen pump / converter unit",
+    "Nitrogen gas output: up to 180,000 SCF/hr",
+    "Maximum working pressure: up to 15,000 PSI",
+    "Standard pressure ratings: 10,000 PSI (690 bar) and 14,500 PSI (1,000 bar)",
+    "Operating temperature: 20°C (70°F)",
+    "Vaporizer: PED-approved vaporizer pot",
+    "Certification: minimum equivalent to DNV 2.7-1",
+    "Hazardous area certification: Zone II (other certification options available on request)"
+  ],
+  "image": "/images/equipment/nitrogen-pump.webp",
+  "imageAlt": "MBF nitrogen pump / converter unit skid",
+  "featured": false
+}

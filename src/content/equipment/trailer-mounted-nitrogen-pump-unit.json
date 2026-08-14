@@ -1,0 +1,20 @@
+{
+  "name": "Trailer-Mounted Nitrogen Pump Unit",
+  "category": "specialized-units",
+  "summary": "High-performance trailer-mounted nitrogen pump/converter unit with an integrated 2,000 US Gallon liquid nitrogen storage tank for demanding oilfield applications.",
+  "description": "The trailer-mounted design provides easy transportation, rapid mobilization, and operational flexibility, while the integrated 2,000 US Gallon nitrogen tank allows for efficient on-site nitrogen supply during operations.",
+  "specs": [
+    "Configuration: trailer-mounted nitrogen pump/converter unit",
+    "Liquid nitrogen tank capacity: 2,000 US Gallon",
+    "Nitrogen gas output: up to 180,000 SCF/hr",
+    "Maximum working pressure: up to 15,000 PSI",
+    "Available pressure ratings: 10,000 PSI (690 bar) and 14,500 PSI (1,000 bar)",
+    "Operating temperature: 20°C (70°F)",
+    "Vaporizer: PED-approved vaporizer pot",
+    "Hazardous area certification: Zone II (additional certifications available on request)",
+    "Applications: well stimulation, pressure testing, nitrogen lifting, well intervention, and other oilfield operations"
+  ],
+  "image": "/images/equipment/nitrogen-pump.webp",
+  "imageAlt": "MBF trailer-mounted nitrogen pump unit with liquid nitrogen storage tank",
+  "featured": false
+}

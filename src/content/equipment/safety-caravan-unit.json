@@ -1,0 +1,19 @@
+{
+  "name": "Safety Caravan Unit",
+  "category": "caravans-cabins",
+  "summary": "Local manufacturing facility for customized portable units — offices, sleepers and more — fulfilling ADNOC requirements for quality, safety and comfort.",
+  "description": "These portable units are supplied to major ADNOC service companies across the Emirates to support their rig and well-site operations. Our factories fully customize each unit to the client's requirement.",
+  "specs": [
+    "40 FT cabin, two (2) man sleeper with two (2) attached WC",
+    "40 FT cabin, four (4) man sleeper with two (2) attached WC",
+    "40 FT cabin, eight (8) man sleeper with two (2) attached WC",
+    "40 FT cabin, customized meeting room facility",
+    "20 FT cabin, mosque facility",
+    "40 FT WC facility",
+    "Custom-sized security cabin",
+    "Custom-sized spooling cabin"
+  ],
+  "image": "/images/equipment/caravan-40ft-skid-mounted.webp",
+  "imageAlt": "MBF customized safety caravan unit exterior",
+  "featured": false
+}

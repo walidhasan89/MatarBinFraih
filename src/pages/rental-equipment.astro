@@ -34,24 +34,49 @@ const pageSchema = breadcrumbSchema([
     intro="MBF is a trusted name in oilfield equipment manufacturing in the local and regional markets. Every unit below is available for rent, manufactured and maintained to our certified HSEQ standard."
   />
 
+  <!--
+    Jump-nav: sticks below the site header (which has no background of its
+    own — see Navbar.astro) so it needs its own solid backdrop to stay
+    legible. `top-20` clears the header's ~80px row; each category section
+    below carries a matching `scroll-mt-28` so an anchor jump doesn't land
+    underneath either bar.
+  -->
+  <nav
+    class="sticky top-20 z-40 border-y border-border bg-bg/95 py-3 backdrop-blur"
+    aria-label="Jump to equipment category"
+  >
+    <div class="container-page flex flex-wrap gap-2">
+      {
+        groups.map((group) => (
+          <a
+            href={`#${group.slug}`}
+            class="rounded-pill border border-border bg-surface px-4 py-1.5 text-sm font-medium text-text-secondary transition hover:border-ink hover:text-text-primary"
+          >
+            {group.label}
+          </a>
+        ))
+      }
+    </div>
+  </nav>
+
   {
     groups.map((group, groupIndex) => (
-      <section class="container-page py-section">
+      <section id={group.slug} class="container-page scroll-mt-28 py-section">
         <div class="flex items-center gap-4" data-reveal>
           <PillTag label={group.label} />
           <div class="h-px flex-1 bg-border" />
         </div>
 
-        <div class="mt-10 space-y-16">
+        <div class="mt-10 space-y-20">
           {group.items.map((item, i) => {
             const reversed = (groupIndex + i) % 2 === 1;
             return (
               <a
                 href={withBase(`/equipment/${item.id}`)}
-                class="group grid items-center gap-8 lg:grid-cols-2 lg:gap-14"
+                class="group grid items-center gap-10 lg:grid-cols-[3fr_2fr] lg:gap-16"
                 data-reveal
               >
-                <div class={`relative overflow-hidden rounded-card-lg ${reversed ? 'lg:order-2' : ''}`}>
+                <div class={`relative overflow-hidden rounded-card-lg shadow-sm transition-shadow duration-300 group-hover:shadow-xl ${reversed ? 'lg:order-2' : ''}`}>
                   <img
                     src={withBase(item.data.image)}
                     alt={item.data.imageAlt}
@@ -73,7 +98,7 @@ const pageSchema = breadcrumbSchema([
                   </h2>
                   <p class="relative mt-3 text-sm text-text-secondary sm:text-base">{item.data.summary}</p>
                   <ul class="relative mt-4 space-y-2">
-                    {item.data.specs.slice(0, 4).map((spec) => (
+                    {item.data.specs.slice(0, 3).map((spec) => (
                       <li class="flex gap-3 text-sm text-text-secondary">
                         <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
                         <span>{spec}</span>

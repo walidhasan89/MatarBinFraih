@@ -1,0 +1,18 @@
+# Apache/LiteSpeed shared-hosting hardening. Ignored entirely by Nginx,
+# Vercel, Netlify, etc. — this only helps on Apache-family hosts (e.g.
+# Hostinger) and is a no-op everywhere else, so it's safe to ship always.
+
+# Some older shared-hosting Apache configs ship without modern MIME types
+# registered, which silently breaks fonts/images with no error — the
+# browser just refuses to apply/render them.
+<IfModule mod_mime.c>
+  AddType text/css .css
+  AddType application/javascript .js
+  AddType image/webp .webp
+  AddType image/svg+xml .svg
+  AddType font/woff2 .woff2
+  AddType font/woff .woff
+</IfModule>
+
+# Serve the site's own custom 404 page instead of the host's generic one.
+ErrorDocument 404 /404.html

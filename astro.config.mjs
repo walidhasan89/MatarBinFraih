@@ -10,6 +10,15 @@ export default defineConfig({
   // (see src/lib/site.ts's withBase() helper, used everywhere an internal
   // link/asset path is rendered so it resolves correctly either way).
   base: process.env.SITE_BASE || '/',
+  build: {
+    // Astro's default `_astro/` output folder for bundled CSS/JS is a
+    // known source of broken deploys on some shared hosts — servers or
+    // security rules that treat a leading underscore as a "hidden"
+    // path can silently block or mangle the whole folder on upload,
+    // which reads as "CSS not working" with no obvious cause. A plain
+    // name has no such special meaning anywhere.
+    assets: 'assets',
+  },
   integrations: [
     tailwind({ applyBaseStyles: false }),
     sitemap({
